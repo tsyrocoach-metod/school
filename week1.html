@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Целевая аудитория: от боли к продукту</title>
+    <!-- Подключение Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* БУКВИЦА BRAND STYLES v3.0 */
+        :root {
+            /* Palette */
+            --dark: #101827;       /* Заголовки */
+            --grey: #6B7280;       /* Текст */
+            --pink: #FA2F6B;       /* Акцент 1 */
+            --blue: #2463EB;       /* Акцент 2 */
+            --sky: #6AC2EA;        /* Доп. акцент */
+            --bg-body: #F9FAFB;    /* Фон */
+            --bg-card: #FFFFFF;    /* Плашки */
+            
+            /* Backgrounds for boxes */
+            --bg-blue-muted: #C9D7F5; 
+            --bg-pink-muted: #F9CCDB;
+            
+            /* Styles */
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            --radius: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            background: var(--bg-body); 
+            color: var(--grey); 
+            line-height: 1.65; 
+            padding: 24px 16px; 
+            font-weight: 400;
+        }
+        
+        strong { color: var(--dark); font-weight: 700; }
+        
+        .container { max-width: 760px; margin: 0 auto; }
+
+        /* HEADER */
+        .header { 
+            background: var(--bg-card); 
+            border-radius: var(--radius); 
+            padding: 40px; 
+            margin-bottom: 32px; 
+            box-shadow: var(--shadow); 
+            border-top: 6px solid var(--blue);
+            text-align: center;
+        }
+        .header-pre { color: var(--sky); text-transform: uppercase; font-size: 13px; font-weight: 700; letter-spacing: 1px; margin-bottom: 12px; }
+        .header-title { font-size: 32px; line-height: 1.2; color: var(--dark); font-weight: 700; margin-bottom: 16px; }
+        .header-sub { font-size: 18px; color: var(--grey); font-weight: 400; }
+        
+        .tags { display: flex; justify-content: center; gap: 8px; margin-top: 24px; flex-wrap: wrap; }
+        .tag { background: #EEF4FF; color: var(--blue); padding: 4px 12px; border-radius: 100px; font-size: 13px; font-weight: 500; }
+
+        /* SECTIONS */
+        .section { 
+            background: var(--bg-card); 
+            border-radius: var(--radius); 
+            margin-bottom: 20px; 
+            box-shadow: var(--shadow); 
+            overflow: hidden; 
+            transition: transform 0.2s ease;
+        }
+        .section:hover { transform: translateY(-2px); }
+        
+        .section-header { 
+            padding: 24px; 
+            display: flex; 
+            align-items: center; 
+            cursor: pointer; 
+            border-bottom: 1px solid transparent; /* reserve space */
+        }
+        .section.collapsed .section-header { border-bottom: none; }
+        
+        .section-icon { 
+            width: 44px; height: 44px; 
+            background: #EEF4FF; 
+            color: var(--dark); 
+            border-radius: 12px; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 22px; 
+            margin-right: 16px; 
+            flex-shrink: 0; 
+        }
+        
+        .section-title { font-size: 20px; font-weight: 700; color: var(--dark); flex: 1; margin: 0; }
+        .section-toggle { 
+            width: 24px; height: 24px; 
+            display: flex; align-items: center; justify-content: center; 
+            color: var(--grey); 
+            transition: transform 0.3s ease; 
+        }
+        .section.collapsed .section-toggle { transform: rotate(-90deg); }
+
+        .section-content { 
+            padding: 0 24px 32px 24px; 
+            color: var(--grey); 
+            font-size: 16px;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+        .section.collapsed .section-content { max-height: 0 !important; padding-bottom: 0; }
+        
+        /* CONTENT BLOCKS */
+        p { margin-bottom: 16px; }
+        ul, ol { margin-bottom: 24px; padding-left: 24px; }
+        li { margin-bottom: 8px; }
+
+        /* The "Pink" Box - for Warnings, Emphasis, Important */
+        .box-pink { 
+            background: var(--bg-pink-muted); 
+            padding: 24px; 
+            border-radius: 12px; 
+            margin: 24px 0; 
+            border-left: 4px solid var(--pink);
+        }
+        .box-pink h4 { color: var(--dark); margin: 0 0 8px 0; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+        /*.box-pink h4::before { content: '⚡'; color: var(--pink); }
+        
+        /* The "Blue" Box - for Info, Success, Pro-tips */
+        .box-blue { 
+            background: var(--bg-blue-muted); 
+            padding: 24px; 
+            border-radius: 12px; 
+            margin: 24px 0; 
+            border-left: 4px solid var(--blue);
+        }
+        .box-blue h4 { color: var(--dark); margin: 0 0 8px 0; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+        /*.box-blue h4::before { content: '💎'; color: var(--blue); }
+
+        /* Quote */
+        .quote { 
+            font-size: 18px; 
+            font-style: italic; 
+            color: var(--dark); 
+            border-left: 4px solid var(--sky); 
+            padding-left: 20px; 
+            margin: 32px 0; 
+        }
+        .quote-author { font-size: 14px; color: var(--grey); font-style: normal; margin-top: 8px; font-weight: 500; }
+
+        /* Stats Grid */
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin: 24px 0; }
+        .stat-card { background: var(--bg-body); border-radius: 12px; padding: 16px; text-align: center; border: 1px solid #E5E7EB; }
+        .stat-val { font-size: 28px; font-weight: 700; color: var(--blue); line-height: 1.1; margin-bottom: 4px; }
+        .stat-lbl { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; color: var(--grey); }
+
+        /* CHECKLIST */
+        .checklist { 
+            background: var(--bg-card); 
+            padding: 32px; 
+            border-radius: var(--radius); 
+            margin-top: 40px; 
+            box-shadow: var(--shadow); 
+            border: 2px solid var(--bg-blue-muted);
+        }
+        .chk-header { flex: 1; }
+        .chk-title { font-size: 24px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+        .chk-desc { font-size: 14px; margin-bottom: 24px; }
+        
+        .chk-group-title { 
+            font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--pink); font-weight: 700; 
+            margin: 24px 0 12px 0; 
+        }
+        
+        .chk-item { 
+            display: flex; gap: 16px; padding: 12px 0; 
+            border-bottom: 1px solid #F3F4F6; cursor: pointer; 
+            transition: all 0.2s; 
+        }
+        .chk-item:hover { opacity: 0.8; }
+        .chk-item:last-child { border-bottom: none; }
+        
+        .checkbox { 
+            width: 22px; height: 22px; 
+            border: 2px solid var(--grey); border-radius: 6px; 
+            flex-shrink: 0; margin-top: 2px; position: relative;
+            transition: all 0.2s;
+        }
+        .chk-item.checked .checkbox { background: var(--blue); border-color: var(--blue); }
+        .chk-item.checked .checkbox::after { 
+            content: ''; position: absolute; left: 6px; top: 2px; width: 5px; height: 10px; 
+            border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); 
+        }
+        .chk-text strong { display: block; font-size: 15px; color: var(--dark); transition: color 0.2s; }
+        .chk-item.checked .chk-text strong { color: var(--grey); text-decoration: line-through; }
+        .chk-text span { font-size: 13px; color: var(--grey); }
+
+        /* Footer */
+        .footer { text-align: center; padding: 40px 0; margin-top: 20px; border-top: 1px solid #E5E7EB; }
+        .footer-logo { font-size: 16px; font-weight: 700; color: var(--blue); text-decoration: none; display: inline-block; margin-bottom: 8px; }
+        .footer-logo:hover { color: var(--pink); }
+        .footer-time { background: var(--bg-body); display: inline-block; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; color: var(--dark); border: 1px solid #E5E7EB; }
+
+        @media (max-width: 600px) {
+            .header { padding: 24px; text-align: left; }
+            .header-title { font-size: 24px; }
+            .section-header { padding: 16px; }
+            .section-icon { width: 36px; height: 36px; font-size: 18px; margin-right: 12px; }
+            .section-content { padding: 0 16px 24px 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-pre">Интерактивный конспект</div>
+            <h1 class="header-title">Целевая аудитория: от боли к продукту и контенту</h1>
+            <div class="header-sub">Как глубокое понимание ЦА помогает создавать продукты, которые реально решают проблемы и привлекают идеальных клиентов.</div>
+            <div class="tags">
+                <span class="tag">#ЦелеваяАудитория</span>
+                <span class="tag">#Продукт</span>
+                <span class="tag">#Контент</span>
+                <span class="tag">#Маркетинг</span>
+                <span class="tag">#Экспертность</span>
+            </div>
+        </header>
+
+        <!-- ЦИКЛ СЕКЦИЙ (Повторяй этот блок) -->
+        <section class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">🎯</div>
+                <h2 class="section-title">Почему ЦА — это критично?</h2>
+                <div class="section-toggle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Спикер подчеркивает, что <strong>понимание целевой аудитории (ЦА)</strong> — это самая критичная задача, которую необходимо решить эксперту. Это не просто опрос, а перенастройка «линзы внимания» на клиента.</p>
+                
+                <div class="box-blue">
+                    <h4>💎 Главный инсайт:</h4>
+                    <p>Процесс изучения ЦА может быть непростым, так как требует выхода к людям, задавания вопросов, и переработки большого объема новой информации. Но именно это позволяет по-настоящему понять их боли, желания и язык.</p>
+                </div>
+
+                <p>Опыт участниц подтверждает, что даже после многочисленных обучений, этап работы с ЦА часто становится <strong>камнем преткновения</strong>.</p>
+                <div class="quote">
+                    «Счастье, на самом деле, для меня — это камень преткновения, который я ни разу ещё не прошла ни в каком обучении... Но это именно тот момент, на котором я просто ступор останавливалась, и дальше меня никак не пускало.»
+                    <div class="quote-author">— Участница</div>
+                </div>
+                <p>Это связано с тем, что эксперты часто фокусируются на своих знаниях и инструментах, а не на реальном запросе клиента. Важно не рождать продукт из понимания «какие мы эксперты», а <strong>из понимания проблем клиента</strong>.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">🗣️</div>
+                <h2 class="section-title">Язык клиента: почему это так важно?</h2>
+                <div class="section-toggle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Участница поделилась, что голосовые сообщения клиентов оказались гораздо информативнее письменных: «Там прям фразы стоят. В письменном они так коротко, так, ну... о чём-то и ни о чём». Это позволило ей <strong>выписывать точные цитаты</strong>, которые можно использовать в контенте.</p>
+                <div class="box-pink">
+                    <h4>⚡ Важно:</h4>
+                    <p>Люди не ищут и не говорят вслух о том, что им нужно «развиваться», «делать визуал» или «собирать красивую программу». Они говорят о <strong>общежитейских проблемах</strong>. Например, вместо «нужно финансовое планирование» они говорят «не знаю, куда утекают деньги». Именно эти формулировки нужно вычленять.</p>
+                </div>
+                <p>Спикер акцентирует: мы можем идти к людям, но они очень часто дают разные, порой неожиданные, ответы. Поэтому важно <strong>комбинировать общение с людьми с использованием ИИ</strong> для поиска формулировок и проблем. Только так можно получить целостную картину.</p>
+                <p>Понимание языка клиента напрямую влияет на формат продукта. Пример: если аудитория постоянно говорит «да мне некогда разбираться с этим», то им не подойдёт восьминедельный курс. Возможно, им нужна <strong>стратегическая сессия на 3 часа</strong>, которая решит ключевые проблемы.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">🔄</div>
+                <h2 class="section-title">Формула продукта: Точка А → Точка Б</h2>
+                <div class="section-toggle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Ключевая формула для создания продукта: <strong>«Я работаю с клиентами, которые находятся в точке А, которым надо в точку Б, и я им помогаю с помощью каких-то инструментов»</strong>. Это позволяет сфокусироваться на клиенте, а не на своих регалиях.</p>
+                <p><strong>Пример финансового эксперта (Светланы):</strong></p>
+                <ul>
+                    <li><strong>Точка А клиента:</strong> «То густо, то пусто в доходах», «Сегодня 50 тысяч, завтра 150, сколько через два месяца — не знаю». «Не знают, куда утекают деньги», «пытаются решить новыми услугами свой доход».</li>
+                    <li><strong>Проблема:</strong> Непонимание, как наращивать чек, нестабильность, ощущение, что «вроде зарабатываешь 100 тысяч, но как будто обеднела».</li>
+                    <li><strong>Триггеры:</strong> Желание крупных покупок, стремление к финансовой лёгкости, нежелание просить деньги у партнёра.</li>
+                    <li><p><strong>Точка Б клиента:</strong> Стабильный, достойный доход от частной практики, возможность откладывать на крупные покупки, ощущение финансовой свободы и равноценности в семье.</p>
+                        <div class="box-blue">
+                            <h4>💎 Профессиональный подход:</h4>
+                            <p>Эксперт с богатым опытом в финансах и управлении компаниями должен работать с адекватными людьми. Важно не застревать на «инфантильной аудитории», которая ждёт волшебной таблетки, а фокусироваться на тех, кто готов к реальным действиям и осознаёт ценность экспертизы. Это позволяет использовать свой опыт на более высоком уровне.</p>
+                        </div>
+                    </li>
+                </ul>
+                <p><strong>Пример контент-стратега (Нины):</strong></p>
+                <ul>
+                    <li><strong>Точка А клиента:</strong> Эксперты с частной практикой, которые «нерегулярно ведут блог», «пишут по вдохновению», «не понимают, как подобрать картинки», «теряются между площадками». Они хотят меньше заниматься блогом, но понимают, что он должен приносить клиентов.</li>
+                    <li><strong>Проблема:</strong> Блог отнимает много времени, нет целостной системы, страх перед новыми платформами, отсутствие визуального вкуса.</li>
+                    <li><strong>Точка Б клиента:</strong> Система ведения контента, которая приносит клиентов, не отнимает много времени, имеет целостное и красивое визуальное оформление на разных площадках.</li>
+                </ul>
+                <p><strong>Пример коуча по жизненным сценариям (Тани):</strong></p>
+                <ul>
+                    <li><strong>Точка А клиента:</strong> Самозанятые, недовольные доходом, «топчутся по кругу», «обучаются бесконечно, но не решаются действовать». Или люди, которые «выбирают одних и тех же партнёров», «не могут построить границы с родителями».</li>
+                    <li><strong>Проблема:</strong> Повторяющиеся негативные сценарии в жизни и финансах.</li>
+                    <li><strong>Точка Б клиента:</strong> Выход из негативных сценариев, рост дохода, здоровые отношения, способность выбирать «другую сказку» для своей жизни.</li>
+                </ul>
+                <div class="box-pink">
+                    <h4>⚡ Важно:</h4>
+                    <p>Не надо придумывать модули из головы. Они рождаются из <strong>потребностей и болей целевой аудитории</strong>. Продукт должен давать клиенту <strong>облегчение</strong>, а не новые знания или навыки ради них самих.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">📈</div>
+                <h2 class="section-title">Моделинг и саморазвитие: кейс Софии</h2>
+                <div class="section-toggle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>София управляет модельной школой в Грузии (офлайн). Изначально школа обучала не только позированию и дефиле, но и включала психолога, культуру речи. Из-за высокой стоимости этих направлений их пришлось убрать, оставив только «профессиональное» моделинг-направление.</p>
+                <div class="quote">
+                    «Индустрия поменялась. Моделинг я уже не хочу. Я понимаю, что это очень узкая ниша... Моя функция как агента-посредника, она с каждым годом все сложнее и сложнее.»
+                    <div class="quote-author">— София</div>
+                </div>
+                <p><strong>Новая миссия:</strong> София, получив коучинговое и психологическое образование, хочет добавить эти знания в школу, но не связывать их напрямую с моделингом. Её боль — видеть, как молодые девушки растут на поверхностных ценностях Instagram, переделывают себя, но это не приносит им счастья и уверенности. Она хочет <strong>«выращивать новое поколение»</strong>, давая им внутренние опоры.</p>
+                <p><strong>Предложение:</strong> Вместо создания третьего направления, можно <strong>пересобрать текущую школу</strong>. Встроить коучинговый курс как ведущий лейтмотив, который меняет концепцию школы с «модельной» на «школу нового поколения».</p>
+                <ul>
+                    <li><strong>Точка А клиента (подростки и их родители):</strong>
+                        <ul>
+                            <li><strong>Подростки:</strong> Неуверенность в себе, погоня за внешними идеалами, страх оценки, зависимость от внешнего вида, желание быть «увиденными и замеченными».</li>
+                            <li><strong>Родители:</strong> Желание воспитать уверенного, красивого ребёнка, но часто дают неконструктивную обратную связь («она такая, такая», «почему не сделала мостик?»).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Точка Б клиента:</strong> Внутренняя устойчивость, самоценность, умение конструктивно воспринимать критику и оценки, способность использовать свою уникальность и красоту, а не переделывать себя.</li>
+                </ul>
+                <div class="box-blue">
+                    <h4>💎 Как это работает:</h4>
+                    <p>София может начать с <strong>коротких мастер-классов</strong> для подростков и родителей. Привлекать их на поверхностные запросы (например, «как не разрушаться от оценок»), а внутри мастер-класса давать более глубокие знания о самоценности и устойчивости. Например, мастер-класс «Как воспитать уверенного, красивого в себе ребёнка?» для родителей, где София будет говорить о важности обратной связи и принципах школы.</p>
+                </div>
+                <p>Такой подход позволит <strong>тестировать гипотезы, собирать обратную связь</strong> и постепенно трансформировать школу, привлекая аудиторию, которая ищет глубинное развитие, а не только внешние изменения.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">🛠️</div>
+                <h2 class="section-title">Ответственность и границы: работа с клиентами</h2>
+                <div class="section-toggle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Обсуждался вопрос работы с «трудными» клиентами, которые не читают материалы, игнорируют дедлайны или проявляют неуважение.</p>
+                <div class="box-pink">
+                    <h4>⚡ Проблема:</h4>
+                    <p>Эксперт вкладывает много сил, а клиент не проявляет должной отдачи или уважения. Это приводит к выгоранию и фрустрации.</p>
+                </div>
+                <p><strong>Решение:</strong></p>
+                <ul>
+                    <li><strong>Установление границ:</strong> Важно проговаривать ожидания и границы ответственности в самом начале сотрудничества.</li>
+                    <li><strong>Коммуникация:</strong> Если клиент «пропал», можно напомнить о себе, предложить помощь, но не навязываться. «Слушай, получилось посмотреть? Ты там как? Нужна какая-то помощь разобраться?»</li>
+                    <li><strong>Выбор клиентов:</strong> Эксперт имеет право выбирать, с кем работать. Нежелание работать с определённым типом клиентов — это не обида, а осознанный выбор, который позволяет сохранить ресурс и эффективность.</li>
+                    <li><strong>Цены:</strong> Высокий прайс может выступать естественным фильтром для клиентов, отсекая тех, кто не готов инвестировать в своё развитие.</li>
+                </ul>
+                <div class="quote">
+                    «Если у нас есть… У меня был опыт в прошлом году, когда я от каждого сообщения одной клиентки просто… Меня уже трясло. Но там на самом деле был вопрос того, что у нас неизначально очень нечетко, в том числе с моей стороны, с ее стороны, были проговорены границы ответственности за продукт, за то, что мы делаем, за нашу работу.»
+                    <div class="quote-author">— Спикер</div>
+                </div>
+                <p>Понимание своих границ и умение их отстаивать — это <strong>суперсила эксперта</strong>, которая позволяет использовать свой «синдром спасателя» конструктивно, предлагая клиентам поддержку, но не перекладывая на себя всю ответственность.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">🗺️</div>
+                <h2 class="section-title">Архитектура смыслов и контент-стратегия</h2>
+                <div class="section-toggle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Вся работа по исследованию ЦА ведёт к созданию <strong>архитектуры смыслов</strong>, которая ложится в основу контента и продукта. Это не просто «красивые слова», а формулировки, которые резонируют с реальными болями клиентов.</p>
+                <ul>
+                    <li><strong>Контент:</strong> Используя язык клиента, эксперт создаёт контент, который поднимает их проблемы, показывает их «точку А». Вместо прямых продаж, эксперт делится инсайтами, полученными из общения с ЦА.
+                        <div class="box-blue">
+                            <h4>💎 Про-совет:</h4>
+                            <p>Можно использовать анонимные разборы реальных ситуаций клиентов в своём контенте, чтобы показать, как отсутствие системного подхода (например, в финансах) приводит к проблемам. Это создаёт узнавание и доверие.</p>
+                        </div>
+                    </li>
+                    <li><strong>Продукт:</strong> Модули продукта формируются на основе проблем из «точки А». Например, если у самозанятых нестабильный доход, то в продукт включается модуль «Как выровнять поступление доходов?».</li>
+                    <li><strong>Формат продукта:</strong> Зависит от потребностей ЦА. Если клиентам «некогда учиться», то это могут быть короткие стратегические сессии, а не длительные курсы.</li>
+                </ul>
+                <p>Важно помнить, что <strong>клиент всегда прав</strong> в том смысле, что его потребности и желания определяют то, как должен выглядеть продукт и как о нём нужно говорить. Эксперт должен быть гибким и адаптироваться к этим потребностям.</p>
+            </div>
+        </section>
+
+        <!-- ЧЕК-ЛИСТ -->
+        <div class="checklist">
+            <div class="chk-header">
+                <div class="chk-title">🚀 Чек-лист внедрения</div>
+                <div class="chk-desc">Отмечайте выполненные пункты, прогресс сохранится</div>
+            </div>
+
+            <!-- Группа 1 -->
+            <div class="chk-group-title">В ближайшие дни</div>
+            <div class="chk-item" onclick="toggleCheck(this)">
+                <div class="checkbox"></div>
+                <div class="chk-text">
+                    <strong>Проанализировать записи кастдевов</strong>
+                    <span>Выписать дословные фразы, боли, триггеры, слова-маркеры вашей ЦА.</span>
+                </div>
+            </div>
+            <div class="chk-item" onclick="toggleCheck(this)">
+                <div class="checkbox"></div>
+                <div class="chk-text">
+                    <strong>Прочитать предоставленные ИИ-отчёты по ЦА</strong>
+                    <span>Обратить внимание на формулировки проблем и ожиданий в вашей нише.</span>
+                </div>
+            </div>
+            <div class="chk-item" onclick="toggleCheck(this)">
+                <div class="checkbox"></div>
+                <div class="chk-text">
+                    <strong>Сформулировать «Точку А» клиента</strong>
+                    <span>Подробно описать текущую ситуацию, проблемы и ощущения вашей ЦА, используя их язык.</span>
+                </div>
+            </div>
+            
+            <!-- Группа 2 -->
+            <div class="chk-group-title">На этой неделе</div>
+            <div class="chk-item" onclick="toggleCheck(this)">
+                <div class="checkbox"></div>
+                <div class="chk-text">
+                    <strong>Сформулировать «Точку Б» клиента</strong>
+                    <span>Описать желаемый результат и состояние клиента после работы с вами.</span>
+                </div>
+            </div>
+            <div class="chk-item" onclick="toggleCheck(this)">
+                <div class="checkbox"></div>
+                <div class="chk-text">
+                    <strong>Определить свой ключевой месседж</strong>
+                    <span>«Я помогаю [ЦА в точке А] прийти [в точку Б] с помощью [моих инструментов/подхода]».</span>
+                </div>
+            </div>
+            <div class="chk-item" onclick="toggleCheck(this)">
+                <div class="checkbox"></div>
+                <div class="chk-text">
+                    <strong>Набросать идеи для контента</strong>
+                    <span>Используя боли ЦА, создайте несколько постов/тем, которые поднимают их проблемы.</span>
+                </div>
+            </div>
+            <div class="chk-item" onclick="toggleCheck(this)">
+                <div class="checkbox"></div>
+                <div class="chk-text">
+                    <strong>Определиться с форматом продукта</strong>
+                    <span>Групповой, индивидуальный, короткий мастер-класс, длительный курс — что наиболее актуально для вашей ЦА сейчас.</span>
+                </div>
+            </div>
+            
+            <div style="margin-top: 24px; height: 6px; background: #F3F4F6; border-radius: 3px; overflow: hidden;">
+                <div id="progress" style="width: 0%; height: 100%; background: var(--blue); transition: width 0.3s;"></div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div style="margin-bottom: 16px;">
+                <span class="footer-time">⏳ Сэкономлено времени на изучение: ~70 мин</span>
+            </div>
+            <div>
+                <a href="https://t.me/BukvitsaAI_bot?start=7558032207" target="_blank" class="footer-logo">Создано в Буквица</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // SMART LOGIC
+        function toggleSection(header) {
+            const section = header.closest('.section');
+            const content = section.querySelector('.section-content');
+            section.classList.toggle('collapsed');
+            
+            if (!section.classList.contains('collapsed')) {
+                content.style.maxHeight = content.scrollHeight + "px";
+            } else {
+                content.style.maxHeight = null;
+            }
+        }
+
+        function toggleCheck(item) {
+            item.classList.toggle('checked');
+            updateProgress();
+            saveProgress();
+        }
+
+        function updateProgress() {
+            const total = document.querySelectorAll('.chk-item').length;
+            const checked = document.querySelectorAll('.chk-item.checked').length;
+            const pct = total ? (checked / total) * 100 : 0;
+            document.getElementById('progress').style.width = pct + '%';
+        }
+
+        function saveProgress() {
+            const checklistItems = document.querySelectorAll('.chk-item');
+            const progress = [];
+            checklistItems.forEach((item, index) => {
+                progress.push(item.classList.contains('checked'));
+            });
+            localStorage.setItem('checklistProgress', JSON.stringify(progress));
+        }
+
+        function loadProgress() {
+            const savedProgress = localStorage.getItem('checklistProgress');
+            if (savedProgress) {
+                const progress = JSON.parse(savedProgress);
+                const checklistItems = document.querySelectorAll('.chk-item');
+                checklistItems.forEach((item, index) => {
+                    if (progress[index]) {
+                        item.classList.add('checked');
+                    }
+                });
+            }
+            updateProgress();
+        }
+
+        // Init heights and load progress
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.section-content').forEach(el => {
+                el.style.maxHeight = el.scrollHeight + "px";
+            });
+            loadProgress();
+        });
+        window.addEventListener('resize', () => {
+             document.querySelectorAll('.section:not(.collapsed) .section-content').forEach(el => {
+                el.style.maxHeight = el.scrollHeight + "px";
+            });
+        });
+    </script>
+</body>
+</html>
