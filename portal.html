@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Методологический запуск · Светлана Цыро</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --yellow: #FFD600;
+  --yellow-light: #FFF9C4;
+  --yellow-dark: #F5C400;
+  --yellow-deep: #E6A800;
+  --ink: #1A1A1A;
+  --ink-60: rgba(26,26,26,.6);
+  --ink-20: rgba(26,26,26,.12);
+  --ink-08: rgba(26,26,26,.06);
+  --white: #FFFFFF;
+  --bg: #F7F5F0;
+  --bg-card: #FFFFFF;
+  --green: #2D7A4F;
+  --green-soft: #E8F5EE;
+  --locked: #C8C4BC;
+  --locked-bg: #F0EDE8;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --font-head: 'Unbounded', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--ink);
+  padding: 40px 60px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 300px; height: 300px;
+  background: var(--yellow);
+  border-radius: 50%;
+  opacity: .12;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: 20%;
+  width: 200px; height: 200px;
+  background: var(--yellow);
+  border-radius: 50%;
+  opacity: .06;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.header-tag {
+  display: inline-block;
+  background: var(--yellow);
+  color: var(--ink);
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  padding: 6px 16px;
+  border-radius: 40px;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-family: var(--font-head);
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.05;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.header h1 em {
+  color: var(--yellow);
+  font-style: normal;
+}
+
+.header-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,.6);
+  font-weight: 500;
+  margin-bottom: 32px;
+}
+
+.header-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.meta-pill {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.15);
+  color: rgba(255,255,255,.8);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 40px;
+}
+
+.meta-pill.active {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: var(--ink);
+}
+
+/* ── MAIN ── */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 52px 60px 80px;
+}
+
+/* ── SECTION TITLE ── */
+.section-title {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--ink-60);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--ink-20);
+}
+
+/* ── MEETINGS PATH ── */
+.meetings-path {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 64px;
+}
+
+.meeting-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 2px solid var(--ink-20);
+  overflow: hidden;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.meeting-card.open {
+  border-color: var(--ink-20);
+}
+
+.meeting-card.open:hover {
+  border-color: var(--yellow-dark);
+  box-shadow: 0 4px 32px rgba(0,0,0,.08);
+}
+
+.meeting-card.locked {
+  border-color: var(--ink-08);
+  background: var(--locked-bg);
+}
+
+/* card head */
+.card-head {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding: 28px 32px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.meeting-card.locked .card-head {
+  cursor: default;
+}
+
+.meeting-num {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--ink-60);
+  line-height: 1;
+}
+
+.meeting-date {
+  font-family: var(--font-head);
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--ink);
+  margin-top: 4px;
+}
+
+.meeting-card.locked .meeting-date {
+  color: var(--locked);
+}
+
+.card-info {}
+
+.card-theme {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--yellow-deep);
+  margin-bottom: 5px;
+}
+
+.meeting-card.locked .card-theme {
+  color: var(--locked);
+}
+
+.card-title {
+  font-family: var(--font-head);
+  font-size: clamp(15px, 2vw, 19px);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.meeting-card.locked .card-title {
+  color: var(--locked);
+}
+
+.card-desc {
+  font-size: 14px;
+  color: var(--ink-60);
+  margin-top: 6px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.meeting-card.locked .card-desc {
+  color: var(--locked);
+}
+
+.card-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-badge {
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 6px 14px;
+  border-radius: 40px;
+}
+
+.status-badge.done {
+  background: var(--green-soft);
+  color: var(--green);
+}
+
+.status-badge.current {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.status-badge.soon {
+  background: var(--ink-08);
+  color: var(--ink-60);
+}
+
+.lock-icon {
+  width: 36px; height: 36px;
+  background: var(--locked-bg);
+  border: 2px solid var(--locked);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--locked);
+  font-size: 14px;
+}
+
+.chevron {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--yellow-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  transition: transform .25s;
+  color: var(--ink);
+}
+
+.meeting-card.expanded .chevron {
+  transform: rotate(180deg);
+}
+
+/* card body */
+.card-body {
+  display: none;
+  padding: 0 32px 28px;
+  border-top: 1px solid var(--ink-08);
+  margin-top: 0;
+}
+
+.meeting-card.expanded .card-body {
+  display: block;
+}
+
+.card-body-inner {
+  padding-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.result-block {
+  background: var(--yellow-light);
+  border-radius: var(--radius-sm);
+  padding: 18px 20px;
+  border-left: 4px solid var(--yellow);
+}
+
+.result-block .rb-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--yellow-deep);
+  margin-bottom: 6px;
+}
+
+.result-block p {
+  font-size: 15px;
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.actions-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 20px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all .18s;
+  color: var(--ink);
+}
+
+.action-btn .btn-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.action-btn.recording {
+  background: #FFF0F0;
+  border-color: #FFD0D0;
+}
+.action-btn.recording .btn-icon { background: #FFB3B3; }
+.action-btn.recording:hover { background: #FFE0E0; border-color: #FF9999; }
+
+.action-btn.notes {
+  background: #F0F4FF;
+  border-color: #D0DCFF;
+}
+.action-btn.notes .btn-icon { background: #C4D4FF; }
+.action-btn.notes:hover { background: #E4ECFF; border-color: #A0BCFF; }
+
+.action-btn.tasks {
+  background: var(--yellow-light);
+  border-color: #FFE57A;
+}
+.action-btn.tasks .btn-icon { background: var(--yellow); }
+.action-btn.tasks:hover { background: #FFF59D; border-color: var(--yellow); }
+
+.action-btn .btn-arrow {
+  margin-left: auto;
+  opacity: .4;
+  font-size: 16px;
+}
+
+.btn-soon {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-60);
+  background: var(--ink-08);
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-left: auto;
+}
+
+/* ── SEPARATOR LINE ── */
+.path-connector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8px;
+  position: relative;
+}
+
+.path-connector::before {
+  content: '';
+  position: absolute;
+  left: 39px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 24px;
+  background: var(--ink-20);
+}
+
+/* ── PRODUCTS MAP ── */
+.products-section {
+  background: var(--ink);
+  border-radius: var(--radius);
+  padding: 44px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.products-section::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  background: var(--yellow);
+  border-radius: 50%;
+  opacity: .08;
+}
+
+.products-title {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,.4);
+  margin-bottom: 8px;
+}
+
+.products-headline {
+  font-family: var(--font-head);
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 900;
+  color: var(--white);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+
+.products-headline em {
+  color: var(--yellow);
+  font-style: normal;
+}
+
+.products-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 36px;
+}
+
+.participants-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.participant-btn {
+  background: rgba(255,255,255,.07);
+  border: 2px solid rgba(255,255,255,.12);
+  border-radius: var(--radius-sm);
+  padding: 24px 20px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .2s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.participant-btn:hover {
+  background: rgba(255,214,0,.1);
+  border-color: var(--yellow);
+}
+
+.participant-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--yellow);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.participant-name {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.participant-label {
+  font-size: 12px;
+  color: rgba(255,255,255,.4);
+  font-weight: 500;
+}
+
+.participant-arrow {
+  margin-top: 4px;
+  font-size: 18px;
+  color: var(--yellow);
+  opacity: 0;
+  transition: opacity .2s;
+}
+
+.participant-btn:hover .participant-arrow {
+  opacity: 1;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .header { padding: 32px 32px 40px; }
+  .main { padding: 36px 32px 60px; }
+  .card-head { grid-template-columns: 64px 1fr auto; gap: 14px; padding: 20px 24px; }
+  .card-body { padding: 0 24px 24px; }
+  .card-body-inner { grid-template-columns: 1fr; gap: 16px; }
+  .participants-grid { grid-template-columns: repeat(2, 1fr); }
+  .products-section { padding: 32px 28px; }
+}
+
+@media (max-width: 600px) {
+  .header { padding: 24px 20px 32px; }
+  .main { padding: 28px 16px 48px; }
+  .card-head { grid-template-columns: 52px 1fr auto; gap: 12px; padding: 16px; }
+  .meeting-num { font-size: 10px; }
+  .meeting-date { font-size: 16px; }
+  .card-title { font-size: 14px; }
+  .card-desc { font-size: 13px; }
+  .card-body { padding: 0 16px 16px; }
+  .card-body-inner { grid-template-columns: 1fr; gap: 12px; }
+  .action-btn { padding: 11px 14px; font-size: 13px; }
+  .btn-icon { width: 28px; height: 28px; font-size: 14px; }
+  .products-section { padding: 24px 16px; }
+  .participants-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .participant-btn { padding: 18px 14px; }
+  .participant-name { font-size: 13px; }
+  .status-badge { font-size: 9px; padding: 5px 10px; }
+  .path-connector::before { left: 26px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <span class="header-tag">Программа</span>
+    <h1>Методологический<br><em>Запуск</em></h1>
+    <p class="header-sub">Запускаем свои групповые продукты как систему</p>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="section-title">Путь встреч</div>
+
+  <div class="meetings-path">
+
+    <!-- ВСТРЕЧА 0 -->
+    <div class="meeting-card open" data-id="0">
+      <div class="card-head" onclick="toggle(0)">
+        <div>
+          <div class="meeting-num">Встреча 0</div>
+          <div class="meeting-date">9 апр</div>
+        </div>
+        <div class="card-info">
+          <div class="card-theme">Организация</div>
+          <div class="card-title">Знакомство и старт</div>
+          <div class="card-desc">Организационные рамки, карта пути, увидели инструмент планирования календаря с помощью ИИ</div>
+        </div>
+        <div class="card-right">
+          <span class="status-badge done">✓ Прошла</span>
+          <div class="chevron">▾</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          <div class="result-block">
+            <div class="rb-label">Результат встречи</div>
+            <p>Понимаете как устроена работа, увидели инструмент планирования с ИИ, знаете карту пути на 8 встреч</p>
+          </div>
+          <div class="actions-block">
+            <a href="https://kinescope.io/o1vNDtvHoyMC4G1bz2PcwL" target="_blank" class="action-btn recording">
+              <div class="btn-icon">▶</div>
+              Запись встречи
+              <span class="btn-arrow">↗</span>
+            </a>
+            <a href="#" class="action-btn notes">
+              <div class="btn-icon">📄</div>
+              Конспект
+              <span class="btn-soon">Скоро</span>
+            </a>
+            <a href="#" class="action-btn tasks">
+              <div class="btn-icon">✅</div>
+              Задания на неделю
+              <span class="btn-soon">Скоро</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="path-connector"></div>
+
+    <!-- ВСТРЕЧА 1 -->
+    <div class="meeting-card open expanded" data-id="1">
+      <div class="card-head" onclick="toggle(1)">
+        <div>
+          <div class="meeting-num">Встреча 1</div>
+          <div class="meeting-date">16 апр</div>
+        </div>
+        <div class="card-info">
+          <div class="card-theme">Смыслы</div>
+          <div class="card-title">Главный архитектурный смысл продукта</div>
+          <div class="card-desc">ЦА и точка А → точка Б, формула продукта и маркетинга, кто готов платить</div>
+        </div>
+        <div class="card-right">
+          <span class="status-badge done">✓ Прошла</span>
+          <div class="chevron">▾</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          <div class="result-block">
+            <div class="rb-label">Результат встречи</div>
+            <p>Формула: «Я помогаю [кому — точка А] перейти в [точка Б] благодаря [инструмент Х]»</p>
+          </div>
+          <div class="actions-block">
+            <a href="#" class="action-btn recording">
+              <div class="btn-icon">▶</div>
+              Запись встречи
+              <span class="btn-soon">Скоро</span>
+            </a>
+            <a href="#" class="action-btn notes">
+              <div class="btn-icon">📄</div>
+              Конспект
+              <span class="btn-soon">Скоро</span>
+            </a>
+            <a href="#" class="action-btn tasks">
+              <div class="btn-icon">✅</div>
+              Задания на неделю
+              <span class="btn-soon">Скоро</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="path-connector"></div>
+
+    <!-- ВСТРЕЧА 2 — LOCKED -->
+    <div class="meeting-card locked" data-id="2">
+      <div class="card-head">
+        <div>
+          <div class="meeting-num">Встреча 2</div>
+          <div class="meeting-date">23 апр</div>
+        </div>
+        <div class="card-info">
+          <div class="card-theme">Продукт</div>
+          <div class="card-title">Как не перегрузить и дать результат</div>
+          <div class="card-desc">Образовательный путь: логика, шаги, нагрузка</div>
+        </div>
+        <div class="card-right">
+          <div class="lock-icon">🔒</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="path-connector"></div>
+
+    <!-- ВСТРЕЧА 3 — LOCKED -->
+    <div class="meeting-card locked" data-id="3">
+      <div class="card-head">
+        <div>
+          <div class="meeting-num">Встреча 3</div>
+          <div class="meeting-date">30 апр</div>
+        </div>
+        <div class="card-info">
+          <div class="card-theme">Упаковка</div>
+          <div class="card-title">Продукт и как рассказывать о нём</div>
+          <div class="card-desc">Упаковка продукта, язык презентации, первые касания</div>
+        </div>
+        <div class="card-right">
+          <div class="lock-icon">🔒</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="path-connector"></div>
+
+    <!-- ВСТРЕЧА 4 — LOCKED -->
+    <div class="meeting-card locked" data-id="4">
+      <div class="card-head">
+        <div>
+          <div class="meeting-num">Встреча 4</div>
+          <div class="meeting-date">7 мая</div>
+        </div>
+        <div class="card-info">
+          <div class="card-theme">Контент</div>
+          <div class="card-title">Контент и окна продаж</div>
+          <div class="card-desc">Прогрев, эфиры, касания — система которая продаёт</div>
+        </div>
+        <div class="card-right">
+          <div class="lock-icon">🔒</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="path-connector"></div>
+
+    <!-- ВСТРЕЧА 5 — LOCKED -->
+    <div class="meeting-card locked" data-id="5">
+      <div class="card-head">
+        <div>
+          <div class="meeting-num">Встреча 5</div>
+          <div class="meeting-date">14 мая</div>
+        </div>
+        <div class="card-info">
+          <div class="card-theme">Формат</div>
+          <div class="card-title">Формат группы</div>
+          <div class="card-desc">Детальное наполнение программы под ваши ресурсы</div>
+        </div>
+        <div class="card-right">
+          <div class="lock-icon">🔒</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="path-connector"></div>
+
+    <!-- ВСТРЕЧА 6 — LOCKED -->
+    <div class="meeting-card locked" data-id="6">
+      <div class="card-head">
+        <div>
+          <div class="meeting-num">Встреча 6</div>
+          <div class="meeting-date">21 мая</div>
+        </div>
+        <div class="card-info">
+          <div class="card-theme">Продажи</div>
+          <div class="card-title">Переписки и продажи</div>
+          <div class="card-desc">Работа с возражениями и без — как продавать экологично</div>
+        </div>
+        <div class="card-right">
+          <div class="lock-icon">🔒</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="path-connector"></div>
+
+    <!-- ВСТРЕЧА 7 — LOCKED -->
+    <div class="meeting-card locked" data-id="7">
+      <div class="card-head">
+        <div>
+          <div class="meeting-num">Встреча 7</div>
+          <div class="meeting-date">28 мая</div>
+        </div>
+        <div class="card-info">
+          <div class="card-theme">Разбор</div>
+          <div class="card-title">Разбор запусков</div>
+          <div class="card-desc">Что сработало, что корректируем, следующий цикл</div>
+        </div>
+        <div class="card-right">
+          <div class="lock-icon">🔒</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="path-connector"></div>
+
+    <!-- ВСТРЕЧА 8 — LOCKED -->
+    <div class="meeting-card locked" data-id="8">
+      <div class="card-head">
+        <div>
+          <div class="meeting-num">Встреча 8</div>
+          <div class="meeting-date">4 июн</div>
+        </div>
+        <div class="card-info">
+          <div class="card-theme">Финал</div>
+          <div class="card-title">Итоги и следующий шаг</div>
+          <div class="card-desc">Фиксируем результат, упаковываем систему для повтора</div>
+        </div>
+        <div class="card-right">
+          <div class="lock-icon">🔒</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PRODUCTS MAP -->
+  <div class="section-title">Карта продуктов участников</div>
+
+  <div class="products-section">
+    <div class="products-title">Ваши проекты</div>
+    <div class="products-headline">Карта <em>продуктов</em></div>
+    <p class="products-sub">Документы с архитектурой продукта каждого участника — обновляются по ходу программы</p>
+    <div class="participants-grid">
+      <a href="#" class="participant-btn">
+        <div class="participant-avatar">С</div>
+        <div class="participant-name">Светлана</div>
+        <div class="participant-label">Открыть документ</div>
+        <div class="participant-arrow">↗</div>
+      </a>
+      <a href="#" class="participant-btn">
+        <div class="participant-avatar">Н</div>
+        <div class="participant-name">Нина</div>
+        <div class="participant-label">Открыть документ</div>
+        <div class="participant-arrow">↗</div>
+      </a>
+      <a href="#" class="participant-btn">
+        <div class="participant-avatar">С</div>
+        <div class="participant-name">София</div>
+        <div class="participant-label">Открыть документ</div>
+        <div class="participant-arrow">↗</div>
+      </a>
+      <a href="#" class="participant-btn">
+        <div class="participant-avatar">Т</div>
+        <div class="participant-name">Татьяна</div>
+        <div class="participant-label">Открыть документ</div>
+        <div class="participant-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<script>
+function toggle(id) {
+  const card = document.querySelector(`[data-id="${id}"]`);
+  if (!card || card.classList.contains('locked')) return;
+  card.classList.toggle('expanded');
+}
+</script>
+</body>
+</html>
