@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Методологический запуск №1 · Светлана Цыро</title>
+<title>Методологический запуск · Светлана Цыро</title>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -194,7 +194,7 @@ body {
 /* card head */
 .card-head {
   display: grid;
-  grid-template-columns: 80px 1fr auto;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 24px;
   padding: 28px 32px;
@@ -206,27 +206,30 @@ body {
   cursor: default;
 }
 
+/* ── NUMBER COL ── */
+.meeting-num-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 80px;
+}
 .meeting-num {
   font-family: var(--font-head);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
   color: var(--ink-60);
-  line-height: 1;
+  white-space: nowrap;
 }
-
 .meeting-date {
   font-family: var(--font-head);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 900;
   color: var(--ink);
-  margin-top: 4px;
+  white-space: nowrap;
 }
-
-.meeting-card.locked .meeting-date {
-  color: var(--locked);
-}
+.meeting-card.locked .meeting-date { color: var(--locked); }
 
 .card-info {}
 
@@ -645,10 +648,10 @@ body {
               Запись встречи
               <span class="btn-arrow">↗</span>
             </a>
-            <a href="#" class="action-btn notes">
+            <a href="https://tsyrocoach-metod.github.io/school/week0.html" target="_blank" class="action-btn notes">
               <div class="btn-icon">📄</div>
               Конспект
-              <span class="btn-soon">Скоро</span>
+              <span class="btn-arrow">↗</span>
             </a>
             <a href="#" class="action-btn tasks">
               <div class="btn-icon">✅</div>
@@ -691,10 +694,10 @@ body {
               Запись встречи
               <span class="btn-soon">Скоро</span>
             </a>
-            <a href="#" class="action-btn notes">
+            <a href="https://tsyrocoach-metod.github.io/school/week1.html" target="_blank" class="action-btn notes">
               <div class="btn-icon">📄</div>
               Конспект
-              <span class="btn-soon">Скоро</span>
+              <span class="btn-arrow">↗</span>
             </a>
             <a href="#" class="action-btn tasks">
               <div class="btn-icon">✅</div>
