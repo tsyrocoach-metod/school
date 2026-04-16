@@ -598,6 +598,7 @@ body {
   .participant-name { font-size: 13px; }
   .status-badge { font-size: 9px; padding: 5px 10px; }
   .path-connector::before { left: 26px; }
+  .extra-blocks { grid-template-columns: 1fr !important; }
 }
 </style>
 </head>
@@ -643,7 +644,7 @@ body {
             <p>Понимаете как устроена работа, увидели инструмент планирования с ИИ, знаете карту пути на 8 встреч</p>
           </div>
           <div class="actions-block">
-            <a href="https://kinescope.io/o1vNDtvHoyMC4G1bz2PcwL" target="_blank" class="action-btn recording">
+            <a href="#" class="action-btn recording" onclick="openVideo('https://kinescope.io/embed/o1vNDtvHoyMC4G1bz2PcwL'); return false;">
               <div class="btn-icon">▶</div>
               Запись встречи
               <span class="btn-arrow">↗</span>
@@ -653,10 +654,10 @@ body {
               Конспект
               <span class="btn-arrow">↗</span>
             </a>
-            <a href="#" class="action-btn tasks">
+            <a href="#" class="action-btn tasks" onclick="openChecklist(0); return false;">
               <div class="btn-icon">✅</div>
               Задания на неделю
-              <span class="btn-soon">Скоро</span>
+              <span class="btn-arrow">↗</span>
             </a>
           </div>
         </div>
@@ -689,20 +690,20 @@ body {
             <p>Формула: «Я помогаю [кому — точка А] перейти в [точка Б] благодаря [инструмент Х]»</p>
           </div>
           <div class="actions-block">
-            <a href="#" class="action-btn recording">
+            <a href="#" class="action-btn recording" onclick="openVideo('https://kinescope.io/embed/kS6Nuva1ih6KStLqsufxJZ'); return false;">
               <div class="btn-icon">▶</div>
               Запись встречи
-              <span class="btn-soon">Скоро</span>
+              <span class="btn-arrow">↗</span>
             </a>
             <a href="https://tsyrocoach-metod.github.io/school/week1.html" target="_blank" class="action-btn notes">
               <div class="btn-icon">📄</div>
               Конспект
               <span class="btn-arrow">↗</span>
             </a>
-            <a href="#" class="action-btn tasks">
+            <a href="#" class="action-btn tasks" onclick="openChecklist(1); return false;">
               <div class="btn-icon">✅</div>
               Задания на неделю
-              <span class="btn-soon">Скоро</span>
+              <span class="btn-arrow">↗</span>
             </a>
           </div>
         </div>
@@ -855,7 +856,10 @@ body {
   <div class="section-title">Карта продуктов участников</div>
 
   <div class="products-section">
-    <div class="products-title">Ваши проекты</div>
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:8px;">
+      <div class="products-title">Ваши проекты</div>
+      <span style="background:var(--yellow);color:var(--ink);font-family:var(--font-head);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;padding:5px 14px;border-radius:40px;">Скоро</span>
+    </div>
     <div class="products-headline">Карта <em>продуктов</em></div>
     <p class="products-sub">Документы с архитектурой продукта каждого участника — обновляются по ходу программы</p>
     <div class="participants-grid">
@@ -886,14 +890,196 @@ body {
     </div>
   </div>
 
+  <!-- TWO EXTRA BLOCKS -->
+  <div class="extra-blocks" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
+
+    <!-- ИИ-промпты -->
+    <div class="products-section" style="padding:32px 36px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+        <div class="products-title" style="margin:0;">Инструменты</div>
+        <span style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.5);font-family:var(--font-head);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;padding:5px 14px;border-radius:40px;">Скоро</span>
+      </div>
+      <div class="products-headline" style="font-size:clamp(18px,2vw,24px);">ИИ‑промпты и<br><em>настройки ассистентов</em></div>
+      <p class="products-sub" style="margin-bottom:0;font-size:14px;">Готовые промпты под ваши задачи — оффер, посты, планирование</p>
+    </div>
+
+    <!-- Ресёрчи -->
+    <a href="https://drive.google.com/drive/folders/1eWuONL36TGsJ_uKdiF46yanIuCnbk_lH?usp=share_link" target="_blank"
+       class="products-section" style="padding:32px 36px;text-decoration:none;display:block;transition:opacity .2s;"
+       onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+        <div class="products-title" style="margin:0;">Материалы</div>
+        <span style="color:var(--yellow);font-size:20px;">↗</span>
+      </div>
+      <div class="products-headline" style="font-size:clamp(18px,2vw,24px);"><em>Ресёрчи</em></div>
+      <p class="products-sub" style="margin-bottom:0;font-size:14px;">Папка с исследованиями и референсами — открывается в Google Drive</p>
+    </a>
+
+  </div>
+
 </main>
 
+<!-- VIDEO MODAL -->
+<div id="video-modal" style="
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.85);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;padding:20px;
+">
+  <div style="position:relative;width:100%;max-width:960px;">
+    <button onclick="closeVideo()" style="
+      position:absolute;top:-44px;right:0;
+      background:rgba(255,255,255,.15);border:none;
+      color:#fff;font-size:20px;width:36px;height:36px;
+      border-radius:50%;cursor:pointer;display:flex;
+      align-items:center;justify-content:center;
+      font-family:var(--font-body);transition:background .2s;
+    " onmouseover="this.style.background='rgba(255,255,255,.3)'"
+       onmouseout="this.style.background='rgba(255,255,255,.15)'">✕</button>
+    <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:16px;overflow:hidden;background:#000;">
+      <iframe id="video-iframe" src="" allow="autoplay;fullscreen" allowfullscreen
+        style="position:absolute;inset:0;width:100%;height:100%;border:none;"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKLIST MODAL -->
+<div id="checklist-modal" style="
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.7);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;padding:20px;
+">
+  <div style="
+    background:#fff;border-radius:24px;
+    width:100%;max-width:560px;
+    max-height:85vh;overflow-y:auto;
+    padding:40px;position:relative;
+  ">
+    <button onclick="closeChecklist()" style="
+      position:absolute;top:16px;right:16px;
+      background:var(--ink-08);border:none;
+      color:var(--ink);font-size:18px;width:36px;height:36px;
+      border-radius:50%;cursor:pointer;display:flex;
+      align-items:center;justify-content:center;
+      font-family:var(--font-body);
+    ">✕</button>
+    <div id="checklist-content"></div>
+  </div>
+</div>
+
 <script>
+const checklists = {
+  0: {
+    title: 'Задания · 9–16 апреля',
+    subtitle: 'После встречи 0',
+    items: [
+      {
+        day: '9 апр (чт) · Задание 1',
+        task: `Наговорите аудио в чат. Прям сесть и начать без подготовки выгружать.<br><br>
+<strong>Если уже понимаете для кого продукт:</strong> Опишите этого человека — кто он, чем живёт, какая у него проблема и как вы её можете решить.<br><br>
+<strong>Если пока не понимаете:</strong> Вспомните одного конкретного человека — с кем работали или общались — после которого думали «вот бы таких больше». Расскажите: кто он, чем живёт, с чем пришёл, что происходило в работе с ним / как бы вы её решали.<br><br>
+Говорите как будто подруге рассказываете историю. Без подготовки и идеальных питчей, хоть на 20 минут аудио.`
+      },
+      {
+        day: '10 апр (пт) · Задание 2',
+        task: `После аудио вы получите от меня сообщение — пришлю конкретно кому писать и что спросить. Нам важно в тёплом ближайшем круге чуть переключиться на язык аудитории и их проблемы.<br><br>
+Я не призываю идти в личные длинные созвоны, а попросить людей в аудио / тексте ответить.<br><br>
+<strong>Ваша задача:</strong> отправить вопросы хотя бы 3–4 людям. Это первый простой кастдев — начнём собирать лучше понимание проблем.`
+      },
+      {
+        day: 'Сб–Вс · Отдыхаем',
+        task: 'Выходные. Ждём ответы.',
+        weekend: true
+      },
+      {
+        day: '14 апр (пн) · Задание 3',
+        task: `Сведите все ответы в один файл и пришлите в чат.<br><br>
+Самое ценное — дословные фразы. Покажу где в ответах скрыт настоящий запрос клиента и как это звучит на его языке.`
+      },
+      {
+        day: '15 апр (вт) · Задание 4',
+        task: `Кастдев в ИИ — промпт будет в чате в понедельник.<br><br>
+Добавить цитаты словами клиента в чат.`
+      },
+      {
+        day: '16 апр (ср) · Задание 5',
+        task: `Голосовое-рефлексия перед встречей:<br><br>
+<strong>1.</strong> Какая проблема из услышанного за неделю зажгла больше всего? С какой не хотите работать — даже если умеете?<br><br>
+<strong>2.</strong> Если бы завтра к вам пришёл человек с этой проблемой — как бы вы её решали? Не программу описывайте — просто: с чего бы начали, через что повели, к чему привели.<br><br>
+Говорите как есть, без подготовки.`
+      },
+    ]
+  },
+  1: {
+    title: 'Задания · 17–23 апреля',
+    subtitle: 'После встречи 1',
+    items: [
+      { day: 'Четверг 17', task: 'Переписать оффер только словами из кастдева. Формула: «Я помогаю [кому — точка А] перейти в [точка Б] благодаря [инструмент Х]». Прислать в чат.' },
+      { day: 'Пятница 18', task: 'Обновить шапку канала на основе нового оффера. Прислать скриншот до/после в чат.' },
+      { day: 'Сб–Вс 19–20', task: 'Выходные.', weekend: true },
+      { day: 'Понедельник 21', task: 'Написать пост: история одного человека из кастдева (без имени — про ситуацию). Что у него происходило, что сдвинулось бы с вашей помощью.' },
+      { day: 'Вторник 22', task: 'Написать лично одному человеку из кастдева: «Спасибо что ответил. Я думаю над продуктом — могу рассказать тебе первому когда будет готово?»' },
+      { day: 'Среда 23', task: 'Написать второй пост: наблюдение которое вас удивило в вашей теме. Принести оба поста на встречу 24 апреля.' },
+    ]
+  }
+};
+
 function toggle(id) {
   const card = document.querySelector(`[data-id="${id}"]`);
   if (!card || card.classList.contains('locked')) return;
   card.classList.toggle('expanded');
 }
+
+function openVideo(url) {
+  document.getElementById('video-iframe').src = url;
+  document.getElementById('video-modal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeVideo() {
+  document.getElementById('video-modal').style.display = 'none';
+  document.getElementById('video-iframe').src = '';
+  document.body.style.overflow = '';
+}
+
+function openChecklist(id) {
+  const data = checklists[id];
+  if (!data) return;
+  let html = `
+    <div style="font-family:var(--font-head);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--ink-60);margin-bottom:6px;">${data.subtitle}</div>
+    <div style="font-family:var(--font-head);font-size:22px;font-weight:900;color:var(--ink);margin-bottom:4px;text-transform:uppercase;line-height:1.1;">${data.title}</div>
+    <div style="height:3px;width:60px;background:var(--yellow);border-radius:2px;margin:14px 0 28px;"></div>
+  `;
+  data.items.forEach((item, i) => {
+    const opacity = item.weekend ? '0.4' : '1';
+    html += `
+      <label style="display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--ink-08);cursor:${item.weekend?'default':'pointer'};opacity:${opacity};">
+        <input type="checkbox" style="margin-top:3px;width:18px;height:18px;accent-color:var(--yellow-deep);cursor:pointer;flex-shrink:0;" ${item.weekend?'disabled':''}>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--yellow-deep);margin-bottom:3px;">${item.day}</div>
+          <div style="font-size:15px;color:var(--ink);line-height:1.65;font-weight:500;">${item.task}</div>
+        </div>
+      </label>
+    `;
+  });
+  document.getElementById('checklist-content').innerHTML = html;
+  document.getElementById('checklist-modal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeChecklist() {
+  document.getElementById('checklist-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+document.getElementById('video-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeVideo();
+});
+document.getElementById('checklist-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeChecklist();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') { closeVideo(); closeChecklist(); }
+});
 </script>
 </body>
 </html>
