@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запуск продукта: От идеи до первых продаж. Создание поддерживающего сообщества</title>
+    <!-- Подключение Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* БУКВИЦА BRAND STYLES v3.0 */
+        :root {
+            /* Palette */
+            --dark: #101827;       /* Заголовки */
+            --grey: #6B7280;       /* Текст */
+            --pink: #FA2F6B;       /* Акцент 1 */
+            --blue: #2463EB;       /* Акцент 2 */
+            --sky: #6AC2EA;        /* Доп. акцент */
+            --bg-body: #F9FAFB;    /* Фон */
+            --bg-card: #FFFFFF;    /* Плашки */
+            
+            /* Backgrounds for boxes */
+            --bg-blue-muted: #C9D7F5; 
+            --bg-pink-muted: #F9CCDB;
+            
+            /* Styles */
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            --radius: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            background: var(--bg-body); 
+            color: var(--grey); 
+            line-height: 1.65; 
+            padding: 24px 16px; 
+            font-weight: 400;
+        }
+        
+        strong { color: var(--dark); font-weight: 700; }
+        
+        .container { max-width: 760px; margin: 0 auto; }
+
+        /* HEADER */
+        .header { 
+            background: var(--bg-card); 
+            border-radius: var(--radius); 
+            padding: 40px; 
+            margin-bottom: 32px; 
+            box-shadow: var(--shadow); 
+            border-top: 6px solid var(--blue);
+            text-align: center;
+        }
+        .header-pre { color: var(--sky); text-transform: uppercase; font-size: 13px; font-weight: 700; letter-spacing: 1px; margin-bottom: 12px; }
+        .header-title { font-size: 32px; line-height: 1.2; color: var(--dark); font-weight: 700; margin-bottom: 16px; }
+        .header-sub { font-size: 18px; color: var(--grey); font-weight: 400; }
+        
+        .tags { display: flex; justify-content: center; gap: 8px; margin-top: 24px; flex-wrap: wrap; }
+        .tag { background: #EEF4FF; color: var(--blue); padding: 4px 12px; border-radius: 100px; font-size: 13px; font-weight: 500; }
+
+        /* SECTIONS */
+        .section { 
+            background: var(--bg-card); 
+            border-radius: var(--radius); 
+            margin-bottom: 20px; 
+            box-shadow: var(--shadow); 
+            overflow: hidden; 
+            transition: transform 0.2s ease;
+        }
+        .section:hover { transform: translateY(-2px); }
+        
+        .section-header { 
+            padding: 24px; 
+            display: flex; 
+            align-items: center; 
+            cursor: pointer; 
+            border-bottom: 1px solid transparent; /* reserve space */
+        }
+        .section.collapsed .section-header { border-bottom: none; }
+        
+        .section-icon { 
+            width: 44px; height: 44px; 
+            background: #EEF4FF; 
+            color: var(--dark); 
+            border-radius: 12px; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 22px; 
+            margin-right: 16px; 
+            flex-shrink: 0; 
+        }
+        
+        .section-title { font-size: 20px; font-weight: 700; color: var(--dark); flex: 1; margin: 0; }
+        .section-toggle { 
+            width: 24px; height: 24px; 
+            display: flex; align-items: center; justify-content: center; 
+            color: var(--grey); 
+            transition: transform 0.3s ease; 
+        }
+        .section.collapsed .section-toggle { transform: rotate(-90deg); }
+
+        .section-content { 
+            padding: 0 24px 32px 24px; 
+            color: var(--grey); 
+            font-size: 16px;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+        .section.collapsed .section-content { max-height: 0 !important; padding-bottom: 0; }
+        
+        /* CONTENT BLOCKS */
+        p { margin-bottom: 16px; }
+        ul, ol { margin-bottom: 24px; padding-left: 24px; }
+        li { margin-bottom: 8px; }
+
+        /* The "Pink" Box - for Warnings, Emphasis, Important */
+        .box-pink { 
+            background: var(--bg-pink-muted); 
+            padding: 24px; 
+            border-radius: 12px; 
+            margin: 24px 0; 
+            border-left: 4px solid var(--pink);
+        }
+        .box-pink h4 { color: var(--dark); margin: 0 0 8px 0; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+        /*.box-pink h4::before { content: '⚡'; color: var(--pink); }
+        
+        /* The "Blue" Box - for Info, Success, Pro-tips */
+        .box-blue { 
+            background: var(--bg-blue-muted); 
+            padding: 24px; 
+            border-radius: 12px; 
+            margin: 24px 0; 
+            border-left: 4px solid var(--blue);
+        }
+        .box-blue h4 { color: var(--dark); margin: 0 0 8px 0; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+        /*.box-blue h4::before { content: '💎'; color: var(--blue); }
+
+        /* Quote */
+        .quote { 
+            font-size: 18px; 
+            font-style: italic; 
+            color: var(--dark); 
+            border-left: 4px solid var(--sky); 
+            padding-left: 20px; 
+            margin: 32px 0; 
+        }
+        .quote-author { font-size: 14px; color: var(--grey); font-style: normal; margin-top: 8px; font-weight: 500; }
+
+        /* Stats Grid */
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin: 24px 0; }
+        .stat-card { background: var(--bg-body); border-radius: 12px; padding: 16px; text-align: center; border: 1px solid #E5E7EB; }
+        .stat-val { font-size: 28px; font-weight: 700; color: var(--blue); line-height: 1.1; margin-bottom: 4px; }
+        .stat-lbl { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; color: var(--grey); }
+
+
+
+        /* Footer */
+        .footer { text-align: center; padding: 40px 0; margin-top: 20px; border-top: 1px solid #E5E7EB; }
+        .footer-logo { font-size: 16px; font-weight: 700; color: var(--blue); text-decoration: none; display: inline-block; margin-bottom: 8px; }
+        .footer-logo:hover { color: var(--pink); }
+        .footer-time { background: var(--bg-body); display: inline-block; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; color: var(--dark); border: 1px solid #E5E7EB; }
+
+        @media (max-width: 600px) {
+            .header { padding: 24px; text-align: left; }
+            .header-title { font-size: 24px; }
+            .section-header { padding: 16px; }
+            .section-icon { width: 36px; height: 36px; font-size: 18px; margin-right: 12px; }
+            .section-content { padding: 0 16px 24px 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-pre">Интерактивный конспект</div>
+            <h1 class="header-title">Запуск продукта: От идеи до первых продаж. Создание поддерживающего сообщества</h1>
+            <div class="header-sub">Как эффективно запустить свой продукт, минимизируя стресс и используя силу ИИ и поддерживающего окружения.</div>
+            <div class="tags">
+                <span class="tag">#ЗапускПродукта</span>
+                <span class="tag">#ИИ</span>
+                <span class="tag">#Сообщество</span>
+                <span class="tag">#Самоорганизация</span>
+                <span class="tag">#Маркетинг</span>
+                <span class="tag">#Эксперты</span>
+            </div>
+        </header>
+
+        <!-- ЦИКЛ СЕКЦИЙ (Повторяй этот блок) -->
+        <section class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">🤝</div> 
+                <h2 class="section-title">Сила сообщества и индивидуальных талантов</h2>
+                <div class="section-toggle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Спикер подчеркивает уникальность собравшейся группы, где каждый участник — это глубокий эксперт в своей области, с которым она знакома лично. Это не просто набор случайных людей, а тщательно подобранное сообщество, где каждый может обогатить другого.</p>
+                
+                <div class="box-blue">
+                    <h4>💎 Важность личных связей в запуске</h4>
+                    <p>Спикер отмечает, что сейчас не готова "втаскивать" новых людей, которых не знает, в группу. Это подчеркивает ценность <b>доверия и качества</b> над количеством, особенно на этапе создания поддерживающего сообщества для запуска продуктов. Она стремится создать пространство, где каждый чувствует себя комфортно и уверенно.</p>
+                </div>
+
+                <p>Группа собрана с учетом потенциальных пересечений и взаимной поддержки. Спикер верит, что синергия между участниками поможет каждому достичь своих целей.</p>
+                <div class="quote">
+                    «Я очень рада, что мы собрались в такой уютной небольшой компании... Я не хочу торопиться втаскивать сюда каких-то новых людей... это тоже про какой-то такой для меня крутой бережный подход, что я и себя сейчас не загоняю ради каких-то людей. И думаю, и вот, блин, ну, правда, очень крутое пространство собирается.»
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">👩‍💻</div> 
+                <h2 class="section-title">Представление участников и их уникальные запросы</h2>
+                <div class="section-toggle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+            </div>
+            <div class="section-content">
+                <h3>Светлана: Финансы и отношения</h3>
+                <p>Светлана 35 лет проработала в бухгалтерии, но категорически не хочет возвращаться в найм. Параллельно всю жизнь интересовалась психологией и отношениями. После коучингового обучения она поняла, что ей не хватает глубины в работе только с отношениями. Ее озарение пришло, когда клиентка с финансовыми проблемами игнорировала цифры, предпочитая разбираться с отношениями с родителями.</p>
+                <div class="box-blue">
+                    <h4>💡 Инсайт Светланы: Деньги — это всегда отношения</h4>
+                    <p>Светлана соединила свой бухгалтерский опыт с пониманием психологии отношений. Она обнаружила, что проблемы с финансами часто коренятся в отношениях – с собой, с миром, с близкими. Ее уникальность в том, что она не просто учит считать, а помогает людям преодолеть страх перед цифрами, ведя их к финансовой осознанности через призму отношений. Она разработала систему, где клиенты раз в месяц или два составляют финансовый план и график платежей, избегая ежедневной рутины.</p>
+                </div>
+                <p>Ее клиентка, развивающая частную практику фитнес-тренера, за полтора года работы со Светланой увеличила доходы более чем в два раза, пересмотрела отношения с мужем и детьми, что доказывает эффективность такого комплексного подхода. Задачей Светланы является упаковка этого полуторагодового опыта в <b>короткий, понятный продукт с измеримыми результатами</b>.</p>
+
+                <h3>Нина: Визуал, SMM и личный бренд</h3>
+                <p>Нина, эксперт по мобильным съемкам и визуальному контенту, а также SMM-специалист. Она способна создавать потрясающую эстетику «из ничего», как, например, ее фотографии из больницы, которые поразили спикера. Нина работает с экспертами и брендами, помогая им раскрыть суть через визуал, избегая однотипных картинок.</p>
+                <div class="box-pink">
+                    <h4>⚡️ Страхи эксперта и борьба с "синдромом самозванца"</h4>
+                    <p>Нина признается, что часто металась между направлениями и сталкивалась со страхом, что "ничего не может дать". Спикер подчеркивает, что эта легкость, с которой Нина создает визуал, является ее ключевой экспертизой, которую она сама может недооценивать. Ее задача — собрать продукт, который объяснит основы съемок, визуальных концепций и их связь с личным брендом, чтобы помочь людям создавать контент без лишних сложностей и затрат, а также научиться продавать свои услуги нужным клиентам.</p>
+                </div>
+
+                <h3>Татьяна: Философия, сказки и жизненные сценарии</h3>
+                <p>Татьяна пришла в психологию через детей, стремится понять себя и других. Она лингвист, философ, работает с цифрами, но не через строгую бухгалтерию, а через символизм и знаки. Ее уникальный подход состоит в работе с <b>жизненными сценариями через призму сказок и мифов</b>. Она верит, что сказки живые и глубоко влияют на нашу жизнь.</p>
+                <div class="box-blue">
+                    <h4>💎 Инструмент: Сказки как путь к самопознанию и изменению</h4>
+                    <p>Татьяна может помочь женщинам «перерасшивать» свои жизненные сценарии, основанные на архетипах сказок («Золушка», «Героиня» и т.д.). Ее богатая насмотренность в философии и мифологии позволяет ей раскручивать эту экспертность в разных направлениях: от личных трансформаций до создания уникального сторителлинга для личного бренда или обучения других. Спикер даже предложила идею создания "финансовой грамотности в сказках" для Светланы, демонстрируя потенциал междисциплинарного сотрудничества.</p>
+                </div>
+                <p>Татьяна также работает с системой архетипов «Видимо-невидимо» на базе русских сказок, которая помогает людям выстраивать успешные стратегии в найме, бизнесе или экспертной деятельности, учитывая менталитет и физиологические особенности.</p>
+                <div class="quote">
+                    «Нам очень важно не влюбляться первое в продукт, второе в инструмент, а нам надо влюбиться ... в проблему своего клиента, и подбираешь под это нужный инструмент.»
+                    <div class="quote-author">— Спикер</div>
+                </div>
+
+                <h3>Оксана: Помогатор и организатор хаоса</h3>
+                <p>Оксана позиционирует себя как «помогатор», способный контролировать и собирать разрозненные элементы в единое целое, разбирать хаос по полочкам. У нее нет готового продукта, но есть коучинговые знания и способность видеть суть проблем.</p>
+                <div class="box-blue">
+                    <h4>💎 Роль "помогатора" в процессе запуска</h4>
+                    <p>Оксана будет ассистировать спикеру, подменять ее и помогать освобождать время для более важных задач. Ее способность к организации и структурированию будет ценна как для группы, так и для ее собственного будущего продукта. Спикер подчеркивает, что это важный этап самопознания – быть рядом с "нормальными людьми", чтобы через их опыт и диалог понять свою ценность и потенциал. Это не "детская позиция", а осознанный путь к нахождению своего уникального предложения.</p>
+                </div>
+
+                <h3>София: Бизнес-коуч и предприниматель</h3>
+                <p>София – бизнес-коуч с многолетним опытом, владелица модельного агентства. Изначально она сомневалась в целевой аудитории, но в итоге пришла к идее создания продукта для подростков из своего модельного агентства. Она хочет обучать их навыкам мышления, устойчивости и эмоциональной регуляции.</p>
+                <div class="box-blue">
+                    <h4>💎 Использование "теплой" аудитории</h4>
+                    <p>Продукт Софии будет оффлайн-тренингом в Грузии. Несмотря на отсутствие активного блога, у нее есть огромная "теплая" база клиентов модельного агентства, которая может стать стартовой площадкой для запуска. Спикер акцентирует внимание на том, что для запуска не всегда нужен масштабный блог, иногда достаточно начать с людей, которые уже доверяют и заинтересованы. Это позволяет тестировать продукт и получать первые продажи, прежде чем масштабировать его на более широкую аудиторию.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">🗺️</div> 
+                <h2 class="section-title">План работы и методология</h2>
+                <div class="section-toggle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Программа построена на последовательных шагах, ведущих к запуску продукта. Основной акцент делается на <b>максимальное снижение стресса</b> и создание "ситуации успеха" для каждого участника.</p>
+                <ol>
+                    <li><strong>Старт и самоопределение:</strong> Понять себя как эксперта, свои сильные стороны.</li>
+                    <li><strong>Концепт продукта:</strong> Сформулировать идею продукта, достаточную для построения стратегии запуска.</li>
+                    <li><strong>Стратегия запуска:</strong> Разработать план действий, включая создание контента и предложение продукта.</li>
+                    <li><strong>Постоянное тестирование и докрутка:</strong> Непрерывная работа с продуктом, его адаптация под запросы аудитории.</li>
+                </ol>
+                <div class="box-blue">
+                    <h4>💡 Микрозадачи и постоянный прогресс</h4>
+                    <p>Ежедневные задачи будут занимать <b>не более 30 минут</b> (включая время на "раскачку"). Это позволяет избежать перегрузки и поддерживать постоянный прогресс. Задачи будут простыми, но направленными на сбор общей картины продукта и действий, ведущих к его запуску. Спикер будет выступать в роли "хранителя историй" и навигатора, предоставляя качественную обратную связь и помогая адаптировать задания под индивидуальные потребности.</p>
+                </div>
+                <div class="box-pink">
+                    <h4>⚡️ Важно: Не ругать себя за сопротивление</h4>
+                    <p>Если задача кажется сложной или вызывает сопротивление, важно не игнорировать ее, а сообщить об этом. Спикер готова делить "неподъемные" ступеньки на более мелкие шаги или предоставлять дополнительные инструменты, чтобы движение было непрерывным и комфортным.</p>
+                </div>
+                <p>Цель — не просто разработать продукт, а довести его до первых продаж, создавая ощущение успеха на каждом этапе. Спикер стремится, чтобы к концу программы у каждого участника был запущенный продукт.</p>
+                <div class="quote">
+                    «Самое отвратительное запускать продукт, когда у вас ощущение, что у вас нихрена не получается, это все бесполезно. Ситуацию успеха будем создавать максимальным образом.»
+                    <div class="quote-author">— Спикер</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">🤖</div> 
+                <h2 class="section-title">Использование ИИ для оптимизации и комфорта</h2>
+                <div class="section-toggle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>ИИ будет интегрирован в процесс как мощный ассистент, особенно для соло-предпринимателей, которым сложно выполнять все задачи одновременно. Спикер активно использует ИИ 24/7 и поделится своими наработками.</p>
+                <p>Участники используют различные ИИ-инструменты:</p>
+                <ul>
+                    <li><strong>Светлана:</strong> Синтакс (с агентами для таблиц и обсуждений), Whisper (для транскрибации), GPT для обработки фото.</li>
+                    <li><strong>Оксана:</strong> Gemini, иногда Алиса, когда-то Дипсик.</li>
+                    <li><strong>Нина:</strong> Chat GPT, тестировала Синтакс, Midjourney.</li>
+                    <li><strong>Татьяна:</strong> Chat GPT, планирует попробовать Claude для работы с большими текстами.</li>
+                </ul>
+                <div class="box-blue">
+                    <h4>💎 Промпты и ассистенты ИИ</h4>
+                    <p>Спикер будет предоставлять готовые "промпты" (или "скилл-пайлы" для Claude) — короткие инструкции, которые можно вставлять в любой чат ИИ для получения нужного результата. Это позволит участникам эффективно использовать ИИ, не тратя время на изучение сложных настроек, и постепенно создавать собственных кастомных ассистентов (GPT-ассистентов или JamBot).</p>
+                </div>
+                <h3>Пример: Организация расписания с помощью Gemini</h3>
+                <p>Спикер демонстрирует, как использовать Gemini (даже в бесплатной версии) для управления календарем. Это особенно полезно для тех, кто не любит вручную заносить задачи.</p>
+                <ol>
+                    <li><strong>Голосовой ввод:</strong> Продиктовать Gemini все задачи, встречи, напоминания, указав время и контекст.</li>
+                    <li><strong>Интеграция с Google Календарем:</strong> Gemini автоматически создает события в календаре, что позволяет быстро организовать расписание.</li>
+                </ol>
+                <div class="box-blue">
+                    <h4>💡 Лайфхак для самоорганизации</h4>
+                    <p>Такой подход помогает выгрузить хаос из головы, структурировать время и сфокусироваться на важных задачах. Спикер призывает заполнять календарь не только рабочими задачами, но и временем для отдыха и восстановления, чтобы избежать выгорания.</p>
+                </div>
+                <div class="box-pink">
+                    <h4>⚡️ Важность ресурса при запуске</h4>
+                    <p>Спикер делится личным опытом, что запуск продукта в нересурсном состоянии очень сложен. Важно учитывать свои физиологические и эмоциональные циклы, чтобы не перегореть и поддерживать комфортный темп работы. Использование ИИ помогает сохранять ресурс, делегируя рутинные задачи.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-icon">📈</div> 
+                <h2 class="section-title">Маркетинг и продажи: Акцент на проблеме клиента</h2>
+                <div class="section-toggle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Спикер не является классическим маркетологом, но придерживается мягкого и органичного подхода к продвижению. Главный принцип: <b>говорить на языке проблемы клиента</b>.</p>
+                <div class="box-pink">
+                    <h4>⚡️ Распространенная ошибка: Влюбленность в продукт, а не в проблему</h4>
+                    <p>Многие эксперты ошибочно фокусируются на своем продукте и его преимуществах, забывая о том, что клиента интересует только решение его проблемы. Ценность эксперта не в наличии красивого продукта, а в способности качественно и разнообразно решать проблемы людей.</p>
+                </div>
+                <p>В условиях огромного количества коучей, психологов и других специалистов, выделяются те, кто по-настоящему влюблен в решение проблемы клиента и может предложить оптимальное решение.</p>
+                <p>Процесс запуска будет включать:</p>
+                <ol>
+                    <li><strong>Исследование через CustDev:</strong> Активное общение с потенциальными клиентами для выявления их болей и потребностей. Это позволит понять, что действительно нужно людям, и избежать создания продукта "в стол".</li>
+                    <li><strong>Постепенное предложение:</strong> Начинать предлагать продукт людям на ранних этапах, как только вырисовывается его концепция. Это создает ощущение прогресса и позволяет получать обратную связь.</li>
+                    <li><strong>Использование "теплой" базы:</strong> Задействовать круг людей, которые уже доверяют и заинтересованы в вашей работе, даже если это не тысячи подписчиков.</li>
+                    <li><strong>Адаптация стратегии:</strong> Для тех, у кого нет активного блога, акцент будет сделан на личные касания и продажи. Для тех, у кого блог уже есть, стратегия будет адаптирована под их аудиторию.</li>
+                </ol>
+                <div class="quote">
+                    «Когда мы говорим на языке проблемы, на языке клиентов, ну, как бы продажи случаются все-таки полегче. Потому что когда мы только рассказываем о себе, о продукте, о том, какой он классный, это не имеет никакого значения для клиента, пока он не понимает, что всё-таки именно это и решает его проблему.»
+                    <div class="quote-author">— Спикер</div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div style="margin-bottom: 16px;">
+                <span class="footer-time">⏳ Сэкономлено времени на изучение: ~70 мин</span>
+            </div>
+            <div>
+                <a href="https://t.me/BukvitsaAI_bot?start=7558032207" target="_blank" style="display:inline-block;">
+                    <img src="https://буквица.рф/bukvitsa-logo.png" alt="Создано в Буквица" style="height:36px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                    <span class="footer-logo" style="display:none;">Создано в Буквица</span>
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function toggleSection(header) {
+            const section = header.closest('.section');
+            const content = section.querySelector('.section-content');
+            section.classList.toggle('collapsed');
+            
+            if (!section.classList.contains('collapsed')) {
+                content.style.maxHeight = content.scrollHeight + "px";
+            } else {
+                content.style.maxHeight = null;
+            }
+        }
+
+        // Init heights
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.section-content').forEach(el => {
+                el.style.maxHeight = el.scrollHeight + "px";
+            });
+        });
+        window.addEventListener('resize', () => {
+             document.querySelectorAll('.section:not(.collapsed) .section-content').forEach(el => {
+                el.style.maxHeight = el.scrollHeight + "px";
+            });
+        });
+    </script>
+</body>
+</html>
