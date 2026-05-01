@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Конспект встречи — 30 апреля</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #f8f7f4;
+    color: #1a1a18;
+    line-height: 1.7;
+    padding: 2.5rem 1rem;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    border-left: 4px solid #534AB7;
+    padding: 1.2rem 1.5rem;
+    background: #EEEDFE;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 2.5rem;
+  }
+
+  .header h1 {
+    font-size: 22px;
+    font-weight: 500;
+    color: #26215C;
+    margin-bottom: 0.3rem;
+  }
+
+  .header .meta {
+    font-size: 13px;
+    color: #534AB7;
+  }
+
+  /* Section headings */
+  h2 {
+    font-size: 17px;
+    font-weight: 500;
+    color: #26215C;
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 0.5px solid #CECBF6;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  h2 .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: #534AB7;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #3C3489;
+    margin: 1.2rem 0 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  p {
+    font-size: 15px;
+    color: #2C2C2A;
+    margin-bottom: 0.6rem;
+  }
+
+  /* Cards */
+  .card {
+    background: #fff;
+    border: 0.5px solid #D3D1C7;
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .card-accent {
+    border-left: 3px solid #534AB7;
+  }
+
+  .card-teal {
+    border-left: 3px solid #1D9E75;
+  }
+
+  .card-amber {
+    border-left: 3px solid #BA7517;
+  }
+
+  /* Participants */
+  .participants {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  .person {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 0.5px solid #D3D1C7;
+    border-radius: 20px;
+    padding: 5px 12px 5px 5px;
+    font-size: 13px;
+  }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .av-purple { background: #EEEDFE; color: #3C3489; }
+  .av-teal   { background: #E1F5EE; color: #085041; }
+  .av-amber  { background: #FAEEDA; color: #633806; }
+  .av-coral  { background: #FAECE7; color: #712B13; }
+
+  .person-role {
+    color: #888780;
+    font-size: 12px;
+  }
+
+  /* Agenda pills */
+  .agenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .pill {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: #EEEDFE;
+    color: #3C3489;
+    border: 0.5px solid #CECBF6;
+  }
+
+  /* A→B blocks */
+  .ab-grid {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    gap: 0;
+    align-items: center;
+    margin: 1rem 0;
+  }
+
+  .ab-box {
+    background: #f8f7f4;
+    border: 0.5px solid #D3D1C7;
+    border-radius: 10px;
+    padding: 1rem;
+    font-size: 14px;
+  }
+
+  .ab-box .label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888780;
+    margin-bottom: 0.5rem;
+  }
+
+  .ab-box.point-a .label { color: #993C1D; }
+  .ab-box.point-b .label { color: #0F6E56; }
+  .ab-box.point-a { border-color: #F0997B; }
+  .ab-box.point-b { border-color: #5DCAA5; }
+
+  .ab-arrow {
+    text-align: center;
+    font-size: 20px;
+    color: #534AB7;
+    font-weight: 300;
+  }
+
+  ul {
+    padding-left: 1.2rem;
+    font-size: 14px;
+    color: #2C2C2A;
+  }
+
+  ul li {
+    margin-bottom: 0.4rem;
+  }
+
+  /* Steps */
+  .steps {
+    counter-reset: step;
+  }
+
+  .step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 0.8rem;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    counter-increment: step;
+    min-width: 26px;
+    height: 26px;
+    background: #534AB7;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .step-body {
+    flex: 1;
+  }
+
+  .step-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #26215C;
+    margin-bottom: 2px;
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: #5F5E5A;
+    margin: 0;
+  }
+
+  /* Nina's steps — teal */
+  .step-teal .step-num { background: #1D9E75; }
+  .step-teal .step-title { color: #085041; }
+
+  /* Sveta's steps — amber */
+  .step-amber .step-num { background: #BA7517; }
+  .step-amber .step-title { color: #633806; }
+
+  /* Tanya's steps — coral */
+  .step-coral .step-num { background: #D85A30; }
+  .step-coral .step-title { color: #4A1B0C; }
+
+  /* Callouts */
+  .callout {
+    background: #EEEDFE;
+    border-left: 3px solid #534AB7;
+    border-radius: 0 8px 8px 0;
+    padding: 0.9rem 1.1rem;
+    font-size: 14px;
+    color: #26215C;
+    margin: 1rem 0;
+  }
+
+  .callout.teal {
+    background: #E1F5EE;
+    border-color: #1D9E75;
+    color: #04342C;
+  }
+
+  .callout.amber {
+    background: #FAEEDA;
+    border-color: #BA7517;
+    color: #412402;
+  }
+
+  /* Tag */
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    background: #EEEDFE;
+    color: #3C3489;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .tag.green { background: #EAF3DE; color: #27500A; }
+  .tag.amber { background: #FAEEDA; color: #633806; }
+
+  /* Tools grid */
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin: 1rem 0;
+  }
+
+  .tool-card {
+    background: #fff;
+    border: 0.5px solid #D3D1C7;
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    font-size: 13px;
+  }
+
+  .tool-card .tool-name {
+    font-weight: 500;
+    color: #26215C;
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+
+  .tool-card .tool-desc {
+    color: #5F5E5A;
+    font-size: 13px;
+  }
+
+  /* Actions */
+  .action-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .action-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    padding: 0.6rem 0;
+    border-bottom: 0.5px solid #f1efe8;
+  }
+
+  .action-list li:last-child { border-bottom: none; }
+
+  .action-list .who {
+    font-size: 11px;
+    font-weight: 500;
+    background: #EEEDFE;
+    color: #3C3489;
+    border-radius: 4px;
+    padding: 2px 7px;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  .action-list .who.teal { background: #E1F5EE; color: #085041; }
+  .action-list .who.amber { background: #FAEEDA; color: #633806; }
+  .action-list .who.coral { background: #FAECE7; color: #712B13; }
+
+  /* Content strategy flow */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1rem 0;
+  }
+
+  .flow-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 0.7rem 0;
+    border-bottom: 0.5px solid #f1efe8;
+  }
+
+  .flow-item:last-child { border-bottom: none; }
+
+  .flow-day {
+    min-width: 60px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #534AB7;
+    padding-top: 2px;
+  }
+
+  .flow-content {
+    font-size: 14px;
+    color: #2C2C2A;
+  }
+
+  footer {
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 12px;
+    color: #B4B2A9;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>Конспект рабочей встречи</h1>
+    <div class="meta">30 апреля &nbsp;·&nbsp; Ведущая: Светлана Цыро &nbsp;·&nbsp; Запись расшифрована автоматически</div>
+  </div>
+
+  <!-- Участники -->
+  <h2><span class="num">0</span> Участники</h2>
+  <div class="participants">
+    <div class="person">
+      <div class="avatar av-purple">СЦ</div>
+      <div>
+        <div>Светлана Цыро</div>
+        <div class="person-role">Ведущая</div>
+      </div>
+    </div>
+    <div class="person">
+      <div class="avatar av-teal">СК</div>
+      <div>
+        <div>Светлана Кутрань</div>
+        <div class="person-role">Финансовый эксперт</div>
+      </div>
+    </div>
+    <div class="person">
+      <div class="avatar av-amber">НК</div>
+      <div>
+        <div>Нина Кудрявцева</div>
+        <div class="person-role">Контент-стратег</div>
+      </div>
+    </div>
+    <div class="person">
+      <div class="avatar av-coral">ТА</div>
+      <div>
+        <div>Татьяна Арндт</div>
+        <div class="person-role">Коуч / психолог</div>
+      </div>
+    </div>
+    <div class="person">
+      <div class="avatar av-purple">СФ</div>
+      <div>
+        <div>София</div>
+        <div class="person-role">Коуч</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Повестка -->
+  <h2><span class="num">1</span> Повестка дня</h2>
+  <div class="agenda">
+    <span class="pill">Точки А и Б клиентов</span>
+    <span class="pill">Шаги программы (каждый участник)</span>
+    <span class="pill">Создание лендинга с ИИ</span>
+    <span class="pill">Контент-стратегия запуска</span>
+    <span class="pill">ИИ-ассистенты для офферов</span>
+    <span class="pill">Дедлайны запуска групп</span>
+  </div>
+
+  <div class="callout">
+    Главная задача встречи — перевести методологию каждого эксперта в конкретную программу: зафиксировать точку А и точку Б клиента, прописать шаги внутри программы и подготовить посадочную страницу (лендинг).
+  </div>
+
+  <!-- Ключевая концепция -->
+  <h2><span class="num">2</span> Ключевая концепция: точка А → точка Б</h2>
+  <div class="card">
+    <p>Любой продукт строится на трёх элементах: <strong>точка А</strong> (текущая боль клиента) → <strong>шаги программы</strong> → <strong>точка Б</strong> (желаемый результат). Именно вокруг этого строится весь маркетинг и контент.</p>
+    <p>Важно: точка А описывается языком <em>клиента</em> (как он сам ощущает проблему), а не диагнозом эксперта.</p>
+  </div>
+
+  <!-- Разбор по участникам -->
+  <h2><span class="num">3</span> Разбор программ участников</h2>
+
+  <!-- Светлана Кутрань -->
+  <div class="card card-teal">
+    <h3>Светлана Кутрань — Финансы для помогающих практиков</h3>
+    <div class="ab-grid">
+      <div class="ab-box point-a">
+        <div class="label">Точка А — боль клиента</div>
+        <ul>
+          <li>Самозанятые: психологи, коучи, фотографы</li>
+          <li>Нерегулярный, нестабильный доход</li>
+          <li>Нет финансового учёта и планирования</li>
+          <li>Не понимают, как формировать цены</li>
+          <li>Страх перед цифрами и таблицами</li>
+          <li>«Вроде умный эксперт — а денег нет»</li>
+          <li>Неожиданные платежи застают врасплох</li>
+        </ul>
+      </div>
+      <div class="ab-arrow">→</div>
+      <div class="ab-box point-b">
+        <div class="label">Точка Б — результат</div>
+        <ul>
+          <li>Регулярный и понятный доход</li>
+          <li>Резервный фонд на все обязательные платежи</li>
+          <li>Знают цену своего часа и пакетов</li>
+          <li>Управляют деньгами, а не бегают за ними</li>
+          <li>Еженедельный «денежный ритуал» (аудит)</li>
+          <li>Чёткая финмодель и план на 12 недель</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:1rem;">8 шагов программы</h3>
+    <div class="steps">
+      <div class="step step-teal">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Минимальная денежная система</div>
+          <div class="step-desc">Картинка «что есть сейчас»: счета, ожидаемые поступления, предстоящие платежи; выбор метрик и целей.</div>
+        </div>
+      </div>
+      <div class="step step-teal">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Скрипты и эмоции с деньгами</div>
+          <div class="step-desc">Личные установки и триггеры → перевод в рабочие правила поведения. Мягкое взаимодействие с цифрами без таблиц (маркеры, бумага).</div>
+        </div>
+      </div>
+      <div class="step step-teal">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Финмодель (без страшного названия)</div>
+          <div class="step-desc">Минимально необходимые расходы, стоимость часа, загрузка клиентской/неклиентской работы; меню офферов: базовый / стандарт / премиум.</div>
+        </div>
+      </div>
+      <div class="step step-teal">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Путь клиента + ежедневные шаги</div>
+          <div class="step-desc">Как приходят клиенты, скрипт разговора о ценности и цене, ролевые игры в группе.</div>
+        </div>
+      </div>
+      <div class="step step-teal">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">12-недельный прогноз</div>
+          <div class="step-desc">Какие ямы видны и как их закрыть; настройка распределения поступающих сумм по «конвертам»/накопительным счетам.</div>
+        </div>
+      </div>
+      <div class="step step-teal">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <div class="step-title">Уверенность в цене</div>
+          <div class="step-desc">Сценарий повышения цены (скрипты для лояльных и новых клиентов), письмо о повышении, отработка напоминаний об оплате.</div>
+        </div>
+      </div>
+      <div class="step step-teal">
+        <div class="step-num">7</div>
+        <div class="step-body">
+          <div class="step-title">Мини-автоматизация</div>
+          <div class="step-desc">Что контролировать еженедельно и ежемесячно, какими действиями; закрытие месяца.</div>
+        </div>
+      </div>
+      <div class="step step-teal">
+        <div class="step-num">8</div>
+        <div class="step-body">
+          <div class="step-title">Итоги + план на 90 дней</div>
+          <div class="step-desc">Ретроспектива практик и метрик. Выбор стратегии роста: ↑ средний чек, ↑ конверсия или ↑ трафик.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout teal">
+      Рекомендация Светланы Цыро: переставить блок про установки и скрипты в середину программы — как «поддерживающую встречу», когда группа уже что-то внедряет и начинается сопротивление. Начинать с практических инструментов, не с психологии.
+    </div>
+  </div>
+
+  <!-- Нина Кудрявцева -->
+  <div class="card card-accent" style="margin-top:1.5rem;">
+    <h3>Нина Кудрявцева — Системный блог для экспертов</h3>
+    <div class="ab-grid">
+      <div class="ab-box point-a">
+        <div class="label">Точка А</div>
+        <ul>
+          <li>Есть знания, кейсы, опыт — но нет системы в блоге</li>
+          <li>Не знают, о чём писать и в каком порядке</li>
+          <li>Нет актуальных фотографий</li>
+          <li>Пишут пост — не публикуют (энергия пропала)</li>
+          <li>«Я» — последняя буква алфавита: не привыкли говорить о себе</li>
+          <li>Блог есть, но не работает на продажи</li>
+        </ul>
+      </div>
+      <div class="ab-arrow">→</div>
+      <div class="ab-box point-b">
+        <div class="label">Точка Б</div>
+        <ul>
+          <li>Понимание, о чём писать и зачем</li>
+          <li>Готовая контент-база и рубрикатор</li>
+          <li>Могут делегировать с чётким ТЗ</li>
+          <li>Блог не съедает всю неделю</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:1rem;">8 шагов программы</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num" style="background:#534AB7;">1</div>
+        <div class="step-body">
+          <div class="step-title" style="color:#26215C;">Определение цели и видения</div>
+          <div class="step-desc">Зачем клиенту блог, какой результат он хочет получить.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#534AB7;">2</div>
+        <div class="step-body">
+          <div class="step-title" style="color:#26215C;">Аудит соцсетей + бриф-встреча</div>
+          <div class="step-desc">Показать разрыв между тем, кто есть клиент, и как выглядит его блог сейчас. Акцент: не «сделать больно», а мягко подсветить потенциал.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#534AB7;">3</div>
+        <div class="step-body">
+          <div class="step-title" style="color:#26215C;">Анализ целевой аудитории</div>
+          <div class="step-desc">Проверка наличия и глубины CustDev, при необходимости — промт для доработки анализа.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#534AB7;">4</div>
+        <div class="step-body">
+          <div class="step-title" style="color:#26215C;">Распаковка + рубрикатор</div>
+          <div class="step-desc">Таблица тем: экспертность, личность, кейсы, продающий контент — структура для самостоятельного ведения.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#534AB7;">5</div>
+        <div class="step-body">
+          <div class="step-title" style="color:#26215C;">Контент-план на первый месяц</div>
+          <div class="step-desc">Как темы перетекают друг в друга, где показывать экспертность, где личность.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#534AB7;">6</div>
+        <div class="step-body">
+          <div class="step-title" style="color:#26215C;">Визуальная система</div>
+          <div class="step-desc">Обязательный шаг: у большинства нет актуальных фото. Визуальная концепция для всех соцсетей.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#534AB7;">7</div>
+        <div class="step-body">
+          <div class="step-title" style="color:#26215C;">Шаблоны (дизайн-кит)</div>
+          <div class="step-desc">Шаблоны в Canva: загрузил текст + фото → готовый пост за 10 минут, не за час.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#534AB7;">8</div>
+        <div class="step-body">
+          <div class="step-title" style="color:#26215C;">Внедрение и сопровождение</div>
+          <div class="step-desc">Период поддержки: ответы на вопросы, разбор первых публикаций.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      Идея от Светланы Цыро: добавить в программу тему «продающий контент» — как понять, когда и что публиковать, чтобы блог работал на продажи, а не только на экспертность.
+    </div>
+  </div>
+
+  <!-- Татьяна Арндт -->
+  <div class="card card-amber" style="margin-top:1.5rem;">
+    <h3>Татьяна Арндт — Групповая программа (гипотеза)</h3>
+    <div class="ab-grid">
+      <div class="ab-box point-a">
+        <div class="label">Точка А</div>
+        <ul>
+          <li>Женщина: «у меня всё сыпется, не знаю, за что хвататься»</li>
+          <li>Много учится, но нет целостного результата</li>
+          <li>Ходит по кругу — доход, отношения, здоровье</li>
+          <li>Глубокое разочарование в жизни («хотела жить как в сказке»)</li>
+          <li>До психолога «не доходит» — нет энергии</li>
+        </ul>
+      </div>
+      <div class="ab-arrow">→</div>
+      <div class="ab-box point-b">
+        <div class="label">Точка Б</div>
+        <ul>
+          <li>Знает свои архетипы и сценарии</li>
+          <li>Понимает следующие шаги выхода</li>
+          <li>«Мне задышалось» — ощущение лёгкости</li>
+          <li>Конкретный план действий по сферам</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout amber">
+      Формат: групповая программа ~7 встреч, по одной сфере жизни (доход, отношения, здоровье и др.). Первая группа — пилот для проверки гипотезы. Возможно совмещение с индивидуальной работой.
+    </div>
+  </div>
+
+  <!-- Создание лендинга -->
+  <h2><span class="num">4</span> Создание лендинга с помощью ИИ</h2>
+  <div class="card">
+    <p>Светлана показала процесс создания посадочной страницы прямо на встрече — на примере программы Нины.</p>
+
+    <h3>Структура лендинга</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Главный экран</div><div class="step-desc">Клиент узнаёт себя — описание точки А на его языке.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">В чём проблема и почему так происходит</div><div class="step-desc">Объяснение причины, а не симптома.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Точка Б — куда придёт клиент</div><div class="step-desc">Конкретный результат, без обещаний-пустышек.</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Для кого программа</div><div class="step-desc">Портрет идеального клиента.</div></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-title">Программа / шаги</div><div class="step-desc">Что будет происходить внутри — пошагово.</div></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-body"><div class="step-title">Почему это сработает</div><div class="step-desc">Отстройка от конкурентов, обоснование подхода.</div></div></div>
+      <div class="step"><div class="step-num">7</div><div class="step-body"><div class="step-title">Работа с возражениями + стоимость</div><div class="step-desc">Цена, формат, призыв к действию.</div></div></div>
+    </div>
+
+    <h3>Инструменты</h3>
+    <div class="tool-grid">
+      <div class="tool-card">
+        <div class="tool-name">Claude (клод)</div>
+        <div class="tool-desc">Генерирует лендинг как HTML-файл прямо в чате. Более качественный первый результат.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">ChatGPT / GPT-4</div>
+        <div class="tool-desc">Тоже создаёт лендинг, может потребовать больше правок по визуалу.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">Gemini (Джамбот)</div>
+        <div class="tool-desc">Логика та же — системная инструкция + запрос. Тоже делает лендинги.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">ИИ-ассистент</div>
+        <div class="tool-desc">Кастомный помощник с промтом, обученным логике лендингов и офферов — отдаётся участникам.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      Ключевой принцип: не нужно знать код. Берёте заполненную таблицу с данными программы → вставляете в ИИ с инструкцией → получаете готовую HTML-страницу за несколько минут. Потом доводите итерационно в чате.
+    </div>
+  </div>
+
+  <!-- Стратегия контента -->
+  <h2><span class="num">5</span> Стратегия запуска через контент (7–10 дней)</h2>
+  <div class="card">
+    <p>Для набора первой группы не нужна большая аудитория. Нужна правильная последовательность контента.</p>
+
+    <div class="flow">
+      <div class="flow-item">
+        <div class="flow-day">День 1</div>
+        <div class="flow-content"><strong>Пост-идентификация (точка А).</strong> «Узнали себя? — ставьте огонёк». Цель: собрать обратную связь от рынка. Не продаём — поднимаем тему.</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-day">День 2–3</div>
+        <div class="flow-content"><strong>Экспертный взгляд.</strong> «Рынок говорит X, но это не работает, потому что...» — показываете свой подход.</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-day">День 4–5</div>
+        <div class="flow-content"><strong>История / кейс.</strong> Конкретная ситуация клиента или собственный опыт на языке точки А.</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-day">День 6</div>
+        <div class="flow-content"><strong>Мягкий призыв.</strong> «Если узнали себя — напишите мне. Разберу вашу ситуацию». Не «купите», а «давайте поговорим».</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-day">Параллельно</div>
+        <div class="flow-content"><strong>Личные касания.</strong> Написать знакомым из ЦА, ответить на CustDev отзывы с приглашением, предложить разбор в чате коллег (экспоненте и др.).</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-day">Бонус</div>
+        <div class="flow-content"><strong>Мини-эфир.</strong> Пересказать устно то, что написали в постах — живой формат работает отдельно и усиливает эффект.</div>
+      </div>
+    </div>
+
+    <div class="callout teal">
+      Цель первого запуска: 3–5 человек. Это реально даже с небольшой аудиторией при правильном подходе. Первая заявка («Сколько стоит?») — уже успех.
+    </div>
+  </div>
+
+  <!-- Ключевые принципы -->
+  <h2><span class="num">6</span> Ключевые принципы и инсайты</h2>
+  <div class="card">
+    <ul style="font-size:14px;">
+      <li style="margin-bottom:0.7rem;"><strong>Язык клиента vs язык эксперта.</strong> Точка А описывается так, как клиент сам видит проблему, а не как диагностирует эксперт. «Нет финмодели» — это экспертная диагностика. «Подходит важный платёж, а платить нечем» — это язык клиента.</li>
+      <li style="margin-bottom:0.7rem;"><strong>Изнанка и лестница роста.</strong> Шаги программы — это «лестница роста навыка» клиента. На лендинге и в офферах её нужно показывать с позиции клиента, а не с позиции методологии.</li>
+      <li style="margin-bottom:0.7rem;"><strong>Аудит в программе ≠ аудит до программы.</strong> Аудит блога/финансов до старта — продающий инструмент. Аудит внутри программы — методологический шаг с другой целью.</li>
+      <li style="margin-bottom:0.7rem;"><strong>Гибкость шагов.</strong> Прописывайте шаги, но не привязывайте к конкретным встречам на лендинге — это даёт свободу адаптировать программу под группу.</li>
+      <li style="margin-bottom:0.7rem;"><strong>Дедлайн обязателен.</strong> Без конкретной даты старта группа не собирается. Ставьте дату → всегда можно чуть сдвинуть, если нужно.</li>
+      <li><strong>Пилот — это нормально.</strong> Первая группа — эксперимент. Метод уточняется в процессе. Главное — запустить, а не сделать идеально.</li>
+    </ul>
+  </div>
+
+  <!-- Что выдаётся участникам -->
+  <h2><span class="num">7</span> Материалы от Светланы (выдаются после встречи)</h2>
+  <div class="tool-grid">
+    <div class="tool-card">
+      <div class="tool-name">Таблица для лендинга</div>
+      <div class="tool-desc">Google-таблица со структурой блоков. Каждый заполняет свою вкладку.</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">ИИ-ассистент (промт)</div>
+      <div class="tool-desc">Системная инструкция для создания лендингов и офферов. Работает в Claude и ChatGPT.</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Серия постов</div>
+      <div class="tool-desc">Шаблонная серия из 6–7 постов для прогрева аудитории перед запуском.</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Промт для постов</div>
+      <div class="tool-desc">Ассистент для написания контента на основе точки А и точки Б каждого эксперта.</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Запись встречи</div>
+      <div class="tool-desc">Транскрипция встречи — можно вытащить цитаты и идеи для своей программы.</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Калькулятор цены</div>
+      <div class="tool-desc">Excel-файл для расчёта стоимости продукта, чтобы не работать в убыток.</div>
+    </div>
+  </div>
+
+  <!-- Дедлайны и следующие шаги -->
+  <h2><span class="num">8</span> Договорённости и следующие шаги</h2>
+  <div class="card">
+    <ul class="action-list">
+      <li>
+        <span class="who teal">Светлана К.</span>
+        <span>Дополнить таблицу лендинга, скорректировать порядок блоков программы (установки → середина). Определиться с дедлайном запуска (ориентир: до начала июня).</span>
+      </li>
+      <li>
+        <span class="who">Нина</span>
+        <span>Выложить первый пост из серии (уже сделала!). Определиться с датой старта группы. Добавить тему «продающий контент» в рубрикатор. Поставить дедлайн старта.</span>
+      </li>
+      <li>
+        <span class="who coral">Татьяна</span>
+        <span>Доработать точку А на языке клиента. Прописать 7 шагов программы детальнее. Дедлайн запуска — начало июля (после отпуска). Начать контент уже сейчас.</span>
+      </li>
+      <li>
+        <span class="who amber">София</span>
+        <span>Светлана напишет в личку — разберут текущий шаг по выбору темы индивидуально.</span>
+      </li>
+      <li>
+        <span class="who">Все</span>
+        <span>Переименовать канал — чтобы в описании было чётко видно: кто ЦА и что получит. Начать серию постов по точке А своего клиента.</span>
+      </li>
+      <li>
+        <span class="who teal">Светлана К.</span>
+        <span>Рассмотреть возможность провести мини-мастер-класс по ценообразованию для группы (в удобном формате).</span>
+      </li>
+      <li>
+        <span class="who">Светлана Ц.</span>
+        <span>Прислать всем: запись встречи, таблицу, промты, серию постов, ссылку на ИИ-ассистента, калькулятор цены.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Итог -->
+  <div class="callout" style="margin-top:2rem;">
+    <strong>Вывод встречи:</strong> у каждого участника теперь есть все элементы для запуска первой группы — точка А, точка Б, шаги программы, структура лендинга и контент-стратегия. Осталось зафиксировать дату, поставить дедлайн и идти маленькими шагами.
+  </div>
+
+  <footer>Конспект сформирован на основе расшифровки записи встречи от 30 апреля · Не является дословной цитатой</footer>
+
+</div>
+</body>
+</html>
