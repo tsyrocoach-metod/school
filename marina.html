@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Марина Кулич — Медиакит</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&family=Raleway:wght@300;400;500;700;800;900&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #F8F3EB;
+  --bg2:     #F1EAE0;
+  --gold:    #B8903E;
+  --gold-lt: #D4A94E;
+  --ink:     #1C1A16;
+  --ink-2:   #3A3530;
+  --ink-3:   #7A7060;
+  --ink-4:   #B0A090;
+  --rule:    rgba(184,144,62,.2);
+  --sidebar-w: 280px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: var(--rule); }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ══════════════════════
+   SIDEBAR
+══════════════════════ */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: var(--sidebar-w);
+  background: var(--bg);
+  border-right: 1px solid var(--rule);
+  display: flex; flex-direction: column;
+  padding: 2.8rem 0;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.sidebar-brand {
+  padding: 0 2rem 2rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 1.5rem;
+}
+.sidebar-eyebrow {
+  font-family: 'Raleway', sans-serif;
+  font-size: .58rem; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: .6rem;
+}
+.sidebar-name {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.35rem; font-weight: 800;
+  color: var(--ink); line-height: 1.1; margin-bottom: .3rem;
+}
+.sidebar-sub {
+  font-size: .72rem; color: var(--ink-3);
+  font-weight: 300; line-height: 1.5;
+}
+
+.nav-item {
+  display: flex; align-items: flex-start;
+  gap: 1rem; padding: .6rem 2rem;
+  cursor: pointer;
+  transition: background .15s;
+  text-decoration: none;
+}
+.nav-item:hover { background: var(--bg2); }
+.nav-item.active { background: var(--bg2); }
+.nav-num {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic; font-size: .92rem;
+  color: var(--gold); min-width: 1.4rem;
+  flex-shrink: 0; padding-top: .05rem;
+  line-height: 1.6;
+}
+.nav-item.active .nav-num { color: var(--gold); font-weight: 400; }
+.nav-label {
+  font-size: .75rem; color: var(--ink-3);
+  line-height: 1.55; font-weight: 300;
+}
+.nav-item.active .nav-label { color: var(--ink); font-weight: 400; }
+
+/* ══════════════════════
+   MAIN
+══════════════════════ */
+.main {
+  margin-left: var(--sidebar-w);
+  min-height: 100vh;
+}
+
+/* ══════════════════════
+   SECTION SHARED
+══════════════════════ */
+.section {
+  padding: 5rem 6rem;
+  border-bottom: 1px solid var(--rule);
+}
+.section:nth-child(even) { background: var(--bg2); }
+.section:first-child { background: var(--bg); }
+
+.eyebrow {
+  font-family: 'Raleway', sans-serif;
+  font-size: .58rem; font-weight: 700;
+  letter-spacing: .25em; text-transform: uppercase;
+  color: var(--gold); display: flex; align-items: center; gap: .9rem;
+  margin-bottom: 1.4rem;
+}
+.eyebrow::after {
+  content: ''; height: 1px; background: var(--gold);
+  width: 2.5rem; opacity: .5;
+}
+
+.section-title {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 800; font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  color: var(--ink); line-height: 1.0;
+  letter-spacing: -.02em; margin-bottom: 1rem;
+}
+.section-sub {
+  font-size: .9rem; color: var(--ink-3);
+  max-width: 580px; line-height: 1.75; margin-bottom: 3rem;
+}
+
+/* HERO SECTION */
+.hero-section {
+  padding: 5rem 6rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--rule);
+}
+.hero-meta {
+  font-family: 'Raleway', sans-serif;
+  font-size: .58rem; font-weight: 700;
+  letter-spacing: .25em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 2.5rem;
+}
+.hero-title {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 900; font-size: clamp(3.5rem, 7vw, 6.5rem);
+  color: var(--ink); line-height: .95;
+  letter-spacing: -.035em; margin-bottom: 1.5rem;
+}
+.hero-author {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1.5rem 0; border-top: 1px solid var(--rule);
+  margin-bottom: 3rem;
+}
+.author-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: .6rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--ink-3);
+}
+.author-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic; font-size: 1.3rem; color: var(--ink);
+}
+.hero-tagline {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.05rem; font-weight: 400;
+  color: var(--ink-2); line-height: 1.65; max-width: 600px;
+}
+.hero-desires {
+  margin-top: 3rem; display: flex; flex-direction: column; gap: 0;
+}
+.desire-row {
+  display: flex; align-items: flex-start;
+  gap: 1.1rem; padding: .9rem 0;
+  border-bottom: 1px solid var(--rule);
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem; font-weight: 500;
+  color: var(--ink); line-height: 1.35;
+}
+.desire-row:first-child { border-top: 1px solid var(--rule); }
+.d-arr {
+  color: var(--gold); font-size: .7rem;
+  flex-shrink: 0; margin-top: .2rem;
+}
+
+/* BODY TEXT */
+p {
+  font-size: .9rem; color: var(--ink-2);
+  line-height: 1.85; margin-bottom: 1.4rem;
+}
+p:last-child { margin-bottom: 0; }
+p strong { font-weight: 500; color: var(--ink); }
+
+/* DARK CALLOUT */
+.callout {
+  background: var(--ink); border-radius: 6px;
+  padding: 2.2rem 2.5rem; margin: 2.5rem 0;
+}
+.callout-text {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.1rem; font-weight: 500;
+  color: #F8F3EB; line-height: 1.6;
+  margin-bottom: .9rem;
+}
+.callout-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: .55rem; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--gold);
+}
+
+/* GOLD BLOCKQUOTE */
+.bq {
+  border-left: 3px solid var(--gold);
+  padding: .3rem 0 .3rem 1.5rem;
+  margin: 2rem 0;
+}
+.bq-text {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic; font-size: 1.35rem;
+  color: var(--ink); line-height: 1.5;
+}
+
+/* THREE COLUMNS */
+.cols-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; margin: 2.5rem 0; }
+.col { padding: 0 2.5rem 0 0; border-right: 1px solid var(--rule); }
+.col:last-child { border-right: none; padding-right: 0; }
+.col:not(:first-child) { padding-left: 2.5rem; }
+.col-num {
+  font-family: 'Raleway', sans-serif; font-weight: 900;
+  font-size: 3.5rem; color: var(--bg2); line-height: 1;
+  margin-bottom: .8rem;
+}
+.section:nth-child(even) .col-num { color: var(--bg); }
+.col-title {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700; font-size: 1.05rem;
+  color: var(--ink); margin-bottom: .5rem;
+}
+.col-tag {
+  font-family: 'Raleway', sans-serif;
+  font-size: .55rem; font-weight: 700;
+  letter-spacing: .15em; text-transform: uppercase;
+  color: var(--gold); margin-top: 1.2rem;
+  padding-top: 1rem; border-top: 1px solid var(--rule);
+}
+.col-italic {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic; font-size: .95rem;
+  color: var(--gold); margin-bottom: .8rem; line-height: 1.5;
+}
+
+/* TWO COLUMNS */
+.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin: 2.5rem 0; align-items: start; }
+
+/* LEVELS */
+.level-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 2.5rem 0; }
+.level-card {
+  padding: 2.5rem; background: var(--bg2);
+  border-top: 3px solid var(--gold); position: relative;
+}
+.section:nth-child(even) .level-card { background: var(--bg); }
+.level-card:last-child { border-top-color: var(--gold); opacity: 1; }
+.level-card:last-child { border-top: 3px solid rgba(184,144,62,.4); }
+.level-roman {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic; font-size: .95rem;
+  color: var(--gold); margin-bottom: .6rem;
+}
+.level-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: .58rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: .8rem;
+}
+.level-title {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 800; font-size: 1.3rem;
+  color: var(--ink); margin-bottom: 1.2rem; line-height: 1.2;
+}
+.level-format {
+  margin-top: 1.5rem; padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-family: 'Raleway', sans-serif;
+  font-size: .58rem; font-weight: 600;
+  letter-spacing: .1em; color: var(--gold);
+}
+
+/* MODULES */
+.modules { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; margin: 2.5rem 0; }
+.mod { padding: 0 2rem 0 0; border-right: 1px solid var(--rule); }
+.mod:last-child { border-right: none; padding-right: 0; }
+.mod:not(:first-child) { padding-left: 2rem; }
+.mod-num {
+  font-family: 'Raleway', sans-serif; font-weight: 900;
+  font-size: 3rem; color: var(--bg2); line-height: 1; margin-bottom: .7rem;
+}
+.section:nth-child(even) .mod-num { color: var(--bg); }
+.mod-name {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700; font-size: .95rem;
+  color: var(--ink); margin-bottom: .7rem;
+}
+.mod-result {
+  margin-top: 1.2rem; padding: .9rem 1rem;
+  background: var(--bg2); border-left: 2px solid var(--gold);
+  font-size: .78rem; color: var(--ink-2); line-height: 1.6;
+  font-style: italic;
+}
+.section:nth-child(even) .mod-result { background: var(--bg); }
+
+/* FORMATS */
+.format-trio { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin: 2.5rem 0; }
+.format-card {
+  padding: 2rem; border: 1px solid var(--rule);
+  position: relative;
+}
+.format-card.featured { border-color: var(--gold); background: rgba(184,144,62,.04); }
+.format-card.featured::before {
+  content: 'Начать здесь';
+  position: absolute; top: -1px; right: 1.5rem;
+  background: var(--gold); color: #F8F3EB;
+  font-family: 'Raleway', sans-serif; font-size: .52rem;
+  font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+  padding: .25rem .8rem;
+}
+.format-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: .55rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1rem;
+}
+.format-title {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 800; font-size: 1.25rem;
+  color: var(--ink); margin-bottom: .3rem; line-height: 1.15;
+}
+.format-sub {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic; font-size: .9rem;
+  color: var(--gold); margin-bottom: 1.2rem;
+}
+.format-cta {
+  margin-top: 1.5rem; padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-family: 'Raleway', sans-serif;
+  font-size: .56rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--gold);
+}
+
+/* STRATEGY */
+.strategy-box {
+  background: var(--ink); padding: 3rem;
+  margin: 2.5rem 0; display: grid;
+  grid-template-columns: 42% 1fr; gap: 4rem;
+}
+.strat-left { }
+.strat-title {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 900; font-size: 2rem;
+  color: #F8F3EB; margin-bottom: .4rem;
+}
+.strat-sub {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic; font-size: .95rem;
+  color: var(--gold-lt); margin-bottom: 2rem;
+}
+.strat-reasons { list-style: none; }
+.strat-reason {
+  display: flex; gap: .8rem; padding: .75rem 0;
+  border-bottom: 1px solid rgba(184,144,62,.12);
+  font-size: .78rem; color: rgba(248,243,235,.55); line-height: 1.7;
+}
+.strat-reason:last-child { border-bottom: none; }
+.strat-check { color: var(--gold); flex-shrink: 0; font-size: .7rem; }
+.strat-reason strong { color: rgba(248,243,235,.85); font-weight: 400; }
+.strat-right { display: flex; flex-direction: column; gap: 1.5rem; }
+.strat-block-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: .56rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: .6rem;
+}
+.strat-block-title {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700; font-size: .95rem;
+  color: #F8F3EB; margin-bottom: .5rem;
+}
+.strat-block-body { font-size: .78rem; color: rgba(248,243,235,.5); line-height: 1.85; }
+.strat-block-body strong { color: rgba(248,243,235,.8); font-weight: 400; }
+.strat-divider { height: 1px; background: rgba(184,144,62,.15); }
+.strat-link {
+  padding: 1.2rem 1.5rem;
+  border: 1px solid rgba(184,144,62,.3);
+  background: rgba(184,144,62,.07);
+  display: flex; align-items: center; gap: 1rem;
+}
+.strat-link-inner { flex: 1; }
+.strat-link-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: .55rem; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: .3rem;
+}
+.strat-link a {
+  font-size: .85rem; color: #F8F3EB;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(248,243,235,.3);
+  transition: border-color .2s, color .2s;
+}
+.strat-link a:hover { color: var(--gold-lt); border-color: var(--gold); }
+.strat-arrow { color: var(--gold); font-size: 1rem; }
+
+/* TESTIMONIALS */
+.test-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; margin: 2.5rem 0; }
+.test-card { padding: 0 2.5rem 0 0; border-right: 1px solid var(--rule); }
+.test-card:last-child { border-right: none; padding-right: 0; }
+.test-card:not(:first-child) { padding-left: 2.5rem; }
+.test-line { height: 2px; background: var(--gold); margin-bottom: 1.5rem; opacity: 1; }
+.test-card:nth-child(2) .test-line { opacity: .5; }
+.test-card:nth-child(3) .test-line { opacity: .3; }
+.test-who {
+  font-family: 'Raleway', sans-serif;
+  font-size: .55rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1rem;
+}
+.test-quote {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic; font-size: 1.1rem;
+  color: var(--ink); line-height: 1.6; margin-bottom: 1.2rem;
+}
+.test-context {
+  font-size: .76rem; color: var(--ink-4);
+  line-height: 1.8; padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+/* CONTACT */
+.contact-section {
+  padding: 6rem; background: var(--bg);
+  text-align: left; border-bottom: none;
+}
+.contact-title {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 900; font-size: clamp(4rem, 8vw, 8rem);
+  color: var(--ink); line-height: .9;
+  letter-spacing: -.04em; margin-bottom: 2rem;
+}
+.contact-tagline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic; font-size: 1.2rem;
+  color: var(--ink-3); max-width: 480px;
+  line-height: 1.6; margin-bottom: 2.5rem;
+}
+.contact-rule { width: 3rem; height: 1px; background: var(--gold); margin-bottom: 2.5rem; }
+.contact-rows { display: flex; flex-direction: column; gap: .6rem; }
+.contact-row { display: flex; align-items: center; gap: 1.5rem; }
+.c-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: .56rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--gold); min-width: 6rem;
+}
+.c-val { font-size: .88rem; color: var(--ink-2); }
+.contact-closing {
+  margin-top: 3rem; font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic; font-size: .9rem; color: var(--ink-4);
+}
+
+/* PROCESS STEPS */
+.steps { list-style: none; margin-bottom: 2rem; }
+.step-item {
+  display: flex; gap: 1.2rem; padding: 1.1rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.step-item:first-child { padding-top: 0; }
+.step-arr { color: var(--gold); font-size: .7rem; flex-shrink: 0; margin-top: .25rem; }
+.step-text { font-size: .85rem; color: var(--ink-3); line-height: 1.8; }
+.step-text strong { font-family: 'Raleway', sans-serif; font-weight: 600; color: var(--ink); display: block; margin-bottom: .15rem; font-size: .88rem; }
+
+/* MISC */
+.note-box {
+  padding: 1.5rem 2rem; border: 1px solid var(--rule);
+  margin-top: 2rem; font-size: .83rem; color: var(--ink-3); line-height: 1.8;
+}
+.note-box strong { font-weight: 500; color: var(--ink); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .section, .hero-section, .contact-section { padding: 3rem 2rem; }
+  .cols-3, .modules, .level-pair, .cols-2, .format-trio, .test-grid { grid-template-columns: 1fr; }
+  .col, .mod, .test-card { border-right: none; padding: 0; margin-bottom: 2rem; }
+  .col:not(:first-child), .mod:not(:first-child), .test-card:not(:first-child) { padding-left: 0; }
+  .strategy-box { grid-template-columns: 1fr; gap: 2rem; }
+  .hero-title { font-size: 3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-eyebrow">Медиакит 2025</div>
+    <div class="sidebar-name">Марина<br>Кулич</div>
+    <div class="sidebar-sub">Адвокат вашей души</div>
+  </div>
+
+  <a class="nav-item active" href="#hero">
+    <span class="nav-num">i</span>
+    <span class="nav-label">Кто я и с кем работаю</span>
+  </a>
+  <a class="nav-item" href="#why">
+    <span class="nav-num">ii</span>
+    <span class="nav-label">Почему не работает то, что пробовали</span>
+  </a>
+  <a class="nav-item" href="#layers">
+    <span class="nav-num">iii</span>
+    <span class="nav-label">Три слоя метода</span>
+  </a>
+  <a class="nav-item" href="#levels">
+    <span class="nav-num">iv</span>
+    <span class="nav-label">Две ступени</span>
+  </a>
+  <a class="nav-item" href="#modules">
+    <span class="nav-num">v</span>
+    <span class="nav-label">Четыре модуля</span>
+  </a>
+  <a class="nav-item" href="#process">
+    <span class="nav-num">vi</span>
+    <span class="nav-label">Как выглядит работа</span>
+  </a>
+  <a class="nav-item" href="#results">
+    <span class="nav-num">vii</span>
+    <span class="nav-label">Результаты</span>
+  </a>
+  <a class="nav-item" href="#formats">
+    <span class="nav-num">viii</span>
+    <span class="nav-label">Форматы работы</span>
+  </a>
+  <a class="nav-item" href="#strategy">
+    <span class="nav-num">ix</span>
+    <span class="nav-label">Стратегия присутствия</span>
+  </a>
+  <a class="nav-item" href="#testimonials">
+    <span class="nav-num">x</span>
+    <span class="nav-label">Что говорят клиенты</span>
+  </a>
+  <a class="nav-item" href="#contact">
+    <span class="nav-num">xi</span>
+    <span class="nav-label">Контакт</span>
+  </a>
+</aside>
+
+<!-- ══ MAIN ══ -->
+<main class="main">
+
+  <!-- i. HERO -->
+  <section class="hero-section" id="hero">
+    <div class="hero-meta">Медиакит 2025</div>
+    <div class="hero-title">Марина<br>Кулич</div>
+    <div class="hero-author">
+      <span class="author-label">Специализация</span>
+      <span class="author-name">Адвокат вашей души. Не духовный наставник — специалист по реализации.</span>
+    </div>
+    <div class="hero-tagline">Работаю с женщинами, у которых снаружи есть всё — и внутри ощущение, что живут не свою жизнь. Тело · Психика · Душа. Онлайн. Русский и итальянский языки.</div>
+
+    <div class="hero-desires">
+      <div class="desire-row"><span class="d-arr">→</span> Просыпаться и думать: боже, это моя жизнь</div>
+      <div class="desire-row"><span class="d-arr">→</span> Делать то, от чего горит внутри — и получать за это</div>
+      <div class="desire-row"><span class="d-arr">→</span> Говорить «нет» — легко, без объяснений</div>
+      <div class="desire-row"><span class="d-arr">→</span> Принимать решения из силы, а не из страха</div>
+      <div class="desire-row"><span class="d-arr">→</span> Перестать жить в режиме «тяну» — начать в режиме «хочу»</div>
+      <div class="desire-row"><span class="d-arr">→</span> Не ждать «после» — жить так прямо сейчас</div>
+    </div>
+  </section>
+
+  <!-- ii. WHY -->
+  <section class="section" id="why">
+    <div class="eyebrow">Проблема не в вас</div>
+    <div class="section-title">Почему не работает<br>то, что вы уже пробовали</div>
+    <div class="section-sub">Медитации. Психолог. Курс по «осознанности». Расстановки. И всё равно стоите на месте. Это не ваша проблема — это проблема подхода.</div>
+
+    <div class="cols-3">
+      <div class="col">
+        <div class="col-num">01</div>
+        <div class="eyebrow" style="margin-bottom:.7rem">Медитации и духовные практики</div>
+        <div class="col-title">Дают состояние — но не выход в жизнь</div>
+        <p>Вы возвращаетесь с ощущением «я всё поняла» — и через три дня всё по-прежнему. Потому что понимание не живёт в голове. Оно живёт в теле — и в действиях.</p>
+      </div>
+      <div class="col">
+        <div class="col-num">02</div>
+        <div class="eyebrow" style="margin-bottom:.7rem">Психология в классическом виде</div>
+        <div class="col-title">Объясняет откуда — но не меняет</div>
+        <p>Тело по-прежнему трусит. Решения по-прежнему не принимаются. Знать «почему» — недостаточно, если нет понимания что делать с этим прямо сейчас.</p>
+      </div>
+      <div class="col">
+        <div class="col-num">03</div>
+        <div class="eyebrow" style="margin-bottom:.7rem">Духовные наставники</div>
+        <div class="col-title">Красиво — но что делать в понедельник?</div>
+        <p>Пробуждение, свет, предназначение. Но непонятно что с этим делать, когда нужно принять решение — и снова паралич. Абстракция не работает там, где нужна конкретика.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-text">Настоящие перемены живут там, где встречаются три вещи одновременно: тело, которое наконец услышали, глубокое узнавание себя — не «примерно», а «я знаю» — и действия, которые из этого вырастают. Убери любое — и изменения останутся разговором о переменах.</div>
+      <div class="callout-label">Главная мысль</div>
+    </div>
+  </section>
+
+  <!-- iii. LAYERS -->
+  <section class="section" id="layers">
+    <div class="eyebrow">Метод</div>
+    <div class="section-title">Три слоя,<br>которые нельзя разделить</div>
+    <div class="section-sub">Большинство специалистов работают с одним слоем. Я работаю со всеми тремя — потому что они неотделимы.</div>
+
+    <div class="cols-3">
+      <div class="col">
+        <div class="col-num">01</div>
+        <div class="col-italic">Первый язык, на котором с вами говорит ваша душа.</div>
+        <div class="col-title">Тело</div>
+        <p>Хроническая усталость, бессонница, гормональные сбои, зажимы — это не поломки. Это сигналы. Тело держит то, что вы не прожили, не признали, не сказали. Я читаю эти сигналы и учу вас их читать. Как натуропат с клинической практикой — там где нужна поддержка через питание или нутрицевтики, я это делаю тоже.</p>
+        <div class="col-tag">Натуропатия · Телесные практики</div>
+      </div>
+      <div class="col">
+        <div class="col-num">02</div>
+        <div class="col-italic">Здесь живут ваши автоматизмы.</div>
+        <div class="col-title">Психика</div>
+        <p>То, почему вы снова соглашаетесь на меньшее. Почему сжимаетесь перед важным шагом. Почему выбираете не тех — и знаете, но продолжаете. Моя задача — не «принять себя». А стать взрослым человеком, который собой владеет.</p>
+        <div class="col-tag">Коучинг · Работа с паттернами</div>
+      </div>
+      <div class="col">
+        <div class="col-num">03</div>
+        <div class="col-italic">Не абстракция — конкретная система.</div>
+        <div class="col-title">Душа</div>
+        <p>Она говорит с вами через желания и нежелания, через тело, через то, что вы называете «я просто чувствую, что это не моё». Когда вы теряете с ней связь — теряете курс. Моя работа — восстановить эту связь. Не через ритуалы. Через конкретные практики.</p>
+        <div class="col-tag">Смыслы · Призвание · Предназначение</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- iv. LEVELS -->
+  <section class="section" id="levels">
+    <div class="eyebrow">С кем я работаю</div>
+    <div class="section-title">Две ступени</div>
+    <div class="section-sub">Важно понять честно — чтобы не тратить ни ваше время, ни моё.</div>
+
+    <div class="level-pair">
+      <div class="level-card">
+        <div class="level-roman">i</div>
+        <div class="level-label">Ступень первая</div>
+        <div class="level-title">«Хочу, но стою»</div>
+        <p>Вы чувствуете, что жизнь проходит не так. Тело сигналит. Внутри что-то давит. Снаружи всё есть — а внутри пустота. Или годами стоите перед важным шагом. Или просто не знаете, чего хотите вообще.</p>
+        <p>Это не слабость. Это симптом дисконнекта с собой. Мы начинаем с тела, восстанавливаем навигатор, учимся слышать себя в ежедневном. Из этого вырастает всё остальное.</p>
+        <div class="level-format">Форматы: Закрытый день · Групповая программа «Своя жизнь»</div>
+      </div>
+      <div class="level-card">
+        <div class="level-roman">ii</div>
+        <div class="level-label">Ступень вторая</div>
+        <div class="level-title">«Я знаю себя — хочу большего»</div>
+        <p>Вы прошли определённый путь. Базовые вопросы в целом отвечены. Но вы чувствуете, что ваш масштаб не реализован. Что играете меньше, чем можете.</p>
+        <p>Вам нужен человек, который будет рядом как партнёр: требовательный, честный, верящий в вас так, как вы пока не верите сами.</p>
+        <div class="level-format">Форматы: Индивидуальная работа · Закрытые элитарные группы</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-text">Большинство женщин, которые приходят ко мне за реализацией, обнаруживают, что им сначала нужна первая ступень. Не «не готовы» — а база не выстроена. Я вижу это сразу и говорю честно. Строить реализацию без фундамента — это то, что уже не сработало.</div>
+      <div class="callout-label">Важно знать</div>
+    </div>
+  </section>
+
+  <!-- v. MODULES -->
+  <section class="section" id="modules">
+    <div class="eyebrow">Структура работы</div>
+    <div class="section-title">Четыре модуля метода</div>
+    <div class="section-sub">Чёткая внутренняя логика — даже когда снаружи это выглядит как живой разговор.</div>
+
+    <div class="modules">
+      <div class="mod">
+        <div class="mod-num">01</div>
+        <div class="mod-name">Слышать тело</div>
+        <p>Тело — источник информации, а не проблем. Работаем с симптомами как с языком. Снимаем хроническое напряжение, восстанавливаем базовый контакт с ощущениями.</p>
+        <div class="mod-result">Первые внятные ответы на «как я себя чувствую» — не «нормально», а реально.</div>
+      </div>
+      <div class="mod">
+        <div class="mod-num">02</div>
+        <div class="mod-name">Знать себя</div>
+        <p>Кто я без роли мамы, жены, успешной, правильной? Откуда это сжимание и паралич перед решениями? Взросление — в смысле способности собой владеть.</p>
+        <div class="mod-result">Ясность: что ваше, что нет. Первые решения из себя, а не из ожидания.</div>
+      </div>
+      <div class="mod">
+        <div class="mod-num">03</div>
+        <div class="mod-name">Слышать душу</div>
+        <p>Уровень смыслов и желаний. Что вы на самом деле хотите — не то, что правильно, а то, что ваше? Настраиваем внутренний компас.</p>
+        <div class="mod-result">Внутренний ориентир, не зависящий от чужого мнения.</div>
+      </div>
+      <div class="mod">
+        <div class="mod-num">04</div>
+        <div class="mod-name">Жить своей жизнью</div>
+        <p>Всё понятое и прочувствованное переводится в реальность. Отношения из силы. Решения под давлением. Без возврата к старым паттернам.</p>
+        <div class="mod-result">Изменения, которые видны снаружи и ощущаются изнутри.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- vi. PROCESS -->
+  <section class="section" id="process">
+    <div class="eyebrow">Как это выглядит</div>
+    <div class="section-title">Изнутри</div>
+
+    <div class="cols-2">
+      <div>
+        <ul class="steps">
+          <li class="step-item"><span class="step-arr">→</span><div class="step-text"><strong>Вы приходите с тем, что есть</strong>Состояние, вопрос, то, что застряло. Ничего готовить не нужно.</div></li>
+          <li class="step-item"><span class="step-arr">→</span><div class="step-text"><strong>Я называю то, что стоит за этим</strong>Прямо, без смягчений. Вижу то, что вы, возможно, ещё не видите.</div></li>
+          <li class="step-item"><span class="step-arr">→</span><div class="step-text"><strong>Практика — сразу, в той же встрече</strong>Вы не уходите с «надо попробовать». Уходите с тем, что уже прожили.</div></li>
+          <li class="step-item"><span class="step-arr">→</span><div class="step-text"><strong>Задание между встречами</strong>Простое, но хакающее автоматизм. Именно здесь часто и происходит главное.</div></li>
+        </ul>
+        <div class="note-box">
+          <strong>Мой контракт с каждым клиентом.</strong> Когда вы приходите ко мне — берёте на себя ответственность за рост. Я никого не тяну. Но тех, кто выбрал — веду без компромиссов в сторону вашей же реализации.
+        </div>
+      </div>
+      <div>
+        <div class="bq" style="margin-bottom:2rem">
+          <div class="bq-text">«Я не понимала, чего боялась больше: что она меня увидит — или что я сама себя увижу.»</div>
+        </div>
+        <p><strong>Мой стиль — не тихая поддержка.</strong> Я буду оспаривать то, что вам не помогает. Если вы пришли жалеть себя — с уважением перенаправлю. Если вы пришли менять — я буду рядом полностью.</p>
+        <p>Я адвокат вашей души — и буду стоять за её реализацию даже тогда, когда вы сами в себя ещё не верите.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- vii. RESULTS -->
+  <section class="section" id="results">
+    <div class="eyebrow">Что меняется</div>
+    <div class="section-title">Результаты</div>
+    <div class="section-sub">Я не обещаю одинакового результата всем. У каждого — своё. Но вот что происходит стабильно.</div>
+
+    <div class="cols-2">
+      <div>
+        <div style="margin-bottom:2rem">
+          <div class="eyebrow" style="margin-bottom:.6rem">01</div>
+          <div class="col-title" style="font-size:1.3rem;margin-bottom:.6rem">Тело перестаёт кричать</div>
+          <p>Симптомы, которые не уходили годами — теряют остроту или исчезают. Не потому что «лечили». А потому что убрали причину. Тело расслабляется, когда его наконец услышали.</p>
+        </div>
+        <div>
+          <div class="eyebrow" style="margin-bottom:.6rem">02</div>
+          <div class="col-title" style="font-size:1.3rem;margin-bottom:.6rem">Приходит ясность</div>
+          <p>«Я наконец понимаю, чего хочу» — и это не метафора, а ощущение в теле. Желания перестают быть страшными. Появляется право на них.</p>
+        </div>
+      </div>
+      <div>
+        <div style="margin-bottom:2rem">
+          <div class="eyebrow" style="margin-bottom:.6rem">03</div>
+          <div class="col-title" style="font-size:1.3rem;margin-bottom:.6rem">Решения принимаются иначе</div>
+          <p>Не из страха. Не из ожидания одобрения. Из себя. Паралич перед важными шагами уходит — потому что появляется внутренний ориентир.</p>
+        </div>
+        <div>
+          <div class="eyebrow" style="margin-bottom:.6rem">04</div>
+          <div class="col-title" style="font-size:1.3rem;margin-bottom:.6rem">Жизнь становится своей</div>
+          <p>Просыпаешься — и думаешь: боже, это моя жизнь. Именно твоя. Это звучит банально, пока не почувствуешь. Потом — очевидно.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-text">Я работаю на глубину. Медленнее, чем хочется — и устойчивее, чем кажется возможным. Паттерн, формировавшийся 35 лет, не меняется за месяц. Зато не возвращается.</div>
+      <div class="callout-label">Важно понять</div>
+    </div>
+  </section>
+
+  <!-- viii. FORMATS -->
+  <section class="section" id="formats">
+    <div class="eyebrow">Как начать</div>
+    <div class="section-title">Форматы работы</div>
+
+    <div class="format-trio">
+      <div class="format-card featured">
+        <div class="format-label">Точка входа</div>
+        <div class="format-title">Закрытый день</div>
+        <div class="format-sub">Один насыщенный день</div>
+        <p>Камерная встреча для 8–10 женщин, отобранных лично мной. Один день: теория, практика, поле группы. Только через личный контакт или рекомендацию. Никаких случайных людей.</p>
+        <div class="format-cta">По личному контакту →</div>
+      </div>
+      <div class="format-card">
+        <div class="format-label">Групповая программа</div>
+        <div class="format-title">«Своя жизнь»</div>
+        <div class="format-sub">3 месяца онлайн</div>
+        <p>Группа 8–12 человек. Две встречи в месяц по 90–120 минут. Поддержка между встречами. Работа по четырём модулям метода. Вход — по результатам отборочного разговора.</p>
+        <div class="format-cta">Отборочный разговор →</div>
+      </div>
+      <div class="format-card">
+        <div class="format-label">Индивидуально</div>
+        <div class="format-title">Личная работа</div>
+        <div class="format-sub">От 3 месяцев</div>
+        <p>Полное ведение — тело, психика, смыслы — всё в одних руках. Я беру не всех. Нам должно быть взаимно. Вход только по первичному разговору.</p>
+        <div class="format-cta">Первичный разговор →</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ix. STRATEGY -->
+  <section class="section" id="strategy">
+    <div class="eyebrow">Присутствие и стратегия</div>
+    <div class="section-title">Telegram — платформа для старта</div>
+    <div class="section-sub">Один канал. Без визуального давления. Именно там Марина — без фильтра.</div>
+
+    <div class="strategy-box">
+      <div class="strat-left">
+        <div class="strat-title">Telegram</div>
+        <div class="strat-sub">Почему именно туда</div>
+        <ul class="strat-reasons">
+          <li class="strat-reason"><span class="strat-check">✦</span><div><strong>Не нужен визуальный контент.</strong> Только текст, голос, эфир — именно так говорит Марина.</div></li>
+          <li class="strat-reason"><span class="strat-check">✦</span><div><strong>Голосовые — её формат.</strong> Там она настоящая. Именно так влюбляются в эксперта.</div></li>
+          <li class="strat-reason"><span class="strat-check">✦</span><div><strong>Эфиры без подготовки.</strong> Включила — поговорила — выключила. Без монтажа.</div></li>
+          <li class="strat-reason"><span class="strat-check">✦</span><div><strong>Русскоязычная аудитория там.</strong> Особенно эмигрантки в Европе — её аудитория.</div></li>
+          <li class="strat-reason"><span class="strat-check">✦</span><div><strong>Раз в неделю достаточно.</strong> Один живой пост лучше пяти формальных.</div></li>
+        </ul>
+      </div>
+      <div class="strat-right">
+        <div>
+          <div class="strat-block-label">Что публиковать</div>
+          <div class="strat-block-title">Три формата — и ничего лишнего</div>
+          <div class="strat-block-body">
+            <strong>Истории из практики</strong> — один момент, без имён, с живой сутью. Самый доверительный формат.<br><br>
+            <strong>Наблюдения и мысли</strong> — 150–250 слов. Что я вижу снова и снова. Один вопрос в конце.<br><br>
+            <strong>Голосовые и эфиры</strong> — там, где она без фильтра. Создаёт близость и доверие быстрее всего.
+          </div>
+        </div>
+        <div class="strat-divider"></div>
+        <div>
+          <div class="strat-block-label">Чего не делать</div>
+          <div class="strat-block-body">
+            <strong>Не объяснять метод через термины</strong> — только через жизнь и образы.<br>
+            <strong>Не гнаться за регулярностью</strong> в ущерб живости.<br>
+            <strong>Не писать советы</strong> в стиле «делай вот так» — это не её голос.
+          </div>
+        </div>
+        <div class="strat-link">
+          <div class="strat-link-inner">
+            <div class="strat-link-label">Темы постов, bio и контент-план</div>
+            <a href="https://docs.google.com/document/d/19yNNkehVSkmTMxuqxcv1cVH9DtplSedGw62xkNrfCK0/edit?usp=sharing" target="_blank">Открыть документ →</a>
+          </div>
+          <div class="strat-arrow">↗</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- x. TESTIMONIALS -->
+  <section class="section" id="testimonials">
+    <div class="eyebrow">Что говорят</div>
+    <div class="section-title">Голоса тех, кто прошёл путь</div>
+
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-line"></div>
+        <div class="test-who">Анджелика, 18 лет</div>
+        <div class="test-quote">«Для меня Марина — что-то вроде ангела-хранителя, который смотрит сверху и бережёт мою душу. Она переводила мои внутренние ощущения в слова — даже тогда, когда я сама не могла объяснить, что чувствую.»</div>
+        <div class="test-context">Пришла с ощущением пустоты, которую считала невосполнимой. Ушла с внутренней структурой жизни: целями, энергией, способностью действовать — и принимать взлёты и падения без паники.</div>
+      </div>
+      <div class="test-card">
+        <div class="test-line"></div>
+        <div class="test-who">Семья · 25 лет в браке</div>
+        <div class="test-quote">«Каждая встреча — живая, индивидуальная, тонко подстроенная под наше состояние именно в этот момент. Её подход невозможно назвать шаблонным: это точная, глубокая работа.»</div>
+        <div class="test-context">Ходили по замкнутому кругу — каждый разговор заканчивался молчанием или конфликтом. За несколько месяцев научились по-настоящему слышать друг друга.</div>
+      </div>
+      <div class="test-card">
+        <div class="test-line"></div>
+        <div class="test-who">Джанпаоло, 65 лет</div>
+        <div class="test-quote">«Её особый дар — видеть корень конфликта или внутреннего напряжения и помогать человеку говорить о том, что обычно трудно выразить словами.»</div>
+        <div class="test-context">Пришёл по настоянию жены — не считал, что помощь нужна ему. Убеждён теперь: никогда не поздно что-то изменить. Даже если кажется, что помощь тебе не нужна.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- xi. CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="eyebrow" style="margin-bottom:2rem">Начать работу</div>
+    <div class="contact-title">Марина<br>Кулич</div>
+    <div class="contact-tagline">Если вы чувствуете, что это про вас — напишите. Первый разговор: чтобы понять, подходим ли мы друг другу. Ничего готовить не нужно.</div>
+    <div class="contact-rule"></div>
+    <div class="contact-rows">
+      <div class="contact-row"><span class="c-label">Telegram</span><span class="c-val">[ указать ]</span></div>
+      <div class="contact-row"><span class="c-label">WhatsApp</span><span class="c-val">[ указать ]</span></div>
+      <div class="contact-row"><span class="c-label">Email</span><span class="c-val">[ указать ]</span></div>
+    </div>
+    <div class="contact-closing">Онлайн · Русский и итальянский языки<br>Я не работаю со всеми. Но если это ваше — вы это почувствуете.</div>
+  </section>
+
+</main>
+
+<script>
+// Active nav on scroll
+const sections = document.querySelectorAll('section[id]');
+const navItems = document.querySelectorAll('.nav-item');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navItems.forEach(n => n.classList.remove('active'));
+      const active = document.querySelector(`.nav-item[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.3, rootMargin: '-10% 0px -60% 0px' });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
