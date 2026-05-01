@@ -712,20 +712,46 @@ body {
 
     <div class="path-connector"></div>
 
-    <!-- ВСТРЕЧА 2 — LOCKED -->
-    <div class="meeting-card locked" data-id="2">
-      <div class="card-head">
+    <!-- ВСТРЕЧА 2 -->
+    <div class="meeting-card open" data-id="2">
+      <div class="card-head" onclick="toggle(2)">
         <div>
           <div class="meeting-num">Встреча 2</div>
-          <div class="meeting-date">23 апр</div>
+          <div class="meeting-date">30 апр</div>
         </div>
         <div class="card-info">
-          <div class="card-theme">Продукт</div>
-          <div class="card-title">Как не перегрузить и дать результат</div>
-          <div class="card-desc">Образовательный путь: логика, шаги, нагрузка</div>
+          <div class="card-theme">Упаковка</div>
+          <div class="card-title">Концепт и упаковка. Первые шаги контента</div>
+          <div class="card-desc">Шаги программы каждого участника, лендинг через ИИ, стратегия запуска через контент</div>
         </div>
         <div class="card-right">
-          <div class="lock-icon">🔒</div>
+          <span class="status-badge done">✓ Прошла</span>
+          <div class="chevron">▾</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          <div class="result-block">
+            <div class="rb-label">Результат встречи</div>
+            <p>Шаги программы каждого участника, лендинг через ИИ за несколько минут, стратегия контента на 7–10 дней для набора первой группы</p>
+          </div>
+          <div class="actions-block">
+            <a href="#" class="action-btn recording" onclick="openVideo('https://kinescope.io/embed/n4jgcY8ckkzgfXiCJW7V8m'); return false;">
+              <div class="btn-icon">▶</div>
+              Запись встречи
+              <span class="btn-arrow">↗</span>
+            </a>
+            <a href="https://tsyrocoach-metod.github.io/school/3004.html" target="_blank" class="action-btn notes">
+              <div class="btn-icon">📄</div>
+              Конспект
+              <span class="btn-arrow">↗</span>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1n61YOdOIJt31CYE78F87BOuo96Z-P9vI?usp=share_link" target="_blank" class="action-btn tasks">
+              <div class="btn-icon">🤖</div>
+              ИИ-помощники
+              <span class="btn-arrow">↗</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -737,12 +763,12 @@ body {
       <div class="card-head">
         <div>
           <div class="meeting-num">Встреча 3</div>
-          <div class="meeting-date">30 апр</div>
+          <div class="meeting-date">7 мая</div>
         </div>
         <div class="card-info">
-          <div class="card-theme">Упаковка</div>
-          <div class="card-title">Продукт и как рассказывать о нём</div>
-          <div class="card-desc">Упаковка продукта, язык презентации, первые касания</div>
+          <div class="card-theme">Группа</div>
+          <div class="card-title">Форматы наполнения группы</div>
+          <div class="card-desc">Как устроена групповая работа, логика встреч и нагрузка. Первые шаги контента</div>
         </div>
         <div class="card-right">
           <div class="lock-icon">🔒</div>
@@ -757,12 +783,12 @@ body {
       <div class="card-head">
         <div>
           <div class="meeting-num">Встреча 4</div>
-          <div class="meeting-date">7 мая</div>
+          <div class="meeting-date">14 мая</div>
         </div>
         <div class="card-info">
-          <div class="card-theme">Контент</div>
-          <div class="card-title">Контент и окна продаж</div>
-          <div class="card-desc">Прогрев, эфиры, касания — система которая продаёт</div>
+          <div class="card-theme">Группа</div>
+          <div class="card-title">Форматы наполнения группы и контент</div>
+          <div class="card-desc">Углубляем форматы, разбираем контент под запуск</div>
         </div>
         <div class="card-right">
           <div class="lock-icon">🔒</div>
@@ -777,12 +803,12 @@ body {
       <div class="card-head">
         <div>
           <div class="meeting-num">Встреча 5</div>
-          <div class="meeting-date">14 мая</div>
+          <div class="meeting-date">21 мая</div>
         </div>
         <div class="card-info">
-          <div class="card-theme">Формат</div>
-          <div class="card-title">Формат группы</div>
-          <div class="card-desc">Детальное наполнение программы под ваши ресурсы</div>
+          <div class="card-theme">Продажи</div>
+          <div class="card-title">Окна продаж: эфиры и привлечение аудитории</div>
+          <div class="card-desc">Система окон продаж, как проводить эфиры и набирать аудиторию из разных источников</div>
         </div>
         <div class="card-right">
           <div class="lock-icon">🔒</div>
@@ -797,12 +823,12 @@ body {
       <div class="card-head">
         <div>
           <div class="meeting-num">Встреча 6</div>
-          <div class="meeting-date">21 мая</div>
+          <div class="meeting-date">28 мая</div>
         </div>
         <div class="card-info">
           <div class="card-theme">Продажи</div>
-          <div class="card-title">Переписки и продажи</div>
-          <div class="card-desc">Работа с возражениями и без — как продавать экологично</div>
+          <div class="card-title">Переписки, продажи и работа с возражениями</div>
+          <div class="card-desc">Как продавать экологично — с возражениями и без</div>
         </div>
         <div class="card-right">
           <div class="lock-icon">🔒</div>
@@ -817,12 +843,12 @@ body {
       <div class="card-head">
         <div>
           <div class="meeting-num">Встреча 7</div>
-          <div class="meeting-date">28 мая</div>
+          <div class="meeting-date">4 июн</div>
         </div>
         <div class="card-info">
           <div class="card-theme">Разбор</div>
           <div class="card-title">Разбор запусков</div>
-          <div class="card-desc">Что сработало, что корректируем, следующий цикл</div>
+          <div class="card-desc">Что сработало, что корректируем. Как легко готовиться ко встречам, адаптировать материал под группу и готовить презентации</div>
         </div>
         <div class="card-right">
           <div class="lock-icon">🔒</div>
@@ -837,10 +863,10 @@ body {
       <div class="card-head">
         <div>
           <div class="meeting-num">Встреча 8</div>
-          <div class="meeting-date">4 июн</div>
+          <div class="meeting-date">11 июн</div>
         </div>
         <div class="card-info">
-          <div class="card-theme">Финал</div>
+          <div class="card-theme">Финальная</div>
           <div class="card-title">Итоги и следующий шаг</div>
           <div class="card-desc">Фиксируем результат, упаковываем систему для повтора</div>
         </div>
@@ -894,14 +920,16 @@ body {
   <div class="extra-blocks" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
 
     <!-- ИИ-промпты -->
-    <div class="products-section" style="padding:32px 36px;">
+    <a href="https://drive.google.com/drive/folders/1n61YOdOIJt31CYE78F87BOuo96Z-P9vI?usp=share_link" target="_blank"
+       class="products-section" style="padding:32px 36px;text-decoration:none;display:block;transition:opacity .2s;"
+       onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
         <div class="products-title" style="margin:0;">Инструменты</div>
-        <span style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.5);font-family:var(--font-head);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;padding:5px 14px;border-radius:40px;">Скоро</span>
+        <span style="color:var(--yellow);font-size:20px;">↗</span>
       </div>
-      <div class="products-headline" style="font-size:clamp(18px,2vw,24px);">ИИ‑промпты и<br><em>настройки ассистентов</em></div>
-      <p class="products-sub" style="margin-bottom:0;font-size:14px;">Готовые промпты под ваши задачи — оффер, посты, планирование</p>
-    </div>
+      <div class="products-headline" style="font-size:clamp(18px,2vw,24px);">ИИ‑помощники и<br><em>настройки ассистентов</em></div>
+      <p class="products-sub" style="margin-bottom:0;font-size:14px;">Готовые промпты под ваши задачи — оффер, посты, лендинг — открывается в Google Drive</p>
+    </a>
 
     <!-- Ресёрчи -->
     <a href="https://drive.google.com/drive/folders/1eWuONL36TGsJ_uKdiF46yanIuCnbk_lH?usp=share_link" target="_blank"
