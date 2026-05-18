@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Конспект встречи — 7 мая</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #f8f7f4;
+    color: #1a1a18;
+    line-height: 1.7;
+    padding: 2.5rem 1rem;
+  }
+
+  .container { max-width: 860px; margin: 0 auto; }
+
+  .header {
+    border-left: 4px solid #534AB7;
+    padding: 1.2rem 1.5rem;
+    background: #EEEDFE;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 2.5rem;
+  }
+
+  .header h1 { font-size: 22px; font-weight: 500; color: #26215C; margin-bottom: 0.3rem; }
+  .header .meta { font-size: 13px; color: #534AB7; }
+
+  h2 {
+    font-size: 17px; font-weight: 500; color: #26215C;
+    margin: 2rem 0 1rem; padding-bottom: 0.4rem;
+    border-bottom: 0.5px solid #CECBF6;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  h2 .num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px;
+    background: #534AB7; color: #fff;
+    border-radius: 50%; font-size: 12px; font-weight: 500; flex-shrink: 0;
+  }
+
+  h3 { font-size: 13px; font-weight: 600; color: #534AB7; margin: 1.2rem 0 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  p { font-size: 15px; color: #2C2C2A; margin-bottom: 0.6rem; }
+
+  .card {
+    background: #fff; border: 0.5px solid #D3D1C7;
+    border-radius: 12px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem;
+  }
+
+  .card-purple { border-left: 3px solid #534AB7; }
+  .card-teal   { border-left: 3px solid #1D9E75; }
+  .card-amber  { border-left: 3px solid #BA7517; }
+
+  .callout {
+    background: #EEEDFE; border-left: 3px solid #534AB7;
+    border-radius: 0 8px 8px 0; padding: 0.9rem 1.1rem;
+    font-size: 14px; color: #26215C; margin: 1rem 0;
+  }
+
+  .callout.teal { background: #E1F5EE; border-color: #1D9E75; color: #04342C; }
+  .callout.amber { background: #FAEEDA; border-color: #BA7517; color: #412402; }
+
+  ul { padding-left: 1.2rem; font-size: 14px; color: #2C2C2A; }
+  ul li { margin-bottom: 0.4rem; }
+
+  .steps { display: flex; flex-direction: column; gap: 0.7rem; margin: 1rem 0; }
+  .step { display: flex; gap: 12px; align-items: flex-start; }
+  .step-num {
+    min-width: 26px; height: 26px; background: #534AB7; color: #fff;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 500; flex-shrink: 0; margin-top: 2px;
+  }
+  .step-title { font-size: 14px; font-weight: 500; color: #26215C; margin-bottom: 2px; }
+  .step-desc { font-size: 13px; color: #5F5E5A; margin: 0; }
+
+  .tag {
+    display: inline-block; font-size: 11px; padding: 2px 8px;
+    border-radius: 4px; font-weight: 500; background: #EEEDFE; color: #3C3489; margin: 2px;
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1rem 0; }
+
+  .col-box {
+    background: #f8f7f4; border: 0.5px solid #D3D1C7;
+    border-radius: 10px; padding: 1rem;
+  }
+
+  .col-box .col-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #888780; margin-bottom: 0.5rem; }
+
+  .quote-block {
+    border-left: 3px solid #D3D1C7; padding: 0.6rem 1rem;
+    background: #faf9f6; border-radius: 0 8px 8px 0;
+    font-size: 14px; color: #3C3C3A; font-style: italic; margin: 0.8rem 0;
+  }
+
+  .quote-block .who { font-size: 11px; font-style: normal; font-weight: 500; color: #888780; margin-bottom: 4px; }
+
+  .action-list { list-style: none; padding: 0; }
+  .action-list li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14px; padding: 0.6rem 0; border-bottom: 0.5px solid #f1efe8;
+  }
+  .action-list li:last-child { border-bottom: none; }
+  .who-badge {
+    font-size: 11px; font-weight: 500; background: #EEEDFE; color: #3C3489;
+    border-radius: 4px; padding: 2px 7px; white-space: nowrap; margin-top: 2px; flex-shrink: 0;
+  }
+  .who-badge.teal { background: #E1F5EE; color: #085041; }
+  .who-badge.amber { background: #FAEEDA; color: #633806; }
+
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+    body { padding: 1.5rem 0.8rem; }
+  }
+
+  footer { margin-top: 3rem; text-align: center; font-size: 12px; color: #B4B2A9; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>Конспект встречи — 7 мая</h1>
+    <div class="meta">Встреча 3 &nbsp;·&nbsp; Форматы наполнения группы &nbsp;·&nbsp; Ведущая: Светлана Цыро</div>
+  </div>
+
+  <!-- Контекст встречи -->
+  <h2><span class="num">1</span> Контекст и настроение группы</h2>
+  <div class="card card-purple">
+    <p>Четвёртая встреча по счёту — в групповой динамике это типичная точка спада мотивации. Светлана сразу назвала это прямо: «это нормально, называется групповая динамика». У каждой участницы в начале встречи были «мысли скакуны» — желание всё бросить, уйти в найм, отложить запуск.</p>
+    <div class="callout">
+      <strong>Ключевое напоминание от Светланы:</strong> «Мы здесь не ради себя, а ради людей которым можем помочь. Вспомни зачем ты это делаешь — и становится чуть легче сделать один маленький шаг.»
+    </div>
+    <p>Тактика работы со спадом: <strong>маленькие задачи</strong>. Одна задача в день → похвалить себя → идти гулять. Не «всё сразу», а «одно сообщение сегодня».</p>
+  </div>
+
+  <!-- Путь клиента -->
+  <h2><span class="num">2</span> Путь клиента до момента покупки</h2>
+  <div class="card">
+    <p>Основная тема встречи — как человек проходит путь от «незнакомца» до «студента». Это <strong>не про лендинг</strong> — это про живой контакт.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Контакт</div>
+          <div class="step-desc">Человек узнаёт о вас и начинает доверять. Посты, истории, канал, личные сообщения, упоминания в других чатах.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Интерес</div>
+          <div class="step-desc">Проявляет интерес к конкретной программе или теме. Здесь начинается персональный диалог — вопросы, переписка, созвон.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Покупка</div>
+          <div class="step-desc">Принимает решение, договариваетесь об условиях, принимаете оплату. Человек становится студентом.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#1D9E75;">→</div>
+        <div class="step-body">
+          <div class="step-title" style="color:#085041;">Программа</div>
+          <div class="step-desc">Студент проходит вашу программу.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout teal">
+      Для первой группы до 10–20 человек не нужна автоматизация — весь путь обрабатывается вручную. Это даёт преимущество: вы лучше понимаете, что нужно клиентам, и можете адаптировать программу прямо в процессе.
+    </div>
+  </div>
+
+  <!-- Практика: переписка -->
+  <h2><span class="num">3</span> Как работает мягкая продажа в переписке</h2>
+  <div class="card card-teal">
+    <p>Светлана показала живой пример своей переписки со Светой Кутрань — от первого контакта в феврале до покупки в апреле. Неторопливо, без давления, 2–3 месяца.</p>
+
+    <h3>Как это выглядело шаг за шагом</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Анонс в чате (не продажа)</div>
+          <div class="step-desc">«В апреле собираю камерную группу. Если актуально — напишите, расскажу. Если нет — просто пожелайте удачи, мне будет приятно.»</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Ответ на отклик → 5 вопросов CustDev</div>
+          <div class="step-desc">«Чтобы понять, подойдёт ли тебе программа — задам 5 вопросов.» Вопросы про боли, цели, где спотыкается. Цель: понять, можете ли вы помочь.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Неторопливая переписка — голосовые, текст</div>
+          <div class="step-desc">Никто никого не торопит. Собирали данные, обсуждали, сверялись.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Предложение программы (без лендинга)</div>
+          <div class="step-desc">«Мне кажется, тебе подойдёт. Вот программа в документе.» Потом — условия, оплата, договорённость.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Вывод:</strong> Это не продажа «в лоб» — это выяснение, можете ли вы быть полезны. Если не можете — честно скажите: «Тебе не ко мне». Это и есть доверие.
+    </div>
+  </div>
+
+  <!-- Точки контакта -->
+  <h2><span class="num">4</span> Точки контакта: где искать первых людей</h2>
+  <div class="card">
+    <p>Чем больше точек контакта — тем выше вероятность что группа соберётся. Не нужно всё сразу, но нужно разнообразие.</p>
+
+    <div class="two-col">
+      <div class="col-box">
+        <div class="col-label">Контент (отложенный эффект)</div>
+        <ul>
+          <li>Посты и истории в канале/блоге</li>
+          <li>Посты в чужих чатах (с разрешения)</li>
+          <li>Эфиры по теме программы</li>
+          <li>Упоминания у коллег-менторов</li>
+        </ul>
+      </div>
+      <div class="col-box">
+        <div class="col-label">Личные касания (быстрый результат)</div>
+        <ul>
+          <li>Написать людям из CustDev</li>
+          <li>Написать знакомым из ЦА</li>
+          <li>Попросить коллег порекомендовать</li>
+          <li>Предложить эфир в тематическом чате</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout amber">
+      <strong>Лайфхак от Светланы:</strong> Отправляйте анонс в 23:00 или ставьте отложку на 20–21 час. Утром проснулись → увидели отклики. Не мониторите в первые часы — это психологически сильно легче.
+    </div>
+  </div>
+
+  <!-- База клиентов -->
+  <h2><span class="num">5</span> Простая таблица учёта потенциальных клиентов</h2>
+  <div class="card card-amber">
+    <p>Не CRM, не сложные системы. Просто таблица с колонками:</p>
+    <div class="two-col">
+      <div class="col-box">
+        <div class="col-label">Что фиксировать</div>
+        <ul>
+          <li>Имя и контакт</li>
+          <li>О чём общались (тема боли)</li>
+          <li>Текущий статус</li>
+          <li>Что обещала сделать дальше</li>
+        </ul>
+      </div>
+      <div class="col-box">
+        <div class="col-label">Зачем это нужно</div>
+        <ul>
+          <li>Видишь реальные цифры — не «никого нет»</li>
+          <li>Понимаешь, к кому можно вернуться</li>
+          <li>Можешь пригласить на эфир целево</li>
+          <li>Даёт ощущение контроля и опоры</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout teal">
+      «Когда ты видишь таблицу и понимаешь, что вот здесь 10 человек — 2 хотят, 2 думают — становится намного спокойнее. Ты держишься за факты, а не придумываешь себе, что никого нет.»
+    </div>
+  </div>
+
+  <!-- Путь клиента -->
+  <h2><span class="num">6</span> Два пути клиента: ручной и автоматический</h2>
+
+  <div class="card">
+    <p>У пути клиента два уровня. Первый — ручной, для сбора первой группы. Второй — автоматический, когда аудитория уже есть и нужен масштаб. <strong>Не прыгайте сразу в автоматизацию</strong> — ручной контакт даёт понимание клиента, которое нельзя получить через бота.</p>
+  </div>
+
+  <!-- Встроенная схема -->
+  <div style="margin-bottom: 1.2rem;">
+
+    <style>
+      .pc-root { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; line-height: 1.5; }
+      .pc-root h1 { font-family: inherit; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: #888884; margin-bottom: 20px; }
+      .pc-path { margin-bottom: 24px; border-radius: 16px; overflow: hidden; border: 1.5px solid #E0DDD8; }
+      .pc-path-label { padding: 14px 20px; display: flex; align-items: center; gap: 10px; font-family: inherit; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; }
+      .pc-p1 .pc-path-label { background: #1A1A1A; color: #fff; }
+      .pc-p2 .pc-path-label { background: #0F6E56; color: #fff; }
+      .pc-path-badge { background: rgba(255,255,255,.15); padding: 3px 10px; border-radius: 20px; font-size: 10px; }
+      .pc-steps { display: grid; grid-template-columns: repeat(4, 1fr); background: #fff; }
+      .pc-step { border-right: 1px solid #E0DDD8; padding: 18px 16px; }
+      .pc-step:last-child { border-right: none; }
+      .pc-step-head { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+      .pc-step-num { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; }
+      .pc-p1 .pc-step-num { background: #1A1A1A; color: #fff; }
+      .pc-p2 .pc-step-num { background: #0F6E56; color: #fff; }
+      .pc-step-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #1A1A1A; }
+      .pc-card { background: #F7F5F0; border: 1px solid #E0DDD8; border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+      .pc-card:last-child { margin-bottom: 0; }
+      .pc-card-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #888884; margin-bottom: 6px; }
+      .pc-item { font-size: 12.5px; color: #555552; padding: 4px 0; border-bottom: 1px solid #E0DDD8; line-height: 1.45; }
+      .pc-item:last-child { border-bottom: none; padding-bottom: 0; }
+      .pc-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; margin-bottom: 6px; }
+      .pc-tag-ru { background: #EBF3FB; color: #185FA5; }
+      .pc-tag-ge { background: #FFF3E0; color: #E65100; }
+      .pc-tag-de { background: #F3E5F5; color: #6A1B9A; }
+      .pc-note { font-size: 11.5px; color: #888884; font-style: italic; padding: 6px 10px; border-radius: 6px; border: 1px dashed #CCCAC4; margin-top: 8px; line-height: 1.45; }
+      .pc-crm-wrap { background: #fff; border-top: 1px solid #E0DDD8; padding: 16px 18px; }
+      .pc-crm-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #888884; margin-bottom: 10px; }
+      .pc-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+      .pc-table th { background: #F7F5F0; border: 1px solid #E0DDD8; padding: 7px 10px; text-align: left; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #888884; }
+      .pc-table td { border: 1px solid #E0DDD8; padding: 7px 10px; color: #555552; }
+      .pc-s-interest { color: #185FA5; font-weight: 600; }
+      .pc-s-bought   { color: #0F6E56; font-weight: 600; }
+      .pc-s-think    { color: #854F0B; font-weight: 600; }
+      .pc-s-next     { color: #888884; font-weight: 600; }
+      @media (max-width: 680px) { .pc-steps { grid-template-columns: 1fr 1fr; } .pc-step { border-bottom: 1px solid #E0DDD8; } }
+      @media (max-width: 420px) { .pc-steps { grid-template-columns: 1fr; } }
+    </style>
+
+    <div class="pc-root">
+
+      <!-- PATH 1 -->
+      <div class="pc-path pc-p1">
+        <div class="pc-path-label">
+          Путь 1 · Ручной сбор
+          <span class="pc-path-badge">до 10–20 человек</span>
+        </div>
+        <div class="pc-steps">
+          <div class="pc-step">
+            <div class="pc-step-head">
+              <div class="pc-step-num">1</div>
+              <div class="pc-step-title">Контакт</div>
+            </div>
+            <div class="pc-card">
+              <div class="pc-item">📢 Пост / сторис в канале</div>
+              <div class="pc-item">✉️ Личное сообщение первыми</div>
+              <div class="pc-item">🎙 Вам написали сами</div>
+            </div>
+            <div class="pc-note">Постепенный сбор — не нужно 20 человек сразу</div>
+          </div>
+          <div class="pc-step">
+            <div class="pc-step-head">
+              <div class="pc-step-num">2</div>
+              <div class="pc-step-title">Интерес</div>
+            </div>
+            <div class="pc-card">
+              <div class="pc-item">💬 Персональный диалог в личке</div>
+              <div class="pc-item">🎯 Уточняем запрос — что важно</div>
+              <div class="pc-item">📋 Отправляем лендинг или презентацию программы</div>
+              <div class="pc-item">⏳ Ждём решения</div>
+            </div>
+            <div class="pc-note">Нет ответа? → Напоминаем через 2–3 дня</div>
+          </div>
+          <div class="pc-step">
+            <div class="pc-step-head">
+              <div class="pc-step-num">3</div>
+              <div class="pc-step-title">Покупка</div>
+            </div>
+            <div class="pc-card">
+              <div class="pc-card-label"><span class="pc-tag pc-tag-ru">🇷🇺 Россия</span></div>
+              <div class="pc-item">Перевод на карту</div>
+              <div class="pc-item">Продамус / Лава Топ</div>
+            </div>
+            <div class="pc-card">
+              <div class="pc-card-label"><span class="pc-tag pc-tag-ge">🇬🇪 Грузия (ООО)</span></div>
+              <div class="pc-item">BookPay / BOG Pay</div>
+              <div class="pc-item">Stripe</div>
+            </div>
+            <div class="pc-card">
+              <div class="pc-card-label"><span class="pc-tag pc-tag-de">🇩🇪 Германия</span></div>
+              <div class="pc-item">Stripe</div>
+              <div class="pc-item">PayPal (временно)</div>
+            </div>
+          </div>
+          <div class="pc-step">
+            <div class="pc-step-head">
+              <div class="pc-step-num">4</div>
+              <div class="pc-step-title">Предоставление</div>
+            </div>
+            <div class="pc-card">
+              <div class="pc-item">💬 Добавляем в Telegram-группу</div>
+              <div class="pc-item">📹 Ссылка на Zoom</div>
+              <div class="pc-item">🔔 Орг. чат + напоминания</div>
+              <div class="pc-item">📁 Материалы и задания</div>
+            </div>
+          </div>
+        </div>
+        <div class="pc-crm-wrap">
+          <div class="pc-crm-label">Таблица учёта — ведём с первого контакта</div>
+          <table class="pc-table">
+            <thead>
+              <tr>
+                <th>Имя / контакт</th>
+                <th>Откуда</th>
+                <th>Статус</th>
+                <th>Следующий шаг</th>
+                <th>Дата</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Мария @maria</td>
+                <td>Пост в канале</td>
+                <td class="pc-s-interest">Заинтересовалась</td>
+                <td>Отправить лендинг</td>
+                <td>15 апр</td>
+              </tr>
+              <tr>
+                <td>Анна @anna_k</td>
+                <td>Личное сообщение</td>
+                <td class="pc-s-bought">Купила ✓</td>
+                <td>Добавить в чат</td>
+                <td>12 апр</td>
+              </tr>
+              <tr>
+                <td>Лена @lena</td>
+                <td>Написала сама</td>
+                <td class="pc-s-think">Думает</td>
+                <td>Напомнить 20 апр</td>
+                <td>18 апр</td>
+              </tr>
+              <tr>
+                <td>Катя @katya</td>
+                <td>Эфир</td>
+                <td class="pc-s-next">Не сейчас</td>
+                <td>→ Следующий поток</td>
+                <td>10 апр</td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="margin-top:8px;font-size:11.5px;color:#888884;font-style:italic;">
+            Те кто не купил сейчас — тёплая база на следующий поток. Держите контакт.
+          </div>
+        </div>
+      </div>
+
+      <!-- PATH 2 -->
+      <div class="pc-path pc-p2">
+        <div class="pc-path-label">
+          Путь 2 · С автоматикой
+          <span class="pc-path-badge">когда группа больше / повторный поток</span>
+        </div>
+        <div class="pc-steps">
+          <div class="pc-step">
+            <div class="pc-step-head">
+              <div class="pc-step-num">1</div>
+              <div class="pc-step-title">Контакт</div>
+            </div>
+            <div class="pc-card">
+              <div class="pc-item">📢 Пост с кнопкой / ссылкой</div>
+              <div class="pc-item">🤖 Бот собирает заявки</div>
+              <div class="pc-item">🎙 Эфир → ссылка в описании</div>
+            </div>
+          </div>
+          <div class="pc-step">
+            <div class="pc-step-head">
+              <div class="pc-step-num">2</div>
+              <div class="pc-step-title">Интерес</div>
+            </div>
+            <div class="pc-card">
+              <div class="pc-item">🌐 Лендинг — сам изучает</div>
+              <div class="pc-item">📩 Автоответ с подробностями</div>
+              <div class="pc-item">❓ FAQ закрывает возражения</div>
+            </div>
+            <div class="pc-note">Автонапоминание если не оплатил через 2 дня</div>
+          </div>
+          <div class="pc-step">
+            <div class="pc-step-head">
+              <div class="pc-step-num">3</div>
+              <div class="pc-step-title">Покупка</div>
+            </div>
+            <div class="pc-card">
+              <div class="pc-card-label"><span class="pc-tag pc-tag-ru">🇷🇺 Россия</span></div>
+              <div class="pc-item">Продамус — ссылка на оплату</div>
+              <div class="pc-item">Лава Топ — автоматическая</div>
+            </div>
+            <div class="pc-card">
+              <div class="pc-card-label"><span class="pc-tag pc-tag-ge">🇬🇪 Грузия</span></div>
+              <div class="pc-item">Stripe — ссылка на оплату</div>
+              <div class="pc-item">BookPay — форма</div>
+            </div>
+            <div class="pc-card">
+              <div class="pc-card-label"><span class="pc-tag pc-tag-de">🇩🇪 Германия</span></div>
+              <div class="pc-item">Stripe — ссылка на оплату</div>
+              <div class="pc-item">PayPal.me (временно)</div>
+            </div>
+          </div>
+          <div class="pc-step">
+            <div class="pc-step-head">
+              <div class="pc-step-num">4</div>
+              <div class="pc-step-title">Предоставление</div>
+            </div>
+            <div class="pc-card">
+              <div class="pc-item">🤖 Бот автоматически даёт доступ</div>
+              <div class="pc-item">💬 Добавляем в Telegram-группу</div>
+              <div class="pc-item">📹 Ссылка на Zoom в боте</div>
+              <div class="pc-item">🔔 Авторассылка напоминаний</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Почему сейчас — только путь 1</h3>
+    <p style="font-size:14px; color:#2C2C2A; margin-bottom:0.5rem;">Автоматизация — это уровень 2. Она нужна когда уже понятно что работает. Ручной контакт при первом запуске даёт три вещи которые бот не даст:</p>
+    <ul>
+      <li>Понимаете что клиентам реально нужно — и можете адаптировать программу прямо в процессе</li>
+      <li>Получаете живые возражения и вопросы — это золото для будущего лендинга и FAQ</li>
+      <li>Выстраиваете доверие — люди покупают у людей, особенно первый раз</li>
+    </ul>
+    <div class="callout">
+      <strong>Важно про авансы:</strong> аванс ≠ оказанные услуги. Человек может прийти и попросить вернуть. Не тратьте авансы до начала программы — держите отдельно.
+    </div>
+  </div>
+
+  <!-- Работа с возражениями -->
+  <h2><span class="num">7</span> Работа с возражениями и нестандартными ситуациями</h2>
+  <div class="card card-purple">
+    <h3>«Нет денег»</h3>
+    <p>Уточните: «Вообще нет, или некомфортно платить всю сумму сразу?» Рассрочка — нормально, люди потом сами бегут платить вовремя.</p>
+
+    <h3>«Хочу, но попозже»</h3>
+    <p>Предложите бронь за небольшую сумму (например, 5 тыс. руб.). Это фиксирует намерение и лучшую цену. Человек с бронью потом вспоминает сам.</p>
+
+    <h3>«Группа не набралась»</h3>
+    <div class="quote-block">
+      <div class="who">Из опыта Светланы</div>
+      Когда на практикум пришли 3 человека и никто не мог прийти онлайн одновременно — переобулись прямо в воздухе: предложили 3 персональных консультации вместо группы. Люди были счастливы. Деньги не вернули.
+    </div>
+    <p>Навык адаптации — ценнее, чем идеальный план. Из любой ситуации можно найти выход.</p>
+
+    <h3>Рассказывать о группе пока идёт</h3>
+    <p>«Вот мы провели первую встречу, вот такие люди, вот такие задачи. Если узнали себя — приходите.» Часть людей заходит в горящий поезд. Это работает всегда.</p>
+  </div>
+
+  <!-- Инсайты -->
+  <h2><span class="num">8</span> Ключевые инсайты встречи</h2>
+  <div class="card">
+    <ul style="font-size: 14px;">
+      <li style="margin-bottom: 0.7rem;"><strong>Маленькое действие > ничего.</strong> Одно сообщение, один пост, один звонок — уже движение. Не ждите идеального момента.</li>
+      <li style="margin-bottom: 0.7rem;"><strong>5 потенциальных клиентов в таблице ценнее 300 подписчиков.</strong> Те, кто уже с вами в диалоге — ваша настоящая аудитория.</li>
+      <li style="margin-bottom: 0.7rem;"><strong>Мягкая продажа = выяснение, а не убеждение.</strong> «Могу ли я вам помочь?» — не «купите меня».</li>
+      <li style="margin-bottom: 0.7rem;"><strong>Не бегите в автоматизацию.</strong> Это способ избегать живого контакта, который и приносит первых клиентов.</li>
+      <li style="margin-bottom: 0.7rem;"><strong>Используйте ресурсы друг друга.</strong> Чаты, каналы, аудитории коллег — можно делать анонсы, кросс-рекомендации. Мы не конкурируем за одних клиентов.</li>
+      <li><strong>Переименуйте канал.</strong> В описании должно быть понятно: кто вы, кому помогаете, что получит читатель. Аватар — ваше лицо.</li>
+    </ul>
+  </div>
+
+  <!-- Задания -->
+  <h2><span class="num">9</span> Задания после встречи</h2>
+  <div class="card">
+    <ul class="action-list">
+      <li>
+        <span class="who-badge">Все</span>
+        <span>Выложить минимум 2–3 поста по теме программы за неделю. Не думать о постах как о продаже — просто рассказываете о том, что вас волнует.</span>
+      </li>
+      <li>
+        <span class="who-badge">Все</span>
+        <span>Написать минимум 2–3 людям из CustDev или знакомым из ЦА — предложить программу или пригласить на разговор.</span>
+      </li>
+      <li>
+        <span class="who-badge">Все</span>
+        <span>Создать простую табличку учёта потенциальных клиентов: имя, контакт, статус, следующий шаг.</span>
+      </li>
+      <li>
+        <span class="who-badge">Все</span>
+        <span>Обновить название/описание канала — чтобы было сразу понятно кто вы и кому помогаете.</span>
+      </li>
+      <li>
+        <span class="who-badge teal">Таня</span>
+        <span>Подумать над датой запуска с учётом поездки. Можно начать группу до отъезда, дать задание на время отпуска — и продолжить после.</span>
+      </li>
+    </ul>
+  </div>
+
+  <footer>Конспект составлен по расшифровке встречи от 7 мая · Не является дословным цитированием</footer>
+
+</div>
+</body>
+</html>

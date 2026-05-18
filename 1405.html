@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Конспект встречи — 14 мая</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #f8f7f4;
+    color: #1a1a18;
+    line-height: 1.7;
+    padding: 2.5rem 1rem;
+  }
+
+  .container { max-width: 860px; margin: 0 auto; }
+
+  .header {
+    border-left: 4px solid #1D9E75;
+    padding: 1.2rem 1.5rem;
+    background: #E1F5EE;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 2.5rem;
+  }
+
+  .header h1 { font-size: 22px; font-weight: 500; color: #04342C; margin-bottom: 0.3rem; }
+  .header .meta { font-size: 13px; color: #1D9E75; }
+
+  h2 {
+    font-size: 17px; font-weight: 500; color: #04342C;
+    margin: 2rem 0 1rem; padding-bottom: 0.4rem;
+    border-bottom: 0.5px solid #A8E5D0;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  h2 .num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px;
+    background: #1D9E75; color: #fff;
+    border-radius: 50%; font-size: 12px; font-weight: 500; flex-shrink: 0;
+  }
+
+  h3 { font-size: 13px; font-weight: 600; color: #1D9E75; margin: 1.2rem 0 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  p { font-size: 15px; color: #2C2C2A; margin-bottom: 0.6rem; }
+
+  .card {
+    background: #fff; border: 0.5px solid #D3D1C7;
+    border-radius: 12px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem;
+  }
+
+  .card-green { border-left: 3px solid #1D9E75; }
+  .card-purple { border-left: 3px solid #534AB7; }
+  .card-amber  { border-left: 3px solid #BA7517; }
+
+  .callout {
+    background: #E1F5EE; border-left: 3px solid #1D9E75;
+    border-radius: 0 8px 8px 0; padding: 0.9rem 1.1rem;
+    font-size: 14px; color: #04342C; margin: 1rem 0;
+  }
+
+  .callout.purple { background: #EEEDFE; border-color: #534AB7; color: #26215C; }
+  .callout.amber { background: #FAEEDA; border-color: #BA7517; color: #412402; }
+
+  ul { padding-left: 1.2rem; font-size: 14px; color: #2C2C2A; }
+  ul li { margin-bottom: 0.4rem; }
+
+  .steps { display: flex; flex-direction: column; gap: 0.7rem; margin: 1rem 0; }
+  .step { display: flex; gap: 12px; align-items: flex-start; }
+  .step-num {
+    min-width: 26px; height: 26px; background: #1D9E75; color: #fff;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 500; flex-shrink: 0; margin-top: 2px;
+  }
+  .step-title { font-size: 14px; font-weight: 500; color: #04342C; margin-bottom: 2px; }
+  .step-desc { font-size: 13px; color: #5F5E5A; margin: 0; }
+
+  /* Матрёшка */
+  .matroshka {
+    background: #f8f7f4; border: 1.5px solid #A8E5D0;
+    border-radius: 12px; padding: 1.2rem 1.4rem; margin: 1rem 0;
+    position: relative;
+  }
+
+  .matroshka::before {
+    content: 'МАТРЁШКА';
+    position: absolute; top: -10px; left: 16px;
+    background: #1D9E75; color: #fff;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    padding: 2px 10px; border-radius: 20px;
+  }
+
+  .m-level {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 0.6rem 0; border-bottom: 0.5px solid #d4efe7;
+  }
+
+  .m-level:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .m-dot {
+    min-width: 8px; height: 8px; border-radius: 50%;
+    background: #1D9E75; margin-top: 7px; flex-shrink: 0;
+  }
+
+  .m-label { font-size: 13px; font-weight: 600; color: #085041; margin-bottom: 2px; }
+  .m-desc { font-size: 13px; color: #3C3C3A; }
+
+  /* Сравнение подходов */
+  .compare {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1rem 0;
+  }
+
+  .compare-box {
+    background: #f8f7f4; border: 0.5px solid #D3D1C7;
+    border-radius: 10px; padding: 1rem;
+  }
+
+  .compare-box .label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.05em; margin-bottom: 0.5rem;
+  }
+
+  .compare-box.old .label { color: #993C1D; }
+  .compare-box.new .label { color: #085041; }
+  .compare-box.old { border-top: 3px solid #F0997B; }
+  .compare-box.new { border-top: 3px solid #5DCAA5; }
+
+  .compare-box ul { font-size: 13px; }
+
+  /* Разбор кейса */
+  .case-box {
+    background: #E1F5EE; border-radius: 10px; padding: 1.2rem;
+    margin: 1rem 0;
+  }
+
+  .case-title { font-size: 13px; font-weight: 600; color: #085041; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  .case-body { font-size: 14px; color: #04342C; }
+
+  .action-list { list-style: none; padding: 0; }
+  .action-list li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14px; padding: 0.6rem 0; border-bottom: 0.5px solid #f1efe8;
+  }
+  .action-list li:last-child { border-bottom: none; }
+  .who-badge {
+    font-size: 11px; font-weight: 500; background: #E1F5EE; color: #085041;
+    border-radius: 4px; padding: 2px 7px; white-space: nowrap; margin-top: 2px; flex-shrink: 0;
+  }
+  .who-badge.purple { background: #EEEDFE; color: #3C3489; }
+
+  @media (max-width: 600px) {
+    .compare { grid-template-columns: 1fr; }
+    body { padding: 1.5rem 0.8rem; }
+  }
+
+  footer { margin-top: 3rem; text-align: center; font-size: 12px; color: #B4B2A9; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>Конспект встречи — 14 мая</h1>
+    <div class="meta">Встреча 4 &nbsp;·&nbsp; Как строить встречу: структура и методология &nbsp;·&nbsp; Ведущая: Светлана Цыро</div>
+  </div>
+
+  <!-- Вводная -->
+  <h2><span class="num">1</span> О чём эта встреча</h2>
+  <div class="card card-green">
+    <p>Первые встречи курса были про то, как предложить продукт людям. Теперь переходим вглубь: <strong>как строить саму встречу</strong> — будь то разовый мастер-класс, эфир или встреча внутри длительной программы.</p>
+    <p>Главный фокус: не «что дать» (теория, практика, домашка), а <strong>с чем участник выйдет</strong>. Результат — первое, от него строится всё остальное.</p>
+    <div class="callout">
+      В конце встречи участники получили доступ к ИИ-методологу. Инструмент конфиденциальный — для тестирования внутри группы.
+    </div>
+  </div>
+
+  <!-- Ошибка по умолчанию -->
+  <h2><span class="num">2</span> Типичная ошибка при подготовке</h2>
+  <div class="card">
+    <p>Большинство экспертов по умолчанию думают о встрече так:</p>
+
+    <div class="compare">
+      <div class="compare-box old">
+        <div class="label">❌ Мышление «блоками»</div>
+        <ul>
+          <li>Теория (всё что знаю)</li>
+          <li>Практика (упражнение)</li>
+          <li>Вопросы-ответы</li>
+          <li>Домашнее задание</li>
+        </ul>
+        <p style="margin-top: 8px; font-size: 13px; color: #993C1D;">Результат: думаешь как методист/учебник. Напряжение — «что всунуть в теорию чтоб не скучали».</p>
+      </div>
+      <div class="compare-box new">
+        <div class="label">✓ Мышление «результатом»</div>
+        <ul>
+          <li>С чем участник выйдет?</li>
+          <li>Что нужно для этого результата?</li>
+          <li>Как помочь им это прожить?</li>
+          <li>Как закрепить и унести?</li>
+        </ul>
+        <p style="margin-top: 8px; font-size: 13px; color: #085041;">Результат: структура собирается сама — под нужный навык, а не под «правильный порядок».</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Лесенка -->
+  <h2><span class="num">3</span> Программа = лесенка навыков</h2>
+  <div class="card card-green">
+    <p>Вся длительная программа — это лестница: от простого к сложному, ступенька за ступенькой. Каждая встреча = одна ступенька.</p>
+
+    <div class="callout">
+      <strong>Вопрос для каждой встречи:</strong> «С чем участник выйдет?» — не «какую тему я дам», а конкретный результат на языке клиента. Например: «понимает, как поставить цену на свои услуги чтобы адекватно расти в доходе».
+    </div>
+
+    <p>Примеры результата одной встречи:</p>
+    <ul>
+      <li><strong>Финансы (Света К.):</strong> понимает, как строить модель ценообразования под свои расходы и доход</li>
+      <li><strong>Контент (Нина):</strong> умеет составить контент-план под свою площадку из чего состоит</li>
+      <li><strong>Коучинг/психология (Таня, София):</strong> умеет в нужный момент не терять внутреннюю опору при чужой оценке</li>
+    </ul>
+  </div>
+
+  <!-- Матрёшка -->
+  <h2><span class="num">4</span> Структура одной встречи: «Матрёшка»</h2>
+  <div class="card">
+    <p>Каждая встреча строится по одной и той же вложенной структуре. Внутри одной встречи может быть одна или несколько матрёшек.</p>
+
+    <div class="callout purple" style="margin-bottom: 1rem;">
+      <strong>Почему «матрёшка»?</strong> Потому что элементы вкладываются друг в друга и должны сходиться — как матрёшечки. <strong>Концепт и рефлексия — пара:</strong> концепт открывает тему («вот зачем нам это сегодня»), рефлексия её закрывает («вот что вы из этого забираете для тех же ситуаций»). <strong>Инструкция и шеринг — пара:</strong> инструкция описывает конкретный процесс, шеринг — это отклик именно про этот процесс, а не про что-то другое. Если пары не совпадают — встреча рассыпается.
+    </div>
+
+    <div class="matroshka">
+      <div class="m-level">
+        <div class="m-dot"></div>
+        <div>
+          <div class="m-label">Концепт (вовлечение) <span style="font-size:10px;font-weight:400;color:#1D9E75;font-style:normal;">↔ закрывается рефлексией</span></div>
+          <div class="m-desc">Открываете встречу вопросом к участникам — они сами рассказывают о своём опыте с этой темой. Не «я вам сейчас объясню», а «расскажите, как у вас это бывает». Актуализируете зачем им это нужно прямо сейчас. Теория здесь — это выводы из того, что они сами сказали.</div>
+          <div class="m-desc" style="margin-top:6px; padding-top:6px; border-top: 0.5px solid #d4efe7; color:#085041;"><strong>Важно:</strong> концепт должен назвать конкретную ситуацию из жизни участника — ту самую, для которой они сегодня получат инструмент. Именно к этой ситуации они должны вернуться в рефлексии.</div>
+        </div>
+      </div>
+      <div class="m-level">
+        <div class="m-dot"></div>
+        <div>
+          <div class="m-label">Инструкция <span style="font-size:10px;font-weight:400;color:#1D9E75;font-style:normal;">↔ закрывается шерингом</span></div>
+          <div class="m-desc">Объясняете что будете делать — коротко и понятно, до того как начать делать. «Сейчас мы составим контент-план вот по этой системе. Вот как это работает — 3 шага.»</div>
+          <div class="m-desc" style="margin-top:6px; padding-top:6px; border-top: 0.5px solid #d4efe7; color:#085041;"><strong>Важно:</strong> именно этот конкретный процесс из инструкции участники потом обсуждают в шеринге — не что-то другое, а то, что делали здесь.</div>
+        </div>
+      </div>
+      <div class="m-level">
+        <div class="m-dot"></div>
+        <div>
+          <div class="m-label">Опыт (практика)</div>
+          <div class="m-desc">Участники делают что-то руками — заполняют таблицу, составляют план, работают с примером. Взрослые люди не могут усвоить только из теории — им нужен собственный опыт. Варианты: все делают одновременно, один разбирается как демо — остальные следят, работают в парах/тройках.</div>
+        </div>
+      </div>
+      <div class="m-level">
+        <div class="m-dot"></div>
+        <div>
+          <div class="m-label">Шеринг <span style="font-size:10px;font-weight:400;color:#1D9E75;font-style:normal;">↔ пара к инструкции</span></div>
+          <div class="m-desc">Вопросы про сам процесс и опыт: как он прошёл, было ли комфортно, было ли понятно, что было непонятно, где было сложно, где было легко, получили ли удовольствие. Это обмен ощущениями от практики — не выводы, а живой отклик.</div>
+          <div class="m-desc" style="margin-top:6px; padding-top:6px; border-top: 0.5px solid #d4efe7; color:#085041;"><strong>Важно:</strong> участники делятся ощущениями именно про тот процесс, который был в инструкции. Не про жизнь вообще — про то, что делали прямо сейчас.</div>
+        </div>
+      </div>
+      <div class="m-level">
+        <div class="m-dot"></div>
+        <div>
+          <div class="m-label">Рефлексия <span style="font-size:10px;font-weight:400;color:#1D9E75;font-style:normal;">↔ пара к концепту</span></div>
+          <div class="m-desc">Что забираете с собой. Смысловые выводы: что понял, что изменилось, как буду использовать. Люди часто делают прикольные выводы сами — задача ведущего только задать вопрос.</div>
+          <div class="m-desc" style="margin-top:6px; padding-top:6px; border-top: 0.5px solid #d4efe7; color:#085041;"><strong>Важно:</strong> рефлексия должна возвращать участника к той же ситуации, которую назвали в концепте. «Помните, мы говорили о том, когда критикуют? Вот теперь — что вы можете делать в этот момент?» Круг должен замкнуться.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      Интерактив — это не «танцы с бубном». Это просто диалог. Каждый вопрос участнику = интерактив. «Как вам эта модель — простая или сложная?» — уже интерактив.
+    </div>
+  </div>
+
+  <!-- Встроенная схема: лестница + матрёшка -->
+  <div style="margin-bottom: 1.5rem;">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap');
+.ml-wrap { max-width: 100%; font-family: 'Manrope', system-ui, sans-serif; color: #1a1916; line-height: 1.5; }
+.ml-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a09d96; margin-bottom: 10px; text-align: center; }
+.ml-h1 { font-size: 20px; font-weight: 600; text-align: center; line-height: 1.25; margin-bottom: 8px; }
+.ml-subtitle { font-size: 13px; color: #6b6860; text-align: center; max-width: 460px; margin: 0 auto 32px; }
+.ml-section-title { font-size: 10px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: #a09d96; margin-bottom: 14px; }
+.ml-ab-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.ml-ab-dot { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; flex-shrink: 0; border: 1.5px solid rgba(0,0,0,0.15); }
+.ml-ab-dot.a { background: #eceae3; color: #6b6860; }
+.ml-ab-dot.b { background: #e6f1fb; border-color: #85b7eb; color: #0c447c; }
+.ml-ab-track { flex: 1; height: 2px; background: linear-gradient(to right, rgba(0,0,0,0.15), #85b7eb); border-radius: 2px; position: relative; }
+.ml-ab-track::after { content: ''; position: absolute; right: -1px; top: 50%; transform: translateY(-50%); border: 4px solid transparent; border-left: 7px solid #85b7eb; }
+.ml-ab-label { font-size: 10px; color: #a09d96; text-align: center; margin-top: 3px; }
+.ml-stair-wrap { background: #ffffff; border: 1px solid rgba(0,0,0,0.09); border-radius: 12px; padding: 20px 16px 14px; margin-bottom: 32px; }
+.ml-stair-wrap svg { display: block; width: 100%; }
+.ml-elements-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border: 1px solid rgba(0,0,0,0.15); border-radius: 18px; overflow: hidden; background: #ffffff; margin-bottom: 32px; }
+.ml-el-item { padding: 16px 14px 18px; border-right: 1px solid rgba(0,0,0,0.09); }
+.ml-el-item:last-child { border-right: none; }
+.ml-el-pill { display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 20px; border: 1px solid; margin-bottom: 10px; }
+.ml-el-name { font-size: 13px; font-weight: 600; color: #1a1916; margin-bottom: 4px; line-height: 1.3; }
+.ml-el-hint { font-size: 11px; color: #a09d96; line-height: 1.45; font-style: italic; }
+.ml-el-desc { font-size: 11px; color: #6b6860; line-height: 1.5; margin-top: 6px; }
+.ml-pk { background: #e6f1fb; border-color: #85b7eb; color: #0c447c; }
+.ml-pi { background: #eaf3de; border-color: #97c459; color: #27500a; }
+.ml-po { background: #faeeda; border-color: #ef9f27; color: #633806; }
+.ml-ps { background: #fbeaf0; border-color: #ed93b1; color: #72243e; }
+.ml-pr { background: #eeedfe; border-color: #afa9ec; color: #3c3489; }
+.ml-example-wrap { border: 1px solid rgba(0,0,0,0.15); border-radius: 18px; overflow: hidden; background: #ffffff; margin-bottom: 32px; }
+.ml-example-head { padding: 14px 18px 13px; border-bottom: 1px solid rgba(0,0,0,0.09); background: #eceae3; }
+.ml-example-kicker { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #a09d96; margin-bottom: 4px; }
+.ml-example-title { font-size: 15px; font-weight: 600; color: #1a1916; margin-bottom: 3px; }
+.ml-example-result { font-size: 12px; color: #6b6860; }
+.ml-example-flow { display: grid; grid-template-columns: repeat(5, 1fr); }
+.ml-ef { padding: 14px 12px 16px; border-right: 1px solid rgba(0,0,0,0.09); }
+.ml-ef:last-child { border-right: none; }
+.ml-ef-pill { display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 20px; border: 1px solid; margin-bottom: 8px; }
+.ml-ef-name { font-size: 12px; font-weight: 600; color: #1a1916; margin-bottom: 5px; line-height: 1.3; }
+.ml-ef-text { font-size: 11px; color: #6b6860; line-height: 1.5; }
+.ml-hw-box { border: 1px solid rgba(0,0,0,0.15); border-left: 3px solid #85b7eb; border-radius: 8px; background: #e6f1fb; padding: 14px 18px; margin-bottom: 8px; }
+.ml-hw-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #0c447c; margin-bottom: 6px; }
+.ml-hw-text { font-size: 13px; color: #0c447c; line-height: 1.6; }
+.ml-footer { text-align: center; font-size: 11px; color: #a09d96; margin-top: 8px; }
+@media (max-width: 600px) {
+  .ml-elements-grid { grid-template-columns: 1fr 1fr; }
+  .ml-el-item:nth-child(2n) { border-right: none; }
+  .ml-el-item { border-bottom: 1px solid rgba(0,0,0,0.09); }
+  .ml-example-flow { grid-template-columns: 1fr 1fr; }
+  .ml-ef:nth-child(2n) { border-right: none; }
+  .ml-ef { border-bottom: 1px solid rgba(0,0,0,0.09); }
+}
+</style>
+
+<div class="ml-wrap">
+  <div class="ml-eyebrow">Fundamentum — методология</div>
+  <div class="ml-h1">Лестница навыков и матрёшка</div>
+  <p class="ml-subtitle">Любая программа — путь из точки А в точку Б через конкретные навыки. Каждый навык собирается внутри встречи по одной структуре — матрёшке.</p>
+
+  <div class="ml-ab-bar">
+    <div style="text-align:center">
+      <div class="ml-ab-dot a">А</div>
+      <div class="ml-ab-label">сейчас</div>
+    </div>
+    <div class="ml-ab-track"></div>
+    <div style="text-align:center">
+      <div class="ml-ab-dot b">Б</div>
+      <div class="ml-ab-label">результат</div>
+    </div>
+  </div>
+
+  <div class="ml-section-title">Лестница навыков</div>
+  <div class="ml-stair-wrap">
+    <svg viewBox="0 0 760 150" style="height:150px;">
+      <defs>
+        <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#85b7eb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+      <line x1="8" y1="138" x2="748" y2="138" stroke="rgba(0,0,0,0.1)" stroke-width="1.5"/>
+      <rect x="8" y="108" width="124" height="30" rx="5" fill="white" stroke="rgba(0,0,0,0.13)" stroke-width="1"/>
+      <text x="70" y="121" text-anchor="middle" font-family="Manrope,sans-serif" font-size="10" font-weight="600" fill="#a09d96">Встреча 1</text>
+      <text x="70" y="133" text-anchor="middle" font-family="Manrope,sans-serif" font-size="10" fill="#6b6860">Навык 1</text>
+      <line x1="132" y1="108" x2="132" y2="82" stroke="rgba(0,0,0,0.1)" stroke-width="1.5"/>
+      <line x1="132" y1="82" x2="148" y2="82" stroke="rgba(0,0,0,0.1)" stroke-width="1.5"/>
+      <rect x="148" y="58" width="124" height="24" rx="5" fill="white" stroke="rgba(0,0,0,0.13)" stroke-width="1"/>
+      <text x="210" y="69" text-anchor="middle" font-family="Manrope,sans-serif" font-size="10" font-weight="600" fill="#a09d96">Встреча 2</text>
+      <text x="210" y="79" text-anchor="middle" font-family="Manrope,sans-serif" font-size="10" fill="#6b6860">Навык 2</text>
+      <line x1="272" y1="58" x2="272" y2="36" stroke="rgba(0,0,0,0.1)" stroke-width="1.5"/>
+      <line x1="272" y1="36" x2="288" y2="36" stroke="rgba(0,0,0,0.1)" stroke-width="1.5"/>
+      <rect x="288" y="14" width="124" height="22" rx="5" fill="white" stroke="rgba(0,0,0,0.13)" stroke-width="1"/>
+      <text x="350" y="24" text-anchor="middle" font-family="Manrope,sans-serif" font-size="10" font-weight="600" fill="#a09d96">Встреча 3</text>
+      <text x="350" y="34" text-anchor="middle" font-family="Manrope,sans-serif" font-size="10" fill="#6b6860">Навык 3</text>
+      <line x1="412" y1="14" x2="412" y2="36" stroke="rgba(0,0,0,0.1)" stroke-width="1.5"/>
+      <line x1="412" y1="14" x2="428" y2="14" stroke="rgba(0,0,0,0.1)" stroke-width="1.5"/>
+      <rect x="428" y="2" width="124" height="12" rx="5" fill="white" stroke="rgba(0,0,0,0.13)" stroke-width="1"/>
+      <text x="490" y="11" text-anchor="middle" font-family="Manrope,sans-serif" font-size="9.5" font-weight="600" fill="#a09d96">Встреча 4 · Навык 4</text>
+      <line x1="552" y1="2" x2="552" y2="14" stroke="rgba(0,0,0,0.1)" stroke-width="1.5"/>
+      <line x1="552" y1="2" x2="568" y2="2" stroke="rgba(0,0,0,0.1)" stroke-width="1.5"/>
+      <rect x="568" y="2" width="150" height="12" rx="5" fill="white" stroke="rgba(0,0,0,0.13)" stroke-width="1"/>
+      <text x="643" y="11" text-anchor="middle" font-family="Manrope,sans-serif" font-size="9.5" font-weight="600" fill="#a09d96">Встреча 5 · Навык 5</text>
+      <line x1="718" y1="8" x2="746" y2="8" stroke="#85b7eb" stroke-width="1.5" marker-end="url(#arr2)"/>
+    </svg>
+  </div>
+
+  <div class="ml-section-title">Элементы матрёшки (структура каждой встречи)</div>
+  <div class="ml-elements-grid">
+    <div class="ml-el-item">
+      <div class="ml-el-pill ml-pk">Концепт</div>
+      <div class="ml-el-name">Концепт</div>
+      <div class="ml-el-hint">(навык)</div>
+      <div class="ml-el-desc">Зачем этот навык участнику? Почему именно сейчас, на этом шаге программы?</div>
+    </div>
+    <div class="ml-el-item">
+      <div class="ml-el-pill ml-pi">Инструкция</div>
+      <div class="ml-el-name">Инструкция</div>
+      <div class="ml-el-hint">(навык)</div>
+      <div class="ml-el-desc">Точный алгоритм: кто делает, что именно, как, при помощи чего, за какое время.</div>
+    </div>
+    <div class="ml-el-item">
+      <div class="ml-el-pill ml-po">Опыт</div>
+      <div class="ml-el-name">Опыт</div>
+      <div class="ml-el-hint">(навык)</div>
+      <div class="ml-el-desc">Само упражнение или практика — то, что участник делает руками, а не просто слушает.</div>
+    </div>
+    <div class="ml-el-item">
+      <div class="ml-el-pill ml-ps">Шеринг</div>
+      <div class="ml-el-name">Шеринг</div>
+      <div class="ml-el-hint">(процесс)</div>
+      <div class="ml-el-desc">Как прошёл процесс? Что получилось, что было понятно, что сложно, что неожиданно.</div>
+    </div>
+    <div class="ml-el-item">
+      <div class="ml-el-pill ml-pr">Рефлексия</div>
+      <div class="ml-el-name">Рефлексия</div>
+      <div class="ml-el-hint">(выводы)</div>
+      <div class="ml-el-desc">Что можем забрать для себя? Именно так мы и строим программы встреч.</div>
+    </div>
+  </div>
+
+  <div class="ml-section-title">Пример — матрёшка нашей встречи</div>
+  <div class="ml-example-wrap">
+    <div class="ml-example-head">
+      <div class="ml-example-kicker">Эфир · 90 минут · 4 участника</div>
+      <div class="ml-example-title">Как собрать сценарий встречи</div>
+      <div class="ml-example-result">Результат: ухожу с готовым скелетом матрёшки для своей ближайшей встречи</div>
+    </div>
+    <div class="ml-example-flow">
+      <div class="ml-ef">
+        <div class="ml-ef-pill ml-pk">Концепт</div>
+        <div class="ml-ef-name">Навык</div>
+        <div class="ml-ef-text">«Вы планируете встречи через тему. Но главное — что участник заберёт. Одно, на человеческом языке. С этого начинается любой сценарий.»</div>
+      </div>
+      <div class="ml-ef">
+        <div class="ml-ef-pill ml-pi">Инструкция</div>
+        <div class="ml-ef-name">Навык</div>
+        <div class="ml-ef-text">Объясняю структуру матрёшки — 5 элементов. Сейчас разберём 2 живых кейса: мягкая тема и твёрдая. Наблюдайте и примеряйте на свою встречу.</div>
+      </div>
+      <div class="ml-ef">
+        <div class="ml-ef-pill ml-po">Опыт</div>
+        <div class="ml-ef-name">Навык</div>
+        <div class="ml-ef-text">Разбор кейса коуча. Разбор кейса СММ-специалиста — собираем скелет матрёшки прямо в диалоге, все видят как это делается.</div>
+      </div>
+      <div class="ml-ef">
+        <div class="ml-ef-pill ml-ps">Шеринг</div>
+        <div class="ml-ef-name">Процесс</div>
+        <div class="ml-ef-text">Как прошёл процесс? Что получилось понять? Что было сложно? Что оказалось неожиданным?</div>
+      </div>
+      <div class="ml-ef">
+        <div class="ml-ef-pill ml-pr">Рефлексия</div>
+        <div class="ml-ef-name">Выводы</div>
+        <div class="ml-ef-text">Что можем забрать для себя? Именно так и строим программы — от результата участника к структуре встречи.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ml-hw-box">
+    <div class="ml-hw-label">Домашнее задание</div>
+    <div class="ml-hw-text">
+      Скелет своей ближайшей встречи: результат участника → концепт → инструкция → опыт → шеринг → рефлексия.<br>
+      Прислать в чат — разберём на следующей встрече.
+    </div>
+  </div>
+
+  <div class="ml-footer">Fundamentum · методология Андрея Ланда</div>
+</div>
+  </div>
+
+  <!-- Почему так работает -->
+  <h2><span class="num">5</span> Почему такая структура работает</h2>
+  <div class="card card-purple">
+    <p>Взрослый человек учится иначе, чем ребёнок:</p>
+    <ul>
+      <li>«Коробочка уже полна» — новое заходит, только если человек сам понял зачем</li>
+      <li>Мозг в роли ученика ленивее — нужно активировать, а не просто вещать</li>
+      <li>Теория без практики не закрепляется — нужен собственный опыт</li>
+      <li>Рефлексия фиксирует результат — без неё навык «утекает» после встречи</li>
+    </ul>
+    <div class="callout purple">
+      <strong>Главная задача ведущего:</strong> актуализировать для участника — зачем ему это нужно прямо сейчас. Без этого он будет присутствовать телом, но не думать.
+    </div>
+  </div>
+
+  <h2><span class="num">6</span> Разбор кейса: встреча про самоценность (с Софией)</h2>
+  <div class="card">
+    <p>Тема: самоценность для подростков 14–20 лет. Разобрали вместе как строить матрёшку по шагам.</p>
+
+    <div class="case-box">
+      <div class="case-title">Шаг 0 — Определить результат встречи</div>
+      <div class="case-body">
+        Вопрос: «С чем участник выйдет?»<br>
+        Ответ Софии: умеет в нужный момент не терять внутреннюю опору и не сжирать себя, когда критикуют или отказывают.<br><br>
+        <em>Уточнение от Светланы:</em> формулировать нужно на языке клиента — не «мысли других людей это их мысли» (инструментарий), а «умею не опускать руки и продолжать идти когда отказали».
+      </div>
+    </div>
+
+    <div class="case-box">
+      <div class="case-title">Шаг 1 — Концепт: открыть встречу вопросом</div>
+      <div class="case-body">
+        «Бывало ли у вас, что кто-то сказал что-то — и вы себя почувствовали плохо? Расскажите.»<br>
+        Участники сами называют ситуации: учитель сделал замечание, не взяли на работу, родители сказали что-то — и они сделали вывод «я ничего не умею».<br><br>
+        <em>Цель:</em> через их истории актуализировать тему — и теория потом рождается из их же слов, а не «с потолка».
+      </div>
+      <div style="margin-top:10px; padding:8px 12px; background:#E1F5EE; border-radius:6px; font-size:13px; color:#085041;">
+        <strong>⚠️ Важная пометка:</strong> в концепте нужно назвать <em>конкретную ситуацию</em> — например, «критичное замечание по поводу внешности». Не «сложные ситуации вообще», а именно ту, для которой сегодня будет инструмент. Потому что именно к этой ситуации участники должны вернуться в рефлексии и сказать: «теперь в этот момент я могу сделать вот это».
+      </div>
+    </div>
+
+    <div class="case-box">
+      <div class="case-title">Шаг 2 — Инструкция</div>
+      <div class="case-body">
+        Объяснить до начала практики: «Сейчас попробуем один инструмент — как отделять чужую оценку от своего мнения о себе. Вот как это работает: три шага...»<br><br>
+        Коротко, понятно — до того как начать делать.
+      </div>
+    </div>
+
+    <div class="case-box">
+      <div class="case-title">Шаг 3 — Опыт (практика)</div>
+      <div class="case-body">
+        Участники берут свою реальную ситуацию (из того что назвали в концепте) и разбирают её по инструменту.<br>
+        Варианты: все делают самостоятельно → София разбирает один пример как демо, остальные следят → или работают в парах.
+      </div>
+    </div>
+
+    <div class="case-box" style="background:#fff3e8; border: 0.5px solid #f0c896;">
+      <div class="case-title" style="color:#633806;">Шаг 4 — Шеринг</div>
+      <div class="case-body" style="color:#412402;">
+        Вопросы про сам процесс и опыт:<br>
+        «Как вам было работать с этим инструментом? Было комфортно?»<br>
+        «Что было понятно, что непонятно?»<br>
+        «Где было легко, где сложно?»<br>
+        «Получили ли удовольствие от процесса?»
+      </div>
+      <div style="margin-top:10px; padding:8px 12px; background:#faeeda; border-radius:6px; font-size:13px; color:#633806;">
+        <strong>⚠️ Важная пометка:</strong> участники делятся ощущениями именно про тот процесс, который был в инструкции — как они разбирали ситуацию по шагам. Не про жизнь вообще, не про то как им тяжело когда критикуют — а про то, каково было <em>работать с инструментом</em> прямо сейчас.
+      </div>
+    </div>
+
+    <div class="case-box" style="background:#eeedfe; border: 0.5px solid #CECBF6;">
+      <div class="case-title" style="color:#26215C;">Шаг 5 — Рефлексия</div>
+      <div class="case-body" style="color:#26215C;">
+        Вопросы про смысловые выводы — что забирают:<br>
+        «В каких ситуациях вы сможете использовать это на этой неделе?»<br>
+        «Что изменилось в вашем понимании — как вы теперь смотрите на эти ситуации?»<br>
+        «Что хотите попробовать сделать по-другому?»
+      </div>
+      <div style="margin-top:10px; padding:8px 12px; background:#e0dff8; border-radius:6px; font-size:13px; color:#26215C;">
+        <strong>⚠️ Важная пометка:</strong> рефлексия должна вернуть участника к той самой ситуации из концепта. Например: «Помните, мы начали с того, что кто-то сделал критичное замечание — и это больно? Так вот — что теперь, в этот конкретный момент, вы сможете сделать?» Круг замкнулся: концепт открыл, рефлексия закрыла. Это и есть матрёшка.
+      </div>
+    </div>
+
+    <div class="callout">
+      Весь кейс показал: начинать не с «что я буду давать», а с «что они заберут» — и тогда структура встречи собирается логично и быстро.
+    </div>
+  </div>
+
+  <h2><span class="num">7</span> Как готовиться к встрече быстро</h2>
+  <div class="card card-amber">
+    <p>Светлана показала демонстрацию работы ИИ-методолога — как он помогает собрать сценарий встречи. Ключевая идея: сценарий нужен не чтобы читать по бумажке, а чтобы держать фокус и возвращаться если ушла в сторону.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num" style="background:#BA7517;">1</div>
+        <div class="step-body">
+          <div class="step-title" style="color:#633806;">Определить результат (с чем выйдут)</div>
+          <div class="step-desc">Конкретно, на языке участника, одним предложением.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#BA7517;">2</div>
+        <div class="step-body">
+          <div class="step-title" style="color:#633806;">Написать концепт-вопросы</div>
+          <div class="step-desc">2–3 вопроса, которые вы зададите в начале чтобы вовлечь. Из ответов участников родится теория.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#BA7517;">3</div>
+        <div class="step-body">
+          <div class="step-title" style="color:#633806;">Выбрать практику + написать инструкцию</div>
+          <div class="step-desc">Одна (или несколько) — что участники будут делать руками. Инструкция — до начала практики, коротко.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#BA7517;">4</div>
+        <div class="step-body">
+          <div class="step-title" style="color:#633806;">Заготовить вопросы для шеринга и рефлексии</div>
+          <div class="step-desc">Шеринг — про процесс (как прошло, что было сложно/легко). Рефлексия — про выводы (что забираете, как будете использовать).</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:#BA7517;">5</div>
+        <div class="step-body">
+          <div class="step-title" style="color:#633806;">ИИ-методолог — финальная проверка</div>
+          <div class="step-desc">Когда набросок готов — отдать методологу, он укажет где нет логики, где цель не бьётся с содержанием.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout amber">
+      «Когда подготовлен сценарий — можно уходить в сторону и возвращаться. Он не держит прям — он как маяк.»
+    </div>
+  </div>
+
+  <h2><span class="num">8</span> ИИ-методолог: как использовать</h2>
+  <div class="card card-green">
+    <p>Светлана показала демонстрацию работы ИИ-методолога — инструмент конфиденциальный, для работы внутри группы.</p>
+
+    <h3>Для чего использовать</h3>
+    <ul>
+      <li>Проверить логику одной встречи: «бьётся ли цель с содержанием»</li>
+      <li>Собрать матрёшку по теме которую вы хотите провести</li>
+      <li>Переформулировать результат встречи на язык участника</li>
+      <li>Придумать практику под конкретный навык</li>
+    </ul>
+
+    <h3>Как работать эффективно</h3>
+    <ul>
+      <li>Дать методологу материалы по программе — он задаст уточняющие вопросы</li>
+      <li>Отвечать на вопросы по шагам — он соберёт структуру из ваших ответов</li>
+      <li>После работы прислать результат Светлане — она посмотрит и даст обратную связь</li>
+    </ul>
+  </div>
+
+  <!-- Задания -->
+  <h2><span class="num">9</span> Задания после встречи</h2>
+  <div class="card">
+    <ul class="action-list">
+      <li>
+        <span class="who-badge">Все</span>
+        <span>Проработать хотя бы одну встречу своей программы по структуре «матрёшка» с ИИ-методологом.</span>
+      </li>
+      <li>
+        <span class="who-badge">Все</span>
+        <span>Прислать Светлане сценарий встречи (или всей программы) — она смотрит у каждого и даёт обратную связь.</span>
+      </li>
+      <li>
+        <span class="who-badge purple">Света К.</span>
+        <span>Начать готовить мастер-класс по ценообразованию — одна встреча, по схеме: концепт → инструкция → опыт → шеринг → рефлексия.</span>
+      </li>
+      <li>
+        <span class="who-badge purple">София</span>
+        <span>Взять одну тему (например, самоценность) и собрать по ней полную матрёшку на основе разбора со встречи: концепт → инструкция → опыт → шеринг → рефлексия.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Ключевые инсайты -->
+  <h2><span class="num">10</span> Ключевые инсайты встречи</h2>
+  <div class="card">
+    <ul style="font-size: 14px;">
+      <li style="margin-bottom: 0.7rem;"><strong>Начинайте с результата, а не с содержания.</strong> «С чем они выйдут?» — это главный вопрос при подготовке любой встречи.</li>
+      <li style="margin-bottom: 0.7rem;"><strong>Взрослые учатся через опыт, не теорию.</strong> Дайте им что-то сделать руками — остальное заходит намного легче.</li>
+      <li style="margin-bottom: 0.7rem;"><strong>Интерактив = диалог.</strong> Не спецупражнения, а вопросы, обсуждения, обратная связь — это уже интерактив.</li>
+      <li style="margin-bottom: 0.7rem;"><strong>Рефлексия — не формальность.</strong> Люди сами делают лучшие выводы, если их спросить. Это закрепляет навык.</li>
+      <li style="margin-bottom: 0.7rem;"><strong>Сценарий — маяк, не скрипт.</strong> Готовьтесь, но будьте готовы адаптироваться по ходу. Навык «переобуться в воздухе» — ценнее идеального плана.</li>
+      <li><strong>ИИ-методолог — помощник для структуры.</strong> Использовать не вместо думания, а для проверки логики уже набросанной встречи.</li>
+    </ul>
+  </div>
+
+  <footer>Конспект составлен по расшифровке встречи от 14 мая · Не является дословным цитированием</footer>
+
+</div>
+</body>
+</html>
