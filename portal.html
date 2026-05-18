@@ -583,11 +583,46 @@ body {
 @media (max-width: 600px) {
   .header { padding: 24px 20px 32px; }
   .main { padding: 28px 16px 48px; }
-  .card-head { grid-template-columns: 52px 1fr auto; gap: 12px; padding: 16px; }
+
+  /* карточка: flex-wrap чтобы элементы переносились */
+  .card-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    padding: 16px;
+  }
+
+  /* номер+дата занимают всю ширину первой строки — нет, пусть стоит слева */
+  .meeting-num-wrap {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 6px;
+    min-width: unset;
+    flex: 0 0 auto;
+  }
+
   .meeting-num { font-size: 10px; }
-  .meeting-date { font-size: 16px; }
+  .meeting-date { font-size: 15px; }
+
+  /* бейдж+шеврон уходит вправо в ту же строку */
+  .card-right {
+    margin-left: auto;
+    flex: 0 0 auto;
+  }
+
+  /* тема+заголовок+описание — на всю ширину отдельной строкой */
+  .card-info {
+    flex: 0 0 100%;
+    order: 3;
+  }
+
   .card-title { font-size: 14px; }
-  .card-desc { font-size: 13px; }
+  .card-desc { font-size: 13px; margin-top: 4px; }
+
+  .status-badge { font-size: 9px; padding: 5px 10px; }
+  .chevron { width: 28px; height: 28px; font-size: 12px; }
+
   .card-body { padding: 0 16px 16px; }
   .card-body-inner { grid-template-columns: 1fr; gap: 12px; }
   .action-btn { padding: 11px 14px; font-size: 13px; }
@@ -596,7 +631,6 @@ body {
   .participants-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .participant-btn { padding: 18px 14px; }
   .participant-name { font-size: 13px; }
-  .status-badge { font-size: 9px; padding: 5px 10px; }
   .path-connector::before { left: 26px; }
   .extra-blocks { grid-template-columns: 1fr !important; }
 }
@@ -667,8 +701,7 @@ body {
     <div class="path-connector"></div>
 
     <!-- ВСТРЕЧА 1 -->
-    <div class="meeting-card open expanded" data-id="1">
-      <div class="card-head" onclick="toggle(1)">
+    <div class="meeting-card open" data-id="1">      <div class="card-head" onclick="toggle(1)">
         <div>
           <div class="meeting-num">Встреча 1</div>
           <div class="meeting-date">16 апр</div>
@@ -758,40 +791,100 @@ body {
 
     <div class="path-connector"></div>
 
-    <!-- ВСТРЕЧА 3 — LOCKED -->
-    <div class="meeting-card locked" data-id="3">
-      <div class="card-head">
+    <!-- ВСТРЕЧА 3 -->
+    <div class="meeting-card open" data-id="3">
+      <div class="card-head" onclick="toggle(3)">
         <div>
           <div class="meeting-num">Встреча 3</div>
           <div class="meeting-date">7 мая</div>
         </div>
         <div class="card-info">
           <div class="card-theme">Группа</div>
-          <div class="card-title">Форматы наполнения группы</div>
-          <div class="card-desc">Как устроена групповая работа, логика встреч и нагрузка. Первые шаги контента</div>
+          <div class="card-title">Путь клиента до участия в вашей групповой программе</div>
+          <div class="card-desc">Два пути сбора участников, мягкая продажа в переписке, таблица учёта и первые касания</div>
         </div>
         <div class="card-right">
-          <div class="lock-icon">🔒</div>
+          <span class="status-badge done">✓ Прошла</span>
+          <div class="chevron">▾</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          <div class="result-block">
+            <div class="rb-label">Результат встречи</div>
+            <p>Разобрали форматы наполнения групповой программы: логика встреч, распределение нагрузки, первые шаги контента</p>
+            <div style="margin-top:14px;">
+              <div class="rb-label" style="margin-bottom:8px;">Задания после встречи</div>
+              <ul style="padding-left:18px;font-size:14px;color:var(--ink-80);line-height:1.8;">
+                <li>Выложить первые 2–3 поста контента за неделю</li>
+                <li>Написать людям, с которыми уже был контакт — предложить программу</li>
+              </ul>
+            </div>
+          </div>
+          <div class="actions-block">
+            <a href="#" class="action-btn recording" onclick="openVideo('https://kinescope.io/embed/hbmvHceZnLkUUQHgzJnywk'); return false;">
+              <div class="btn-icon">▶</div>
+              Запись встречи
+              <span class="btn-arrow">↗</span>
+            </a>
+            <a href="https://tsyrocoach-metod.github.io/school/0705.html" target="_blank" class="action-btn notes">
+              <div class="btn-icon">📄</div>
+              Конспект
+              <span class="btn-arrow">↗</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="path-connector"></div>
 
-    <!-- ВСТРЕЧА 4 — LOCKED -->
-    <div class="meeting-card locked" data-id="4">
-      <div class="card-head">
+    <!-- ВСТРЕЧА 4 -->
+    <div class="meeting-card open expanded" data-id="4">
+      <div class="card-head" onclick="toggle(4)">
         <div>
           <div class="meeting-num">Встреча 4</div>
           <div class="meeting-date">14 мая</div>
         </div>
         <div class="card-info">
           <div class="card-theme">Группа</div>
-          <div class="card-title">Форматы наполнения группы и контент</div>
-          <div class="card-desc">Углубляем форматы, разбираем контент под запуск</div>
+          <div class="card-title">Как составлять структуру встречи?</div>
+          <div class="card-desc">Лестница навыков, матрёшка, разбор живых кейсов — как строить каждую встречу от результата участника</div>
         </div>
         <div class="card-right">
-          <div class="lock-icon">🔒</div>
+          <span class="status-badge done">✓ Прошла</span>
+          <div class="chevron">▾</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          <div class="result-block">
+            <div class="rb-label">Результат встречи</div>
+            <p>Углубили форматы групповой работы, разобрали контент под запуск программы</p>
+            <div style="margin-top:14px;">
+              <div class="rb-label" style="margin-bottom:8px;">Задание после встречи</div>
+              <ul style="padding-left:18px;font-size:14px;color:var(--ink-80);line-height:1.8;">
+                <li>Проработать хотя бы одну встречу по методологии вместе с ИИ-методологом</li>
+              </ul>
+            </div>
+          </div>
+          <div class="actions-block">
+            <a href="#" class="action-btn recording" onclick="openVideo('https://kinescope.io/embed/xhjMwJKX9DEgfGXHaGar2Z'); return false;">
+              <div class="btn-icon">▶</div>
+              Запись встречи
+              <span class="btn-arrow">↗</span>
+            </a>
+            <a href="https://tsyrocoach-metod.github.io/school/1405.html" target="_blank" class="action-btn notes">
+              <div class="btn-icon">📄</div>
+              Конспект
+              <span class="btn-arrow">↗</span>
+            </a>
+            <a href="https://chatgpt.com/g/g-6a06e2ad572c8191a8aacc33679bb90c-ii-metodolog-andrei-land" target="_blank" class="action-btn tasks">
+              <div class="btn-icon">🤖</div>
+              ИИ-методолог
+              <span class="btn-arrow">↗</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -806,9 +899,9 @@ body {
           <div class="meeting-date">21 мая</div>
         </div>
         <div class="card-info">
-          <div class="card-theme">Продажи</div>
-          <div class="card-title">Окна продаж: эфиры и привлечение аудитории</div>
-          <div class="card-desc">Система окон продаж, как проводить эфиры и набирать аудиторию из разных источников</div>
+          <div class="card-theme">Методология</div>
+          <div class="card-title">Углубляемся в методологию, практикуем матрёшки</div>
+          <div class="card-desc">Отрабатываем структуру встреч на своём материале</div>
         </div>
         <div class="card-right">
           <div class="lock-icon">🔒</div>
@@ -827,8 +920,8 @@ body {
         </div>
         <div class="card-info">
           <div class="card-theme">Продажи</div>
-          <div class="card-title">Переписки, продажи и работа с возражениями</div>
-          <div class="card-desc">Как продавать экологично — с возражениями и без</div>
+          <div class="card-title">Окна продаж, переписки и работа с возражениями</div>
+          <div class="card-desc">Как продавать экологично — система окон, диалог в личке, возражения</div>
         </div>
         <div class="card-right">
           <div class="lock-icon">🔒</div>
@@ -846,9 +939,9 @@ body {
           <div class="meeting-date">4 июн</div>
         </div>
         <div class="card-info">
-          <div class="card-theme">Разбор</div>
-          <div class="card-title">Разбор запусков</div>
-          <div class="card-desc">Что сработало, что корректируем. Как легко готовиться ко встречам, адаптировать материал под группу и готовить презентации</div>
+          <div class="card-theme">Практика</div>
+          <div class="card-title">Отработка навыка работы с группой</div>
+          <div class="card-desc">Разбор запусков. Как легко готовиться ко встречам, адаптировать материал под группу и готовить презентации</div>
         </div>
         <div class="card-right">
           <div class="lock-icon">🔒</div>
@@ -878,48 +971,10 @@ body {
 
   </div>
 
-  <!-- PRODUCTS MAP -->
-  <div class="section-title">Карта продуктов участников</div>
-
-  <div class="products-section">
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:8px;">
-      <div class="products-title">Ваши проекты</div>
-      <span style="background:var(--yellow);color:var(--ink);font-family:var(--font-head);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;padding:5px 14px;border-radius:40px;">Скоро</span>
-    </div>
-    <div class="products-headline">Карта <em>продуктов</em></div>
-    <p class="products-sub">Документы с архитектурой продукта каждого участника — обновляются по ходу программы</p>
-    <div class="participants-grid">
-      <a href="#" class="participant-btn">
-        <div class="participant-avatar">С</div>
-        <div class="participant-name">Светлана</div>
-        <div class="participant-label">Открыть документ</div>
-        <div class="participant-arrow">↗</div>
-      </a>
-      <a href="#" class="participant-btn">
-        <div class="participant-avatar">Н</div>
-        <div class="participant-name">Нина</div>
-        <div class="participant-label">Открыть документ</div>
-        <div class="participant-arrow">↗</div>
-      </a>
-      <a href="#" class="participant-btn">
-        <div class="participant-avatar">С</div>
-        <div class="participant-name">София</div>
-        <div class="participant-label">Открыть документ</div>
-        <div class="participant-arrow">↗</div>
-      </a>
-      <a href="#" class="participant-btn">
-        <div class="participant-avatar">Т</div>
-        <div class="participant-name">Татьяна</div>
-        <div class="participant-label">Открыть документ</div>
-        <div class="participant-arrow">↗</div>
-      </a>
-    </div>
-  </div>
-
-  <!-- TWO EXTRA BLOCKS -->
+  <!-- BOTTOM BLOCKS -->
   <div class="extra-blocks" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
 
-    <!-- ИИ-промпты -->
+    <!-- ИИ-помощники -->
     <a href="https://drive.google.com/drive/folders/1n61YOdOIJt31CYE78F87BOuo96Z-P9vI?usp=share_link" target="_blank"
        class="products-section" style="padding:32px 36px;text-decoration:none;display:block;transition:opacity .2s;"
        onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
@@ -941,6 +996,39 @@ body {
       </div>
       <div class="products-headline" style="font-size:clamp(18px,2vw,24px);"><em>Ресёрчи</em></div>
       <p class="products-sub" style="margin-bottom:0;font-size:14px;">Папка с исследованиями и референсами — открывается в Google Drive</p>
+    </a>
+
+  </div>
+
+  <!-- DARK BUTTONS ROW -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
+
+    <!-- ИИ-методолог -->
+    <a href="https://chatgpt.com/g/g-6a06e2ad572c8191a8aacc33679bb90c-ii-metodolog-andrei-land" target="_blank"
+       style="display:flex;align-items:center;justify-content:space-between;gap:12px;
+              background:var(--ink);color:#fff;border-radius:16px;padding:24px 28px;
+              text-decoration:none;transition:opacity .2s;"
+       onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+      <div>
+        <div style="font-family:var(--font-head);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,.5);margin-bottom:6px;">Инструмент</div>
+        <div style="font-family:var(--font-head);font-size:18px;font-weight:700;line-height:1.2;">ИИ‑методолог</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:4px;">Помогает собрать структуру встречи</div>
+      </div>
+      <span style="font-size:24px;opacity:.6;">↗</span>
+    </a>
+
+    <!-- Расшифровки -->
+    <a href="https://drive.google.com/drive/folders/1UxbavRr7Ccjgzsdv2MhXVJsHauYYS4Ry?usp=share_link" target="_blank"
+       style="display:flex;align-items:center;justify-content:space-between;gap:12px;
+              background:var(--ink);color:#fff;border-radius:16px;padding:24px 28px;
+              text-decoration:none;transition:opacity .2s;"
+       onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+      <div>
+        <div style="font-family:var(--font-head);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,.5);margin-bottom:6px;">Архив</div>
+        <div style="font-family:var(--font-head);font-size:18px;font-weight:700;line-height:1.2;">Расшифровки встреч</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:4px;">Транскрибации всех эфиров — Google Drive</div>
+      </div>
+      <span style="font-size:24px;opacity:.6;">↗</span>
     </a>
 
   </div>
@@ -1098,6 +1186,7 @@ function closeChecklist() {
   document.getElementById('checklist-modal').style.display = 'none';
   document.body.style.overflow = '';
 }
+
 
 document.getElementById('video-modal').addEventListener('click', function(e) {
   if (e.target === this) closeVideo();
