@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Конспект · Встреча 5 · 21 мая · Разбор текущего статуса работы над программой</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --yellow: #FFD600;
+  --yellow-light: #FFF9C4;
+  --yellow-deep: #E6A800;
+  --ink: #1A1A1A;
+  --ink-60: rgba(26,26,26,.6);
+  --ink-20: rgba(26,26,26,.12);
+  --ink-08: rgba(26,26,26,.06);
+  --white: #FFFFFF;
+  --bg: #f8f7f4;
+  --violet: #6C3FC5;
+  --violet-light: #F0EBFF;
+  --teal: #1A7A6E;
+  --teal-light: #E4F5F3;
+  --amber: #C97A00;
+  --amber-light: #FFF4DC;
+  --coral: #C0392B;
+  --coral-light: #FDECEA;
+  --green: #2D7A4F;
+  --green-light: #E8F5EE;
+  --font-head: 'Unbounded', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+  --radius: 16px;
+  --shadow: 0 2px 16px rgba(0,0,0,.07);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--ink);
+  padding: 44px 60px 52px;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -70px; right: -70px;
+  width: 320px; height: 320px;
+  background: var(--yellow);
+  border-radius: 50%;
+  opacity: .10;
+}
+.header-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+
+.header-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--yellow);
+  color: var(--ink);
+  font-family: var(--font-head);
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 3px;
+  padding: 6px 16px; border-radius: 40px;
+  margin-bottom: 22px;
+}
+
+.header h1 {
+  font-family: var(--font-head);
+  font-size: clamp(24px, 4vw, 42px);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.header h1 em { color: var(--yellow); font-style: normal; }
+
+.header-meta {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin-top: 24px;
+}
+.meta-pill {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.15);
+  color: rgba(255,255,255,.75);
+  font-size: 12px; font-weight: 600;
+  padding: 5px 14px; border-radius: 40px;
+}
+.meta-pill.active {
+  background: var(--yellow); border-color: var(--yellow); color: var(--ink);
+}
+
+/* ── MAIN ── */
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 52px 60px 80px;
+}
+
+/* ── SECTION TITLE ── */
+.section-label {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 20px; margin-top: 52px;
+}
+.section-label:first-child { margin-top: 0; }
+.section-num {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--ink);
+  color: var(--white);
+  font-family: var(--font-head);
+  font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.section-title {
+  font-family: var(--font-head);
+  font-size: 13px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 3px;
+  color: var(--ink-60);
+}
+.section-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--ink-20);
+}
+
+/* ── CARD ── */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px 32px;
+  margin-bottom: 16px;
+  border-left: 4px solid transparent;
+}
+.card.violet { border-left-color: var(--violet); }
+.card.teal   { border-left-color: var(--teal); }
+.card.amber  { border-left-color: var(--amber); }
+.card.coral  { border-left-color: var(--coral); }
+.card.green  { border-left-color: var(--green); }
+.card.yellow { border-left-color: var(--yellow-deep); }
+
+.card-title {
+  font-family: var(--font-head);
+  font-size: 15px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .5px;
+  margin-bottom: 12px; color: var(--ink);
+}
+
+.card p { font-size: 15px; color: var(--ink); margin-bottom: 10px; }
+.card p:last-child { margin-bottom: 0; }
+
+/* ── IMPORTANT BLOCK ── */
+.important {
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-top: 14px;
+}
+.important.yellow-bg { background: var(--yellow-light); border-left: 3px solid var(--yellow-deep); }
+.important.violet-bg { background: var(--violet-light); border-left: 3px solid var(--violet); }
+.important.amber-bg  { background: var(--amber-light);  border-left: 3px solid var(--amber); }
+.important.teal-bg   { background: var(--teal-light);   border-left: 3px solid var(--teal); }
+.important.coral-bg  { background: var(--coral-light);  border-left: 3px solid var(--coral); }
+.important-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+  color: var(--ink-60); margin-bottom: 6px;
+}
+.important p { font-size: 14px; margin: 0; }
+
+/* ── QUOTE ── */
+.quote-block {
+  font-style: italic;
+  font-size: 15px;
+  color: var(--ink-60);
+  border-left: 3px solid var(--ink-20);
+  padding: 8px 16px;
+  margin: 12px 0;
+  line-height: 1.6;
+}
+
+/* ── STEP LIST ── */
+.step-list { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.step-item { display: flex; align-items: flex-start; gap: 14px; }
+.step-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  font-family: var(--font-head); font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.step-num.violet { background: var(--violet-light); color: var(--violet); }
+.step-num.teal   { background: var(--teal-light);   color: var(--teal); }
+.step-num.amber  { background: var(--amber-light);   color: var(--amber); }
+.step-num.coral  { background: var(--coral-light);   color: var(--coral); }
+.step-num.green  { background: var(--green-light);   color: var(--green); }
+.step-num.yellow { background: var(--yellow-light);  color: var(--yellow-deep); }
+.step-text { font-size: 15px; color: var(--ink); line-height: 1.6; padding-top: 3px; }
+.step-text strong { font-weight: 700; }
+
+/* ── INSIGHT PILL ── */
+.insights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.insight-pill {
+  background: var(--white);
+  border-radius: 12px; box-shadow: var(--shadow);
+  padding: 16px 18px;
+  border-top: 3px solid var(--yellow-deep);
+  font-size: 14px; color: var(--ink);
+  line-height: 1.5;
+}
+
+/* ── TASK LIST ── */
+.task-list { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.task-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--yellow-light);
+  border-radius: 10px; padding: 12px 16px;
+}
+.task-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.task-text { font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.5; }
+
+/* ── PARTICIPANT TAG ── */
+.participant-tag {
+  display: inline-block;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  padding: 3px 10px; border-radius: 20px;
+  margin-right: 6px; margin-bottom: 4px;
+}
+.pt-tsyro   { background: var(--yellow-light); color: var(--yellow-deep); }
+.pt-kutran  { background: var(--violet-light); color: var(--violet); }
+.pt-sofia   { background: var(--teal-light);   color: var(--teal); }
+.pt-oksana  { background: var(--coral-light);  color: var(--coral); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .header { padding: 28px 20px 36px; }
+  .main { padding: 32px 16px 52px; }
+  .card { padding: 20px 18px; }
+  .insights-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-tag">Конспект · Встреча 5</div>
+    <h1>Разбор текущего статуса<br><em>работы над программой</em></h1>
+    <div class="header-meta">
+      <span class="meta-pill active">21 мая 2025</span>
+      <span class="meta-pill">Методологический запуск</span>
+      <span class="meta-pill">Светлана Цыро</span>
+      <span class="meta-pill">Формат: разбор кейсов</span>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- 1. КЛЮЧЕВАЯ КОНЦЕПЦИЯ -->
+  <div class="section-label">
+    <div class="section-num">1</div>
+    <div class="section-title">Ключевая концепция встречи</div>
+  </div>
+
+  <div class="card violet">
+    <div class="card-title">Контент продукта и его упаковка — два разных языка</div>
+    <p>Центральная идея встречи: то, как эксперт описывает свою программу внутри (методологически, через инструменты и этапы) — и то, как это должно выглядеть на лендинге для клиента — это принципиально разные языки. Переключение между ними — один из самых сложных навыков в создании продукта.</p>
+    <div class="quote-block">«Есть язык инструментов и методологии — это для нас. А есть язык людей — для аудитории. Эфир остаётся одним и тем же, упаковка меняется.»</div>
+    <p>Вторая ключевая идея: ИИ-инструменты позволяют делать сложные штуки — лендинги, интерактивные калькуляторы, платформы — за минуты или часы, а не дни. Но это требует практики и умения формулировать задачу «по ощущениям» (вайб-кодинг).</p>
+  </div>
+
+  <!-- 2. ОСНОВНОЕ СОДЕРЖАНИЕ -->
+  <div class="section-label">
+    <div class="section-num">2</div>
+    <div class="section-title">Основное содержание</div>
+  </div>
+
+  <div class="card amber">
+    <div class="card-title">🔹 Блок 1 · Кейс Софии: лендинг через ИИ за 10 минут</div>
+    <p>У Софии был готовый сценарий мастер-класса по самоценности для подростков. Светлана взяла этот сценарий и скинула в ИИ с простым запросом: «Сделай компактный мини-лендинг: для кого, стоимость, форма данных, кнопка перехода к оплате».</p>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num amber">1</div>
+        <div class="step-text"><strong>Первая версия лендинга</strong> — ИИ написал на языке методологии: «практический эфир по самоценности», «осознанные реакции» и т.д. Светлана показала наглядно: такой текст не попадает в аудиторию.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num amber">2</div>
+        <div class="step-text"><strong>Переключение на язык людей</strong> — попросила ИИ войти в роль стратега-маркетолога. Новая версия: ситуации из жизни, живые триггеры («тебе говорят про внешность, ты начинаешь думать — это про тебя»), конкретика вместо абстракций.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num amber">3</div>
+        <div class="step-text"><strong>Перевод на английский</strong> — ещё один запрос ИИ. Двуязычный лендинг с переключателем. Для Грузии — на английский или грузинский, не на русский.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num amber">4</div>
+        <div class="step-text"><strong>Следующий шаг для Софии</strong> — разобраться с онлайн-кассой и ссылкой на оплату. Когда ссылка появится, она вставляется в лендинг, лендинг публикуется (например, через Webflow/Br или Tilda), и система работает: оплата → редирект в телеграм-канал.</div>
+      </div>
+    </div>
+
+    <div class="important amber-bg">
+      <div class="important-label">⚠️ Важно</div>
+      <p>Лендинг на языке инструментов («обучение осознанным реакциям», «три микронавыка») — не работает. Лендинг должен описывать ситуацию клиента, его боль и конкретный сдвиг, не содержание программы. Содержание — для нас, для структуры. Лендинг — для клиента.</p>
+    </div>
+
+    <div class="important violet-bg">
+      <div class="important-label">Лайфхак: как редактировать лендинг</div>
+      <p>Попросить ИИ прислать текст лендинга отдельным MD-файлом. Открыть в любом редакторе, отредактировать руками, вернуть ИИ с просьбой «собери обратно в HTML точно по этому тексту». Так легче работать с формулировками без страха перед кодом.</p>
+    </div>
+  </div>
+
+  <!-- БЛОК 2: КЕЙС СВЕТЛАНЫ К — ПРАКТИКУМ И КАЛЬКУЛЯТОР -->
+  <div class="card violet">
+    <div class="card-title">🔹 Блок 2 · Кейс Светланы Кутрань: практикум по ценообразованию и интерактивный калькулятор</div>
+
+    <p>Светлана К. ведёт практикум по ценообразованию для помогающих практиков. Инструмент — таблица расчёта стоимости часа. Ключевой запрос: как провести практикум удобно, если участники не умеют работать в таблицах. И как потом всё это сохраняется.</p>
+
+    <div class="important violet-bg">
+      <div class="important-label">Точка А участников практикума</div>
+      <p>Эксперты устанавливают цену «по рынку» (смотрят на коллег, берут немного меньше) — это позиция наёмного сотрудника, не предпринимателя. Они не считают реальные расходы, налоги, фонды, восстановление.</p>
+    </div>
+
+    <p style="margin-top:14px;">Светлана предложила не просто доработать Excel-таблицу, а создать с помощью ИИ <strong>интерактивный HTML-калькулятор</strong>:</p>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num violet">1</div>
+        <div class="step-text">Участник заполняет поля по шагам — <strong>не таблицу, а «как в игрулечку»</strong>. Ползунки, кнопки, шаги с объяснениями.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num violet">2</div>
+        <div class="step-text">Калькулятор сам считает: личные расходы → расходы бизнеса → налоги → реальное количество рабочих часов → <strong>минимальная стоимость часа</strong>.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num violet">3</div>
+        <div class="step-text">В конце — красивый итоговый экран с цифрой и возможностью скачать результат как PDF или таблицу.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num violet">4</div>
+        <div class="step-text">Инструмент размещается по ссылке (через Tilda или GitHub Pages), ссылка отправляется участникам в начале встречи.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num violet">5</div>
+        <div class="step-text">Участники <strong>с телефона</strong> заполняют калькулятор, пока ведущая объясняет на большом экране — никаких таблиц, никакого страха.</div>
+      </div>
+    </div>
+
+    <div class="important yellow-bg">
+      <div class="important-label">⚠️ Важно · Проблема сохранения</div>
+      <p>HTML-инструмент не сохраняет данные при обновлении или закрытии. Нужно обязательно в конце скачать результат — или ИИ может добавить кнопку «Скачать PDF/Excel» с финальными данными.</p>
+    </div>
+  </div>
+
+  <!-- БЛОК 3: МАТРЁШКА ПРАКТИКУМА -->
+  <div class="card teal">
+    <div class="card-title">🔹 Блок 3 · Матрёшка внутри практикума по ценообразованию</div>
+    <p>Светлана показала, как сам практикум устроен по логике матрёшки: практика → шеринг/рефлексия → следующая практика.</p>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num teal">1</div>
+        <div class="step-text"><strong>Мини-лекция (концепт)</strong> — почему не умеем считать цену, что происходит когда работаем «по рынку», в чём ловушка.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num teal">2</div>
+        <div class="step-text"><strong>Практика 1 — личные расходы</strong> — участники считают сколько нужно им лично: жильё, дети, отпуск, фонды. 10 минут самостоятельно в калькуляторе.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num teal">3</div>
+        <div class="step-text"><strong>Микрошеринг</strong> — «Поднимите руки, у кого получилось», собрать обратную связь. Не длинный шеринг — короткое закрытие.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num teal">4</div>
+        <div class="step-text"><strong>Практика 2 — расходы бизнеса</strong> — налоги, сервисы, реклама. Важный инсайт: «Если я заработала двести тысяч — это не все мои деньги, часть — деньги бизнеса».</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num teal">5</div>
+        <div class="step-text"><strong>Практика 3 — реальные рабочие часы</strong> — не 8 часов в день, не 22 рабочих дня. Считаем реально: глубокие часы, % оплачиваемого времени.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num teal">6</div>
+        <div class="step-text"><strong>Итог и разрыв</strong> — калькулятор показывает разрыв между текущей ставкой и реально необходимой. Открывается следующая матрёшка: «Как это заработать?»</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num teal">7</div>
+        <div class="step-text"><strong>Рефлексия и мотив</strong> — переход из позиции «жду что мне заплатят» (позиция найма) в позицию «я управляю своим доходом, как мне это получить». Это самый важный психологический сдвиг практикума.</div>
+      </div>
+    </div>
+
+    <div class="important teal-bg">
+      <div class="important-label">⚠️ Важно · Два навыка — один практикум</div>
+      <p>Считать стоимость часа и объяснять клиенту, почему именно такая цена — это <strong>два разных навыка</strong>: первый — математика, второй — позиционирование и упаковка ценности. И оба закрываются в рамках одного практикума — один за другим, как матрёшка открывает следующую.</p>
+    </div>
+  </div>
+
+  <!-- БЛОК 4: ВСТРОЙКА В TILDA -->
+  <div class="card amber">
+    <div class="card-title">🔹 Блок 4 · Как встраивать интерактивный инструмент в сайт (Tilda и др.)</div>
+    <p>Светлана показала на своей Tilda, как это технически устроено:</p>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num amber">1</div>
+        <div class="step-text">Создать новую страницу на сайте (или отдельную страницу специально для инструмента).</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num amber">2</div>
+        <div class="step-text">Добавить блок «HTML Code» (или аналог в другом конструкторе).</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num amber">3</div>
+        <div class="step-text">Скопировать HTML-код, который написал ИИ, и вставить в этот блок.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num amber">4</div>
+        <div class="step-text">Опубликовать страницу. Готово — работает по ссылке как живой сайт.</div>
+      </div>
+    </div>
+    <div class="quote-block">«Вот это я делала за десять минут. По-хорошему, можно за полчаса-час более детально проработать. И просто встроить — очень легко, чтоб это уже было живым сайтом.»</div>
+  </div>
+
+  <!-- БЛОК 5: ИСТОРИЯ НАТАШИ -->
+  <div class="card coral">
+    <div class="card-title">🔹 Блок 5 · История Наташи — кейс про цену и аудиторию</div>
+    <p>Светлана привела кейс из своей практики — клиентка Наташа, тренер по голосу. Брала 8 тысяч за час и не понимала, за что можно брать 20. Они начали разбираться: кто реально приходит к ней на сессии.</p>
+    <p>Оказалось: среди клиентов Наташи — руководители Совета Федерации, Центробанка, Сбера. Когда это стало видно, знакомый из Сбера сказал: «Наташенька, у всех по шестьдесят стоит, поставь хотя бы сорок пять». Наташа поставила — зажмурив глаза.</p>
+    <p>С этой аудиторией работать тяжелее эмоционально и физически, после сессий она долго восстанавливается. Поэтому не могла брать много клиентов — просто не понимала почему. Сейчас вилка: двадцать — сорок пять тысяч за час.</p>
+    <div class="important coral-bg">
+      <div class="important-label">Вывод</div>
+      <p>Иногда дело не в том, чтобы поднять цену — а в том, чтобы <strong>увидеть свою аудиторию</strong>. Когда становится понятно с кем ты реально работаешь, цена перестаёт казаться завышенной.</p>
+    </div>
+  </div>
+
+  <!-- БЛОК 6: ВАЙБ-КОДИНГ -->
+  <div class="card green">
+    <div class="card-title">🔹 Блок 6 · Вайб-кодинг: что это и как работает</div>
+    <p>Светлана объяснила термин «вайб-кодинг» (vibe coding) — актуальное название для работы с ИИ, когда ты описываешь задачу «по ощущениям», без технических терминов, и ИИ создаёт готовый продукт.</p>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num green">→</div>
+        <div class="step-text">Не нужно знать HTML, CSS, JavaScript — описываешь что хочешь получить, какой должна быть механика, как должно ощущаться.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num green">→</div>
+        <div class="step-text">ИИ пишет код и сразу даёт рабочий инструмент. Можно докручивать: «убери это», «сделай шаги вместо всего сразу», «добавь кнопку скачать».</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num green">→</div>
+        <div class="step-text">Claude — лучше как «мозг», структурирует и собирает. Для поиска актуальных данных лучше ChatGPT или Perplexity.</div>
+      </div>
+    </div>
+    <div class="important teal-bg">
+      <div class="important-label">Пример из жизни</div>
+      <p>Светлана сделала для дочери интерактивный трекер привычек (спать в своей кровати, порядок в комнате): за 5 минут через ИИ. С прогресс-баром, появляющимися единорожками, подарком в конце. «Нам хватило одной недели — с декабря она больше ни разу не приходила ко мне в кровать.» Вот что такое вайб-кодинг в быту.</p>
+    </div>
+  </div>
+
+  <!-- 3. ИНСАЙТЫ -->
+  <div class="section-label">
+    <div class="section-num">3</div>
+    <div class="section-title">Ключевые инсайты встречи</div>
+  </div>
+
+  <div class="insights-grid">
+    <div class="insight-pill">Лендинг пишется языком клиента — его ситуации, боли, конкретного сдвига. Не языком инструментов программы.</div>
+    <div class="insight-pill">Интерактивный калькулятор вместо таблицы снимает сопротивление участников. «Как в игрулечку» — работает лучше, чем Excel.</div>
+    <div class="insight-pill">Практикум по ценообразованию состоит из двух частей: посчитать стоимость часа — и научиться объяснять цену клиенту. Это разные навыки.</div>
+    <div class="insight-pill">Позиция «жду что мне заплатят» = позиция найма. Переключение в «как я могу это заработать» — главный психологический сдвиг.</div>
+    <div class="insight-pill">HTML-инструмент легко встраивается в Tilda или любой конструктор через блок «HTML Code». Занимает 5 минут.</div>
+    <div class="insight-pill">Вайб-кодинг: объясняешь по ощущениям — ИИ кодирует. Не нужно знать технических терминов. Клод лучше в структуре, ChatGPT — в поиске актуального.</div>
+    <div class="insight-pill">Инструмент (калькулятор, интерактив) может стать лид-магнитом. Дать людям посчитать → они узнают свою цифру → хотят разобраться как её достичь → приходят на курс.</div>
+  </div>
+
+  <!-- 4. ЗАДАНИЯ -->
+  <div class="section-label">
+    <div class="section-num">4</div>
+    <div class="section-title">Задания после встречи</div>
+  </div>
+
+  <div class="card yellow">
+    <div class="card-title">Задание для Светланы Кутрань</div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-icon">📋</div>
+        <div class="task-text">Прислать Светлане свою таблицу расчёта стоимости часа — чтобы доработать в интерактивный калькулятор</div>
+      </div>
+      <div class="task-item">
+        <div class="task-icon">📅</div>
+        <div class="task-text">Запустить голосование в чате: когда удобнее провести практикум — понедельник в 11:00 или среда в 12:30</div>
+      </div>
+      <div class="task-item">
+        <div class="task-icon">🎯</div>
+        <div class="task-text">Провести практикум — пока с Excel-таблицей, не застревать в идеальном инструменте. Протестировать структуру, потом докрутить механику.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card yellow" style="margin-top: 12px;">
+    <div class="card-title">Задание для Оксаны</div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-icon">🤝</div>
+        <div class="task-text">Помочь Светлане К. технически — встроить калькулятор на сайт, когда инструмент будет готов. Оксана уже умеет делать конспекты в HTML — этот навык пригодится.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card yellow" style="margin-top: 12px;">
+    <div class="card-title">Задание для Софии</div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-icon">💳</div>
+        <div class="task-text">Выяснить условия подключения онлайн-оплаты через свой банк/юрлицо в Грузии</div>
+      </div>
+      <div class="task-item">
+        <div class="task-icon">🌐</div>
+        <div class="task-text">Когда появится ссылка на оплату — встроить в готовый лендинг (Светлана пришлёт файл в чат)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. АНОНСЫ -->
+  <div class="section-label">
+    <div class="section-num">5</div>
+    <div class="section-title">Анонсы</div>
+  </div>
+
+  <div class="card teal">
+    <div class="card-title">Практикум в воскресенье — для всех</div>
+    <p>Светлана ведёт платный практикум по вайб-кодингу и встройке интерактивных инструментов на сайт. Три часа — от идеи до живой страницы. Запись пришлёт всем участницам группы, с ней также будет конспект. Именно там подробно разбирается: как делать такие инструменты, как встраивать в сайт, как это работает на практике.</p>
+    <div class="important teal-bg">
+      <div class="important-label">Что будет на практикуме</div>
+      <p>Три блока: мини-лекция → практика → шеринг. Примеры с реальными кейсами (в том числе частично кейс Светланы К. — как таблицу превратить в интерактивный инструмент). Плоть до встройки в сайт — прямо на эфире.</p>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>
