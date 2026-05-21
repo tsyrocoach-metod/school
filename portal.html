@@ -840,7 +840,7 @@ body {
     <div class="path-connector"></div>
 
     <!-- ВСТРЕЧА 4 -->
-    <div class="meeting-card open expanded" data-id="4">
+    <div class="meeting-card open" data-id="4">
       <div class="card-head" onclick="toggle(4)">
         <div>
           <div class="meeting-num">Встреча 4</div>
@@ -891,9 +891,9 @@ body {
 
     <div class="path-connector"></div>
 
-    <!-- ВСТРЕЧА 5 — LOCKED -->
-    <div class="meeting-card locked" data-id="5">
-      <div class="card-head">
+    <!-- ВСТРЕЧА 5 -->
+    <div class="meeting-card open expanded" data-id="5">
+      <div class="card-head" onclick="toggle(5)">
         <div>
           <div class="meeting-num">Встреча 5</div>
           <div class="meeting-date">21 мая</div>
@@ -904,7 +904,28 @@ body {
           <div class="card-desc">Отрабатываем структуру встреч на своём материале</div>
         </div>
         <div class="card-right">
-          <div class="lock-icon">🔒</div>
+          <span class="status-badge done">✓ Прошла</span>
+          <div class="chevron">▾</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          <div class="result-block">
+            <div class="rb-label">Результат встречи</div>
+            <p>Разобрали текущий статус работы над программой каждого участника — лендинги через ИИ, интерактивный калькулятор вместо таблиц, матрёшка практикума по ценообразованию</p>
+          </div>
+          <div class="actions-block">
+            <a href="#" class="action-btn recording" onclick="openVideo('https://kinescope.io/embed/uadmudknrpuPyRLehXoDUZ'); return false;">
+              <div class="btn-icon">▶</div>
+              Запись встречи
+              <span class="btn-arrow">↗</span>
+            </a>
+            <a href="https://tsyrocoach-metod.github.io/school/2105.html" target="_blank" class="action-btn notes">
+              <div class="btn-icon">📄</div>
+              Конспект
+              <span class="btn-arrow">↗</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
