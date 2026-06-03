@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Конспект · Встреча 6 · 28 мая</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --yellow: #FFD600;
+  --yellow-light: #FFF9C4;
+  --yellow-deep: #E6A800;
+  --ink: #1A1A1A;
+  --ink-60: rgba(26,26,26,.6);
+  --ink-20: rgba(26,26,26,.12);
+  --ink-08: rgba(26,26,26,.06);
+  --white: #FFFFFF;
+  --bg: #f8f7f4;
+  --violet: #6C3FC5;
+  --violet-light: #F0EBFF;
+  --teal: #1A7A6E;
+  --teal-light: #E4F5F3;
+  --amber: #C97A00;
+  --amber-light: #FFF4DC;
+  --coral: #C0392B;
+  --coral-light: #FDECEA;
+  --green: #2D7A4F;
+  --green-light: #E8F5EE;
+  --font-head: 'Unbounded', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+  --radius: 16px;
+  --shadow: 0 2px 16px rgba(0,0,0,.07);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+.header {
+  background: var(--ink);
+  padding: 44px 60px 52px;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -70px; right: -70px;
+  width: 320px; height: 320px;
+  background: var(--yellow);
+  border-radius: 50%;
+  opacity: .10;
+}
+.header-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+
+.header-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--yellow);
+  color: var(--ink);
+  font-family: var(--font-head);
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 3px;
+  padding: 6px 16px; border-radius: 40px;
+  margin-bottom: 22px;
+}
+
+.header h1 {
+  font-family: var(--font-head);
+  font-size: clamp(24px, 4vw, 42px);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.header h1 em { color: var(--yellow); font-style: normal; }
+
+.header-meta {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin-top: 24px;
+}
+.meta-pill {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.15);
+  color: rgba(255,255,255,.75);
+  font-size: 12px; font-weight: 600;
+  padding: 5px 14px; border-radius: 40px;
+}
+.meta-pill.active {
+  background: var(--yellow); border-color: var(--yellow); color: var(--ink);
+}
+
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 52px 60px 80px;
+}
+
+.section-label {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 20px; margin-top: 52px;
+}
+.section-label:first-child { margin-top: 0; }
+.section-num {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--ink);
+  color: var(--white);
+  font-family: var(--font-head);
+  font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.section-title-text {
+  font-family: var(--font-head);
+  font-size: 13px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 3px;
+  color: var(--ink-60);
+}
+.section-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--ink-20);
+}
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px 32px;
+  margin-bottom: 16px;
+  border-left: 4px solid transparent;
+}
+.card.violet { border-left-color: var(--violet); }
+.card.teal   { border-left-color: var(--teal); }
+.card.amber  { border-left-color: var(--amber); }
+.card.coral  { border-left-color: var(--coral); }
+.card.green  { border-left-color: var(--green); }
+.card.yellow { border-left-color: var(--yellow-deep); }
+
+.card-title {
+  font-family: var(--font-head);
+  font-size: 15px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .5px;
+  margin-bottom: 12px; color: var(--ink);
+}
+
+.card p { font-size: 15px; color: var(--ink); margin-bottom: 10px; }
+.card p:last-child { margin-bottom: 0; }
+
+.important {
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-top: 14px;
+}
+.important.yellow-bg { background: var(--yellow-light); border-left: 3px solid var(--yellow-deep); }
+.important.violet-bg { background: var(--violet-light); border-left: 3px solid var(--violet); }
+.important.amber-bg  { background: var(--amber-light);  border-left: 3px solid var(--amber); }
+.important.teal-bg   { background: var(--teal-light);   border-left: 3px solid var(--teal); }
+.important.coral-bg  { background: var(--coral-light);  border-left: 3px solid var(--coral); }
+.important.green-bg  { background: var(--green-light);  border-left: 3px solid var(--green); }
+.important-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+  color: var(--ink-60); margin-bottom: 6px;
+}
+.important p { font-size: 14px; margin: 0; }
+
+.quote-block {
+  font-style: italic;
+  font-size: 15px;
+  color: var(--ink-60);
+  border-left: 3px solid var(--ink-20);
+  padding: 8px 16px;
+  margin: 12px 0;
+  line-height: 1.6;
+}
+
+.step-list { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.step-item { display: flex; align-items: flex-start; gap: 14px; }
+.step-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  font-family: var(--font-head); font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.step-num.violet { background: var(--violet-light); color: var(--violet); }
+.step-num.teal   { background: var(--teal-light);   color: var(--teal); }
+.step-num.amber  { background: var(--amber-light);   color: var(--amber); }
+.step-num.coral  { background: var(--coral-light);   color: var(--coral); }
+.step-num.green  { background: var(--green-light);   color: var(--green); }
+.step-num.yellow { background: var(--yellow-light);  color: var(--yellow-deep); }
+.step-text { font-size: 15px; color: var(--ink); line-height: 1.6; padding-top: 3px; }
+.step-text strong { font-weight: 700; }
+
+.insights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.insight-pill {
+  background: var(--white);
+  border-radius: 12px; box-shadow: var(--shadow);
+  padding: 16px 18px;
+  border-top: 3px solid var(--yellow-deep);
+  font-size: 14px; color: var(--ink);
+  line-height: 1.5;
+}
+
+.task-list { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.task-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--yellow-light);
+  border-radius: 10px; padding: 12px 16px;
+}
+.task-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.task-text { font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.5; }
+.task-sub { font-size: 13px; font-weight: 400; color: var(--ink-60); margin-top: 3px; }
+
+@media (max-width: 700px) {
+  .header { padding: 28px 20px 36px; }
+  .main { padding: 32px 16px 52px; }
+  .card { padding: 20px 18px; }
+  .insights-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-tag">Конспект · Встреча 6</div>
+    <h1>Продающие эфиры,<br><em>форматы запуска и переписки</em></h1>
+    <div class="header-meta">
+      <span class="meta-pill active">28 мая 2026</span>
+      <span class="meta-pill">Методологический запуск</span>
+      <span class="meta-pill">Светлана Цыро</span>
+      <span class="meta-pill">Формат: разбор + демо с ИИ-методологом</span>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- 1. КЛЮЧЕВАЯ КОНЦЕПЦИЯ -->
+  <div class="section-label">
+    <div class="section-num">1</div>
+    <div class="section-title-text">Ключевая концепция встречи</div>
+  </div>
+
+  <div class="card violet">
+    <div class="card-title">От практикума — к системе форматов запуска</div>
+    <p>Встреча началась с обсуждения эфира Светланы Кутрань, который прошёл накануне. Это стало точкой входа в главную тему: как один проведённый практикум превращается в целую систему форматов — продающий эфир, закрытый мини-продукт, часть длинной программы.</p>
+    <p>Второй ключевой поток — структура продающего эфира: из чего он состоит, чем отличается от контентного практикума и как его не бояться проводить. Третий — как работать с ИИ-методологом при подготовке к продаже.</p>
+    <div class="important violet-bg">
+      <div class="important-label">Участники встречи</div>
+      <p>Светлана Цыро — ведущая · Светлана Кутрань · София Кей · Оксана Камеристая · Таня — ненадолго подключилась в конце</p>
+    </div>
+  </div>
+
+  <!-- 2. ОСНОВНОЕ СОДЕРЖАНИЕ -->
+  <div class="section-label">
+    <div class="section-num">2</div>
+    <div class="section-title-text">Основное содержание</div>
+  </div>
+
+  <!-- БЛОК 1: разбор эфира Светы К. -->
+  <div class="card amber">
+    <div class="card-title">🔹 Блок 1 · Разбор эфира Светланы Кутрань: что работает, что дорабатывать</div>
+    <p>Участницы поделились впечатлениями от вчерашнего практикума по ценообразованию. Общий вывод: практика работает, интерактив работает, люди вовлекаются и начинают думать — ровно как и разбирали на предыдущих встречах через матрёшку.</p>
+
+    <p>Главное наблюдение от Нины: первую и вторую части практикума (экономическая значимость работы + расчёт стоимости часа) возможно стоит поменять местами. Логика: сначала человек получает подтверждение, что его работа значима — и только потом считает, сколько она может стоить. Тогда цифры в расходной части были бы смелее.</p>
+
+    <div class="quote-block">«Я сначала получаю подтверждение, что я значима, моя работа значима для людей, а потом считаю, сколько я могу на этом зарабатывать — опираясь на это понимание.»</div>
+
+    <div class="important amber-bg">
+      <div class="important-label">⚠️ Важно · Логика ступенек</div>
+      <p>Если аудитория — эксперты с невысоким ощущением ценности своей работы, порядок блоков принципиален: сначала легитимация («тебе можно»), потом расчёт («тебе нужно вот столько»). Это не обязательный порядок — зависит от аудитории. Тестировать.</p>
+    </div>
+
+    <div class="important teal-bg">
+      <div class="important-label">Про вовлечение в начале встречи</div>
+      <p>Несколько участниц отметили: первые 5–7 минут важно проговорить план и цель встречи — это не потому что люди «дураки», а потому что у всех есть своя жизнь и они буквально добегают на эфир. Краткий контракт в начале («сегодня у нас такой план, примерно такой тайминг») выравнивает группу и помогает людям заземлиться.</p>
+    </div>
+
+    <div class="important yellow-bg">
+      <div class="important-label">Лайфхак: кого выбирать для демо-практики</div>
+      <p>Если несколько человек подняли руку — смотри на самые яркие, вовлечённые лица. Человек с живой мимикой и хорошим контактом задаст динамику всей группе. Выбирать «каменное лицо» — риск: практика не пойдёт публично, и группа с первой встречи уйдёт не туда.</p>
+    </div>
+  </div>
+
+  <!-- БЛОК 2: форматы одного практикума -->
+  <div class="card violet">
+    <div class="card-title">🔹 Блок 2 · Один практикум — несколько форматов жизни</div>
+    <p>Светлана показала, как один проведённый практикум (как у Светланы К.) можно «растащить» на несколько форматов в зависимости от цели и аудитории.</p>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num violet">1</div>
+        <div class="step-text"><strong>Тест на тёплом кругу</strong> — провести бесплатно, чтобы убедиться: я не попка-дурак, это нужно людям, я умею это держать. Нарабатывает уверенность перед запуском большой программы.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num violet">2</div>
+        <div class="step-text"><strong>Закрытый платный мини-продукт</strong> — продаётся не публично: через партнёрские программы, к другим экспертам, встраивается в чужие программы как гостевая встреча. Небольшой чек, но хорошее позиционирование.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num violet">3</div>
+        <div class="step-text"><strong>Открытый публичный практикум</strong> — продаётся всем, небольшой чек. Требует аудитории. Если подписчиков мало — сложно собрать нужное количество людей, чтобы вышло финансово.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num violet">4</div>
+        <div class="step-text"><strong>Продающий эфир</strong> — из практикума берётся кусочек с разбором, встраивается в структуру продающего эфира для приглашения в большую программу.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num violet">5</div>
+        <div class="step-text"><strong>Встреча в длинной программе</strong> — один из модулей большого курса. Так Светлана говорит, что встроит практикумы Светы К. и Нины во второй поток своей программы.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num violet">6</div>
+        <div class="step-text"><strong>Запись в загашник</strong> — если надоело проводить вживую, продаётся как записанный продукт.</div>
+      </div>
+    </div>
+
+    <div class="important violet-bg">
+      <div class="important-label">⚠️ Важно · Про маленький чек и аудиторию</div>
+      <p>При маленькой аудитории выгоднее продавать меньше, но дороже. 5 продаж по 5 тыс. = 25 тыс. 5 продаж по 40 тыс. = 200 тыс. Усилие на продажу — одинаковое. Поэтому до первого запуска лучше не гнаться за дешёвыми открытыми практикумами, а фокусироваться на одном дорогом продукте с тёплой аудиторией.</p>
+    </div>
+  </div>
+
+  <!-- БЛОК 3: структура продающего эфира -->
+  <div class="card teal">
+    <div class="card-title">🔹 Блок 3 · Структура продающего эфира</div>
+    <p>Светлана разобрала структуру продающего эфира — на конкретном примере, который собрал ИИ-методолог по теме практикума Светланы К.</p>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num teal">1</div>
+        <div class="step-text"><strong>Название из точки боли</strong> — не «практикум по ценообразованию», а что-то из переживания клиента. Пример от ИИ-методолога: «Работаю больше, чем раньше — денег больше не становится. Они куда-то утекают».</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num teal">2</div>
+        <div class="step-text"><strong>Актуализация: точка А → точка Б</strong> — рассказываем, что происходит с человеком сейчас (точка А), куда он хочет (точка Б). Человек чаще в замешательстве по поводу своей ситуации — мы помогаем ему это увидеть. Это польза, а не «создание интереса».</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num teal">3</div>
+        <div class="step-text"><strong>Объяснение способа решения</strong> — почему другие методы не работают и почему наш подход правильный. Показываем логику программы: не детально по встречам, а маршрут — «вот так, вот так, вот так».</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num teal">4</div>
+        <div class="step-text"><strong>Первое окно продаж</strong> — 5–10 минут, рассказать про программу. Призыв к действию (CTA) не обязательно «вот ссылка, покупайте» — можно «напишите мне слово X, я сделаю аудиоразбор». Это первое окно, и его важно открыть в первые 50–60 минут.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num teal">5</div>
+        <div class="step-text"><strong>Живой разбор</strong> — 1–2 человека, желательно собранных заранее. Показать, как именно работаешь с человеком и его запросом. Смотреть на ярких, вовлечённых людей.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num teal">6</div>
+        <div class="step-text"><strong>Второе окно продаж + ответы на вопросы</strong> — повторить предложение, ответить на вопросы. Общий хронометраж: полтора-два часа максимум.</div>
+      </div>
+    </div>
+
+    <div class="important yellow-bg">
+      <div class="important-label">⚠️ Важно · Про «не давать пользу» на продающих эфирах</div>
+      <p>Маркетологи часто говорят: на продающих эфирах создаём интерес, а не даём пользу. Светлана с этим не согласна — и эта фраза триггерит многих помогающих практиков. Когда мы рассказываем человеку про его точку А и точку Б — это и есть польза. Он начинает понимать, где он находится и куда хочет. Это ценно само по себе.</p>
+    </div>
+
+    <div class="important teal-bg">
+      <div class="important-label">Про CTA без давления</div>
+      <p>CTA можно сделать мягким: «Напишите мне слово «группа», я пришлю вам пять вопросов — и сделаю аудиоразбор». Человек пишет, ты отвечаешь голосовым, если подходит — приглашаешь в программу в личке. Никакого «вот ссылка, срочно покупайте».</p>
+    </div>
+  </div>
+
+  <!-- БЛОК 4: про лид-магниты -->
+  <div class="card amber">
+    <div class="card-title">🔹 Блок 4 · Лид-магниты: что работает, а что нет</div>
+    <p>Светлана высказалась честно: PDF-ки как лид-магниты сейчас работают очень плохо. Люди их почти не читают. Из десяти лид-магнитов срабатывает один — и то непредсказуемо. Пример: у Седы лучше всего сконвертил лид-магнит «100 вопросов к мужу» — не про голос, не про карьеру.</p>
+
+    <div class="quote-block">«PDF-ки, правда, это прям такая история сейчас стала очень тяжёлая. Я не сторонник теперь PDF-ок и лид-магнитов, если честно.»</div>
+
+    <p>Что работает лучше — разбор. Аудио в личке, персональный ответ на запрос. Это и есть лид-магнит. Человек чувствует человеческое внимание к своей проблеме — и это пока ещё редкость на рынке.</p>
+
+    <div class="important amber-bg">
+      <div class="important-label">⚠️ Важно · Автоворонки — позже</div>
+      <p>Не торопиться настраивать автоворонки. Сначала — сделать ручками, посмотреть как люди реагируют, понять свои смыслы. Автоматизировать хаос — значит ускорить хаос. Сначала понять, что работает, потом автоматизировать.</p>
+    </div>
+  </div>
+
+  <!-- БЛОК 5: демо с ИИ-методологом — кейс Софии -->
+  <div class="card coral">
+    <div class="card-title">🔹 Блок 5 · Демо: ИИ-методолог собирает продающую встречу — кейс Софии</div>
+    <p>У Софии неожиданно появилась задача: нужно продать коучинговое сопровождение (3 месяца, 120 тыс. руб.) группе предпринимателей, с которыми уже прошли три бесплатные встречи в формате мастермайнд. Светлана провела демо прямо на эфире — как работать с ИИ-методологом для подготовки к такой встрече.</p>
+
+    <p><strong>Контекст аудитории Софии:</strong> предприниматели с разными целями (финансы, бизнес, отношения, баланс). Движутся к целям медленно — «по течению». На встречах говорят, что недовольны результатом, но новых действий не предпринимают. Групповая динамика не работает на полную.</p>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num coral">1</div>
+        <div class="step-text">Светлана дала ИИ-методологу контекст голосовым сообщением (через приложение Handy) — быстро и без набора текста. Методолог начал задавать уточняющие вопросы: что человек умеет делать через три месяца? Как изменится его поведение?</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num coral">2</div>
+        <div class="step-text">Через диалог сформулировали точку А (поставил цель, но действий мало, откладывает, прокрастинирует) и точку Б (совершает регулярные действия, умеет замечать откаты и возвращаться, получил первые значимые результаты, умеет их присваивать).</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num coral">3</div>
+        <div class="step-text">Методолог собрал структуру продающей встречи: актуализация боли → точка А/Б → разворот («проблема не в цели, а в механизме движения») → описание программы → мини-диагностика → шеринг → окно продаж → работа с возражениями → призыв к действию.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num coral">4</div>
+        <div class="step-text">Светлана показала: возражения можно обрабатывать не в лоб, а через псевдодиалог — «Возможно, кто-то скажет: я уже плачу за годовую программу. Давайте честно: если вы справляетесь сами — вам не обязательно. Если хотите этот навык — приходите».</div>
+      </div>
+    </div>
+
+    <div class="important coral-bg">
+      <div class="important-label">Про индивидуальный трек</div>
+      <p>В процессе разбора София поняла: никто не запрещал ей параллельно предлагать индивидуальную работу. Можно сказать в группе: «Можем двигаться в группе — или я работаю с вами лично». Два трека, одна задача.</p>
+    </div>
+
+    <div class="important violet-bg">
+      <div class="important-label">Как методолог работает лучше всего</div>
+      <p>Идеальное поведение ИИ-методолога: сначала дотошно задаёт вопросы про аудиторию и контекст, потом предлагает структуру. Не сразу «придумывает программу» — а извлекает её из вас. Чем больше конкретики про реальных людей вы ему дадите, тем точнее результат.</p>
+    </div>
+  </div>
+
+  <!-- БЛОК 6: про продающие переписки -->
+  <div class="card green">
+    <div class="card-title">🔹 Блок 6 · Продающие переписки: диалог, а не монолог</div>
+    <p>Светлана привела пример неудачной продажи в личке: знакомая написала «Свет, хочешь с Ягудиным на программу, приходи» — без контекста, без диалога, без интереса к Светлане. Сразу оттолкнуло.</p>
+
+    <div class="quote-block">«Если бы она хотя бы поспрашивала меня что-то, завязался бы диалог. А так у меня нет желания дальше открывать сообщения.»</div>
+
+    <p>Как лучше: зайти через вопрос или наблюдение. «Слушай, я вот такой темой занялась — вдруг тебе тоже полезно». Или: «Мне кажется, если ты сталкивалась с вот такой проблемой, это может быть ценно». Людям нужен диалог, а не объявление.</p>
+
+    <div class="important green-bg">
+      <div class="important-label">Анонс</div>
+      <p>Светлана планирует собрать примеры из своих переписок — как она мягко заходит к потенциальным клиентам. Поделится в чате, чтобы у участниц были конкретные образцы.</p>
+    </div>
+  </div>
+
+  <!-- БЛОК 7: воркбук и следующая встреча -->
+  <div class="card yellow">
+    <div class="card-title">🔹 Блок 7 · Воркбук-маршрутная карта к следующей встрече</div>
+    <p>По запросу Софии (и откликнулись остальные) Светлана объявила: на следующей встрече будет интерактивный воркбук — пошаговая маршрутная карта от идеи продукта до первой встречи с группой.</p>
+
+    <p>Структура воркбука: шаг 1 — точка А и точка Б аудитории; шаг 2 — лестница программы (темы/ступеньки); шаг 3 — как продавать. Пройдут по нему вместе, разберут затыки у каждой участницы.</p>
+
+    <div class="quote-block">«Я хочу, чтобы у вас был результат. Если есть пропущенные белые пятна — я лучше честно скажу и подготовлюсь, чем вы уйдёте с ощущением, что чего-то не хватило.»</div>
+
+    <div class="important yellow-bg">
+      <div class="important-label">Важно про программу</div>
+      <p>Для продажи программы не нужна детальная проработка каждой встречи — достаточно знать названия ступенек и уметь объяснить маршрут на пальцах. Детали уточнятся в процессе проведения. «Программа обогащается после первого продающего мероприятия, а не до него».</p>
+    </div>
+  </div>
+
+  <!-- 3. ИНСАЙТЫ -->
+  <div class="section-label">
+    <div class="section-num">3</div>
+    <div class="section-title-text">Ключевые инсайты встречи</div>
+  </div>
+
+  <div class="insights-grid">
+    <div class="insight-pill">Один проведённый практикум — это не одно мероприятие, а минимум 5–6 форматов: тест, закрытая продажа, партнёрский эфир, продающий эфир, часть программы, запись.</div>
+    <div class="insight-pill">Продающий эфир — это не «продаём без пользы». Когда показываешь человеку его точку А и точку Б — это уже польза. Он понимает, где он и куда хочет.</div>
+    <div class="insight-pill">При маленькой аудитории невыгодно продавать дёшево. Лучше 5 продаж по 40 тыс., чем 25 продаж по 8 тыс. при тех же усилиях.</div>
+    <div class="insight-pill">PDF-лид-магниты устарели. Работает персональный разбор: короткое аудио в личку по конкретному запросу человека.</div>
+    <div class="insight-pill">ИИ-методолог работает лучше, когда вы даёте ему конкретику про реальных людей. Не «предприниматели», а «они приходят с целями, но движутся медленно, потому что…»</div>
+    <div class="insight-pill">Продажа в личке — диалог, не монолог. Зайти через вопрос или наблюдение, а не через объявление «хочешь на программу».</div>
+    <div class="insight-pill">Ясность даёт только действие. Не надо знать всё про программу до первой продажи. Сходить, отдать что-то людям — и они скажут, что им ещё нужно.</div>
+  </div>
+
+  <!-- 4. ЗАДАНИЯ -->
+  <div class="section-label">
+    <div class="section-num">4</div>
+    <div class="section-title-text">Задания и договорённости</div>
+  </div>
+
+  <div class="card yellow">
+    <div class="card-title">Задание для всех участниц</div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-icon">🗺️</div>
+        <div class="task-text">
+          Воркбук-маршрутная карта — на следующей встрече
+          <div class="task-sub">Интерактивный пошаговый гайд от идеи до первой встречи с группой. Пройдём по нему вместе 4 июня.</div>
+        </div>
+      </div>
+      <div class="task-item">
+        <div class="task-icon">💬</div>
+        <div class="task-text">
+          Писать в чат текущие запросы и вопросы
+          <div class="task-sub">«Света, я про это подумала» — можно в любой день. Светлана отвечает, это помогает ей видеть реальные затыки группы.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card yellow" style="margin-top: 12px;">
+    <div class="card-title">Задание для Светланы Кутрань</div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-icon">🎯</div>
+        <div class="task-text">
+          Подумать над порядком блоков практикума
+          <div class="task-sub">Попробовать вариант: сначала «значимость работы» → потом расчёт стоимости часа. Посмотреть, изменятся ли цифры у участников.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card yellow" style="margin-top: 12px;">
+    <div class="card-title">Задание для Софии</div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-icon">📋</div>
+        <div class="task-text">
+          Доработать сценарий продающей встречи по структуре из разбора
+          <div class="task-sub">Взять результат из диалога с ИИ-методологом, добавить свои формулировки, примеры из реальных встреч с группой.</div>
+        </div>
+      </div>
+      <div class="task-item">
+        <div class="task-icon">💡</div>
+        <div class="task-text">
+          Добавить в сценарий предложение индивидуального трека
+          <div class="task-sub">«Можем двигаться в группе — или я работаю с вами лично.» Два формата, одна задача.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. АНОНСЫ -->
+  <div class="section-label">
+    <div class="section-num">5</div>
+    <div class="section-title-text">Анонсы</div>
+  </div>
+
+  <div class="card teal">
+    <div class="card-title">Следующая встреча — 4 июня</div>
+    <p>Основной фокус: пройти по воркбуку-маршрутной карте вместе. Разобрать, кто на каком этапе находится, где затыки. Подсобрать общую картину. Плюс — по запросу участниц Светлана покажет, как делать презентации через ИИ: структура, смыслы, без дизайнера.</p>
+    <div class="important teal-bg">
+      <div class="important-label">Запрос от участниц к следующей встрече</div>
+      <p>Участницы попросили: 1) пошаговый воркбук «от идеи до первой группы», 2) как делать презентации через ИИ, 3) разбор текущих ситуаций у каждой.</p>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>
