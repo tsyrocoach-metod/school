@@ -1,0 +1,2881 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дорожная карта запуска · Светлана Цыро</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --amber:       #DE9232;
+  --amber-light: rgba(222,146,50,0.12);
+  --amber-mid:   rgba(222,146,50,0.25);
+  --olive:       #88A620;
+  --olive-light: rgba(136,166,32,0.12);
+  --terra:       #BE622B;
+  --terra-light: rgba(190,98,43,0.10);
+  --dark:        #2C2D27;
+  --dark-brown:  #1C140E;
+  --khaki:       #A69752;
+  --cream:       #FCF7E5;
+  --offwhite:    #FDFDF9;
+  --bg:          #F5F2EB;
+  --white:       #FFFFFF;
+  --font-head:   'Bebas Neue', sans-serif;
+  --font-body:   'Montserrat', sans-serif;
+  --sidebar-w:   280px;
+  --radius:      12px;
+  --shadow:      0 2px 12px rgba(44,45,38,0.08);
+  --shadow-md:   0 4px 24px rgba(44,45,38,0.12);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--dark); font-size: 15px; line-height: 1.7; }
+
+/* ── LAYOUT ── */
+.layout { display: flex; min-height: 100vh; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--dark-brown);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(222,146,50,0.3); border-radius: 2px; }
+
+.sidebar-brand {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid rgba(222,146,50,0.15);
+  flex-shrink: 0;
+}
+.sidebar-brand-name {
+  font-family: var(--font-head);
+  font-size: 20px;
+  color: var(--amber);
+  letter-spacing: 0.06em;
+  display: block;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.sidebar-brand-sub {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(252,247,229,0.35);
+}
+
+/* progress */
+.sidebar-progress {
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(222,146,50,0.1);
+  flex-shrink: 0;
+}
+.sp-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(252,247,229,0.4);
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.sp-bar {
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.sp-fill {
+  height: 100%;
+  background: var(--amber);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+.sp-count {
+  font-family: var(--font-head);
+  font-size: 13px;
+  color: var(--amber);
+}
+
+/* nav */
+.sidebar-nav { padding: 12px 0 24px; flex: 1; }
+.nav-block-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(252,247,229,0.25);
+  padding: 12px 20px 4px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 20px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s;
+  border-left: 3px solid transparent;
+}
+.nav-item:hover { background: rgba(255,255,255,0.04); }
+.nav-item.active {
+  background: rgba(222,146,50,0.08);
+  border-left-color: var(--amber);
+}
+.nav-item.done .nav-dot { background: var(--olive); }
+.nav-num {
+  font-family: var(--font-head);
+  font-size: 14px;
+  color: rgba(252,247,229,0.2);
+  width: 20px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.nav-item.active .nav-num,
+.nav-item:hover .nav-num { color: var(--amber); }
+.nav-item.done .nav-num { color: var(--olive); }
+.nav-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(252,247,229,0.5);
+  line-height: 1.3;
+  flex: 1;
+}
+.nav-item.active .nav-text { color: rgba(252,247,229,0.9); }
+.nav-item.done .nav-text { color: rgba(252,247,229,0.4); text-decoration: line-through; }
+.nav-check {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px;
+  color: transparent;
+}
+.nav-item.done .nav-check {
+  background: var(--olive);
+  border-color: var(--olive);
+  color: white;
+}
+
+/* ── MAIN CONTENT ── */
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 0 0 80px;
+}
+
+/* hero */
+.hero {
+  background: var(--dark-brown);
+  padding: 48px 52px 52px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 360px; height: 360px;
+  background: var(--amber);
+  border-radius: 50%;
+  opacity: .06;
+}
+.hero-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--amber); }
+.hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(32px, 4vw, 56px);
+  color: var(--cream);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.hero h1 em { color: var(--amber); font-style: normal; }
+.hero-sub {
+  font-size: 14px;
+  color: rgba(252,247,229,0.45);
+  max-width: 540px;
+  margin-top: 14px;
+  line-height: 1.8;
+}
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+.hero-stat-num {
+  font-family: var(--font-head);
+  font-size: 32px;
+  color: var(--amber);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 11px;
+  color: rgba(252,247,229,0.35);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 2px;
+}
+
+/* content inner */
+.content-inner { padding: 40px 52px; }
+
+/* block header */
+.block-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  margin-top: 48px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(44,45,38,0.1);
+}
+.block-header:first-child { margin-top: 0; }
+.block-num {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--amber);
+}
+.block-title {
+  font-family: var(--font-head);
+  font-size: 22px;
+  color: var(--dark-brown);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.block-badge {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-left: auto;
+}
+.bb-amber { background: rgba(222,146,50,0.15); color: #8f5a08; }
+.bb-olive { background: rgba(136,166,32,0.14); color: #5c7015; }
+.bb-terra { background: rgba(190,98,43,0.12); color: var(--terra); }
+.bb-dark  { background: rgba(28,20,14,0.08);  color: var(--dark-brown); }
+.bb-khaki { background: rgba(166,151,82,0.15); color: #6b5e28; }
+
+/* step card */
+.step-card { display: none; }
+.step-card.active { display: block; }
+.step-card.bc-olive  { border-left-color: var(--olive); }
+.step-card.bc-terra  { border-left-color: var(--terra); }
+.step-card.bc-dark   { border-left-color: var(--dark-brown); }
+.step-card.bc-khaki  { border-left-color: var(--khaki); }
+.step-card.bc-amber  { border-left-color: var(--amber); }
+
+.step-card.completed { border-left-color: var(--olive); opacity: 0.75; }
+
+.step-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 22px;
+  cursor: default;
+  user-select: none;
+}
+.step-head:hover { background: transparent; }
+
+.step-head-num {
+  font-family: var(--font-head);
+  font-size: 28px;
+  color: var(--amber);
+  line-height: 1;
+  width: 36px;
+  flex-shrink: 0;
+}
+.step-card.bc-olive .step-head-num  { color: var(--olive); }
+.step-card.bc-terra .step-head-num  { color: var(--terra); }
+.step-card.bc-dark  .step-head-num  { color: var(--dark-brown); }
+.step-card.bc-khaki .step-head-num  { color: var(--khaki); }
+
+.step-head-info { flex: 1; min-width: 0; }
+.step-head-title {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--dark-brown);
+  line-height: 1.3;
+}
+.step-head-why {
+  font-size: 12px;
+  color: rgba(44,45,38,0.5);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+.step-head-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.step-ref {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--amber);
+  background: var(--amber-light);
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.step-chevron {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(222,146,50,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  color: var(--amber);
+  transition: transform 0.25s;
+  flex-shrink: 0;
+}
+
+/* step body */
+.step-body {
+  display: block;
+  padding: 0 22px 22px;
+  border-top: 1px solid rgba(44,45,38,0.06);
+}
+
+/* tasks */
+.tasks-title {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--khaki);
+  margin: 18px 0 10px;
+}
+.task-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.task-row:hover { background: rgba(252,247,229,0.6); }
+.task-row.checked { background: rgba(136,166,32,0.07); }
+.task-cb {
+  width: 20px; height: 20px;
+  border: 2px solid rgba(44,45,38,0.2);
+  border-radius: 5px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+  color: transparent;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+.task-row.checked .task-cb {
+  background: var(--olive);
+  border-color: var(--olive);
+  color: white;
+}
+.task-text {
+  font-size: 14px;
+  color: var(--dark);
+  line-height: 1.55;
+  flex: 1;
+}
+.task-row.checked .task-text {
+  color: rgba(44,45,38,0.45);
+  text-decoration: line-through;
+}
+
+/* sub-items */
+.task-sub-list {
+  padding-left: 30px;
+  margin-top: 4px;
+}
+.task-sub-item {
+  font-size: 13px;
+  color: rgba(44,45,38,0.6);
+  padding: 3px 0;
+  line-height: 1.5;
+  display: flex;
+  gap: 6px;
+}
+.task-sub-item::before { content: '—'; opacity: 0.4; flex-shrink: 0; }
+
+/* prompt block */
+.prompt-block {
+  background: var(--dark-brown);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-top: 16px;
+  position: relative;
+}
+.prompt-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--amber);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.copy-btn {
+  background: rgba(222,146,50,0.18);
+  border: none;
+  color: var(--amber);
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.copy-btn:hover { background: rgba(222,146,50,0.3); }
+.copy-btn.copied { background: rgba(136,166,32,0.25); color: var(--olive); }
+.prompt-text {
+  font-size: 13px;
+  color: rgba(252,247,229,0.7);
+  line-height: 1.75;
+  white-space: pre-wrap;
+  font-style: italic;
+}
+.prompt-text em {
+  color: var(--amber);
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* important block */
+.important-block {
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-top: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.ib-amber { background: rgba(222,146,50,0.1); border-left: 3px solid var(--amber); }
+.ib-terra { background: rgba(190,98,43,0.08); border-left: 3px solid var(--terra); }
+.ib-olive { background: rgba(136,166,32,0.09); border-left: 3px solid var(--olive); }
+.ib-icon  { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.ib-body  {}
+.ib-label {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--khaki);
+  margin-bottom: 4px;
+}
+.ib-amber .ib-label { color: #8f5a08; }
+.ib-terra .ib-label { color: var(--terra); }
+.ib-olive .ib-label { color: var(--olive); }
+.ib-text  { font-size: 13px; color: var(--dark); line-height: 1.65; }
+
+/* notes area */
+.notes-area {
+  margin-top: 14px;
+}
+.notes-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--khaki);
+  margin-bottom: 7px;
+}
+.notes-field {
+  width: 100%;
+  border: 1.5px solid rgba(44,45,38,0.12);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--dark);
+  background: var(--offwhite);
+  resize: vertical;
+  min-height: 80px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  line-height: 1.65;
+}
+.notes-field:focus {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(222,146,50,0.1);
+}
+.notes-field::placeholder { color: rgba(44,45,38,0.25); }
+
+/* format-selector */
+.format-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+.format-option {
+  border: 2px solid rgba(44,45,38,0.1);
+  border-radius: 10px;
+  padding: 12px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+.format-option:hover { border-color: var(--amber); background: var(--amber-light); }
+.format-option.selected { border-color: var(--amber); background: var(--amber-light); }
+.format-icon { font-size: 20px; margin-bottom: 4px; }
+.format-name { font-size: 12px; font-weight: 700; color: var(--dark-brown); margin-bottom: 2px; }
+.format-desc { font-size: 11px; color: rgba(44,45,38,0.5); line-height: 1.4; }
+
+/* content-plan */
+.content-plan {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+}
+.cp-day {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--cream);
+  border-radius: 8px;
+  font-size: 13px;
+}
+.cp-num {
+  font-family: var(--font-head);
+  font-size: 14px;
+  color: var(--amber);
+  width: 30px;
+  flex-shrink: 0;
+}
+.cp-text { color: var(--dark); line-height: 1.4; }
+.cp-tag {
+  margin-left: auto;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 2px 8px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.ct-warm  { background: rgba(222,146,50,0.18); color: #8f5a08; }
+.ct-cont  { background: rgba(136,166,32,0.15); color: #5c7015; }
+.ct-ann   { background: rgba(190,98,43,0.13); color: var(--terra); }
+
+/* webinar structure */
+.webinar-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+}
+.ws-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--offwhite);
+  border-radius: 8px;
+}
+.ws-num {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--amber-light);
+  color: var(--amber);
+  font-family: var(--font-head);
+  font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.ws-text { font-size: 13px; color: var(--dark); line-height: 1.55; padding-top: 2px; }
+.ws-text strong { font-weight: 700; }
+
+/* matreshka */
+.matreshka {
+  display: flex;
+  gap: 6px;
+  margin-top: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.mr-step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mr-box {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.mr-1 { background: rgba(222,146,50,0.18); color: #8f5a08; }
+.mr-2 { background: rgba(136,166,32,0.16); color: var(--olive); }
+.mr-3 { background: rgba(190,98,43,0.13); color: var(--terra); }
+.mr-4 { background: rgba(166,151,82,0.18); color: #6b5e28; }
+.mr-arrow { color: rgba(44,45,38,0.25); font-size: 16px; }
+
+/* complete button */
+.complete-btn {
+  margin-top: 18px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid rgba(136,166,32,0.3);
+  background: rgba(136,166,32,0.06);
+  color: var(--olive);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: all 0.18s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.complete-btn:hover { background: rgba(136,166,32,0.14); border-color: var(--olive); }
+.complete-btn.done { background: rgba(136,166,32,0.14); border-color: var(--olive); }
+.step-card.completed .complete-btn {
+  color: rgba(44,45,38,0.35);
+  border-color: rgba(44,45,38,0.1);
+  background: transparent;
+}
+
+
+
+/* toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  background: var(--dark-brown);
+  color: var(--cream);
+  padding: 9px 22px;
+  border-radius: 40px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 999;
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* mobile toggle */
+.mob-sidebar-toggle {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 48px; height: 48px;
+  background: var(--amber);
+  color: var(--dark-brown);
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 300;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+
+/* ── EXAMPLE MODAL ── */
+.example-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(222,146,50,0.1);
+  border: 1.5px solid rgba(222,146,50,0.3);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  color: #8f5a08;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 12px;
+}
+.example-btn:hover { background: rgba(222,146,50,0.2); border-color: var(--amber); }
+.example-btn .eb-icon { font-size: 14px; }
+
+.ex-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(28,20,14,.75);
+  backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.ex-modal-overlay.open { display: flex; }
+
+.ex-modal {
+  background: var(--offwhite);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 640px;
+  max-height: 88vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.25);
+}
+.ex-modal-head {
+  background: var(--dark-brown);
+  border-radius: 18px 18px 0 0;
+  padding: 24px 28px 20px;
+  position: relative;
+}
+.ex-modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.12);
+  border: none;
+  color: rgba(252,247,229,.7);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+  font-family: var(--font-body);
+}
+.ex-modal-close:hover { background: rgba(255,255,255,.22); }
+.ex-modal-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--amber);
+  margin-bottom: 6px;
+}
+.ex-modal-title {
+  font-family: var(--font-head);
+  font-size: 22px;
+  color: var(--cream);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.ex-modal-body {
+  padding: 24px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.ex-col {
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.ex-col-good { background: rgba(136,166,32,0.09); border: 1.5px solid rgba(136,166,32,0.22); }
+.ex-col-bad  { background: rgba(190,98,43,0.07); border: 1.5px solid rgba(190,98,43,0.2); }
+.ex-col-label {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-bottom: 10px;
+}
+.ex-col-good .ex-col-label { color: var(--olive); }
+.ex-col-bad  .ex-col-label { color: var(--terra); }
+.ex-item {
+  display: flex;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(44,45,38,0.07);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--dark);
+}
+.ex-item:last-child { border-bottom: none; padding-bottom: 0; }
+.ex-item-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.ex-item-text { flex: 1; }
+.ex-item-note {
+  font-size: 11.5px;
+  color: rgba(44,45,38,0.5);
+  margin-top: 3px;
+  font-style: italic;
+}
+.ex-divider {
+  height: 1px;
+  background: rgba(44,45,38,0.1);
+  margin: 4px 0;
+}
+.ex-tip {
+  background: rgba(222,146,50,0.09);
+  border-left: 3px solid var(--amber);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--dark-brown);
+  line-height: 1.6;
+}
+.ex-tip strong { font-weight: 700; }
+
+/* sub-step cards inside step-body */
+.sub-step {
+  background: var(--cream);
+  border-radius: 10px;
+  margin-top: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(44,45,38,0.08);
+}
+.sub-step-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+}
+.sub-step-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--amber);
+  color: var(--dark-brown);
+  font-family: var(--font-head);
+  font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.sub-step-info { flex: 1; }
+.sub-step-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dark-brown);
+  line-height: 1.3;
+}
+.sub-step-why {
+  font-size: 11.5px;
+  color: rgba(44,45,38,0.5);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+.sub-step-body {
+  padding: 0 16px 16px;
+  border-top: 1px solid rgba(44,45,38,0.06);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .sidebar {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    z-index: 200;
+    transition: left 0.3s;
+  }
+  .sidebar.open { left: 0; }
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 199;
+  }
+  .sidebar-overlay.show { display: block; }
+  .mob-sidebar-toggle { display: flex; align-items: center; justify-content: center; }
+  .hero { padding: 32px 24px 36px; }
+  .step-page { padding: 28px 20px 48px; }
+  .page-header { padding: 24px 20px 0; }
+  .page-divider { margin: 0 20px 24px; }
+  .page-nav { padding: 20px 20px 40px; }
+  .step-card.active .step-body { padding: 0 20px 40px; }
+  .format-selector { grid-template-columns: 1fr; }
+}
+
+/* hide block-headers — step pages are self-contained */
+.block-header { display: none; }
+/* download section shown always at bottom of sidebar instead */
+
+
+/* ── PAGE VIEW ── */
+.content-inner {
+  padding: 0;
+}
+.step-page {
+  padding: 32px 52px 64px;
+  animation: fadeIn .18s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 28px 52px 0;
+  margin-bottom: 28px;
+}
+.page-num-badge {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  color: var(--amber);
+  background: var(--amber-light);
+  padding: 4px 12px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+.step-card.bc-olive  .page-num-badge { color: var(--olive); background: var(--olive-light); }
+.step-card.bc-terra  .page-num-badge { color: var(--terra); background: var(--terra-light); }
+.step-card.bc-dark   .page-num-badge { color: var(--dark-brown); background: rgba(28,20,14,0.07); }
+.step-card.bc-khaki  .page-num-badge { color: var(--khaki); background: rgba(166,151,82,0.12); }
+.page-title-wrap { flex: 1; }
+.page-title {
+  font-family: var(--font-head);
+  font-size: clamp(20px, 2.5vw, 28px);
+  color: var(--dark-brown);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.page-why {
+  font-size: 13px;
+  color: rgba(44,45,38,.5);
+  margin-top: 4px;
+  line-height: 1.45;
+}
+.page-ref {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--amber);
+  background: var(--amber-light);
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .15s;
+}
+.page-ref:hover { background: var(--amber-mid); }
+.step-card.bc-olive .page-ref { color: var(--olive); background: var(--olive-light); }
+.step-card.bc-terra .page-ref { color: var(--terra); background: var(--terra-light); }
+.page-divider {
+  height: 2px;
+  background: linear-gradient(90deg, var(--amber) 0%, transparent 100%);
+  margin: 0 52px 32px;
+  opacity: .25;
+}
+.step-card.bc-olive  .page-divider { background: linear-gradient(90deg, var(--olive) 0%, transparent 100%); }
+.step-card.bc-terra  .page-divider { background: linear-gradient(90deg, var(--terra) 0%, transparent 100%); }
+.step-card.bc-dark   .page-divider { background: linear-gradient(90deg, var(--dark-brown) 0%, transparent 100%); }
+.step-card.bc-khaki  .page-divider { background: linear-gradient(90deg, var(--khaki) 0%, transparent 100%); }
+
+/* ── PREV / NEXT NAVIGATION ── */
+.page-nav {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 28px 52px 52px;
+  border-top: 1px solid rgba(44,45,38,.07);
+  margin-top: 32px;
+}
+.page-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(44,45,38,.12);
+  background: var(--white);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--dark-brown);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  cursor: pointer;
+  transition: all .15s;
+}
+.page-nav-btn:hover { border-color: var(--amber); background: var(--amber-light); }
+.page-nav-btn.next { margin-left: auto; background: var(--amber); border-color: var(--amber); }
+.page-nav-btn.next:hover { background: var(--amber-mid); }
+
+/* hero always visible */
+
+/* compact hero on steps 2+ */
+.hero-compact { display: none; }
+.hero-full    { display: block; }
+
+.step-card.active .step-head { display: none; } /* title re-rendered as .page-header */
+.step-card.active { display: block; background: transparent; box-shadow: none; border-left: none; border-radius: 0; margin-bottom: 0; }
+.step-card.active .step-body { padding: 0 52px 52px; border-top: none; }
+
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar" id="sidebar">
+
+  <div class="sidebar-brand">
+    <span class="sidebar-brand-name">СВЕТЛАНА ЦЫРО</span>
+    <span class="sidebar-brand-sub">Дорожная карта запуска</span>
+  </div>
+
+  <div class="sidebar-progress">
+    <div class="sp-label">
+      <span>Прогресс</span>
+      <span class="sp-count" id="progressCount">0 / 20</span>
+    </div>
+    <div class="sp-bar"><div class="sp-fill" id="progressFill"></div></div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-block-label">Блок 1 — Подготовка</div>
+    <a class="nav-item" onclick="goTo(0)" href="javascript:void(0)">
+      <span class="nav-num">01</span>
+      <span class="nav-text">Целевая аудитория</span>
+      <span class="nav-check">✓</span>
+    </a>
+    <a class="nav-item" onclick="goTo(1)" href="javascript:void(0)">
+      <span class="nav-num">02</span>
+      <span class="nav-text">Первые посты в блог</span>
+      <span class="nav-check">✓</span>
+    </a>
+    <a class="nav-item" onclick="goTo(2)" href="javascript:void(0)">
+      <span class="nav-num">03</span>
+      <span class="nav-text">Лестница программы</span>
+      <span class="nav-check">✓</span>
+    </a>
+    <a class="nav-item" onclick="goTo(3)" href="javascript:void(0)">
+      <span class="nav-num">04</span>
+      <span class="nav-text">Формат и длительность</span>
+      <span class="nav-check">✓</span>
+    </a>
+    <a class="nav-item" onclick="goTo(4)" href="javascript:void(0)">
+      <span class="nav-num">05</span>
+      <span class="nav-text">Цена</span>
+      <span class="nav-check">✓</span>
+    </a>
+
+    <div class="nav-block-label">Блок 2 — Продажи</div>
+    <a class="nav-item" onclick="goTo(5)" href="javascript:void(0)">
+      <span class="nav-num">06</span>
+      <span class="nav-text">Оффер — текст</span>
+      <span class="nav-check">✓</span>
+    </a>
+    <a class="nav-item" onclick="goTo(6)" href="javascript:void(0)">
+      <span class="nav-num">07</span>
+      <span class="nav-text">Лендинг</span>
+      <span class="nav-check">✓</span>
+    </a>
+    <a class="nav-item" onclick="goTo(7)" href="javascript:void(0)">
+      <span class="nav-num">08</span>
+      <span class="nav-text">Учёт клиентов и оплаты</span>
+      <span class="nav-check">✓</span>
+    </a>
+    <a class="nav-item" onclick="goTo(8)" href="javascript:void(0)">
+      <span class="nav-num">09</span>
+      <span class="nav-text">Юридические документы</span>
+      <span class="nav-check">✓</span>
+    </a>
+    <a class="nav-item" onclick="goTo(9)" href="javascript:void(0)">
+      <span class="nav-num">10</span>
+      <span class="nav-text">Тёплый круг</span>
+      <span class="nav-check">✓</span>
+    </a>
+    <a class="nav-item" onclick="goTo(10)" href="javascript:void(0)">
+      <span class="nav-num">11</span>
+      <span class="nav-text">Контент-воронка</span>
+      <span class="nav-check">✓</span>
+    </a>
+    <a class="nav-item" onclick="goTo(11)" href="javascript:void(0)">
+      <span class="nav-num">12</span>
+      <span class="nav-text">Продающий эфир</span>
+      <span class="nav-check">✓</span>
+    </a>
+
+    <div class="nav-block-label">Блок 3 — Методология и проведение</div>
+    <a class="nav-item" onclick="goTo(12)" href="javascript:void(0)">
+      <span class="nav-num">13</span>
+      <span class="nav-text">Сценарии встреч</span>
+      <span class="nav-check">✓</span>
+    </a>
+    <a class="nav-item" onclick="goTo(13)" href="javascript:void(0)">
+      <span class="nav-num">14</span>
+      <span class="nav-text">Материалы к встречам</span>
+      <span class="nav-check">✓</span>
+    </a>
+    <a class="nav-item" onclick="goTo(14)" href="javascript:void(0)">
+      <span class="nav-num">15</span>
+      <span class="nav-text">Платформа и записи</span>
+      <span class="nav-check">✓</span>
+    </a>
+    <a class="nav-item" onclick="goTo(15)" href="javascript:void(0)">
+      <span class="nav-num">16</span>
+      <span class="nav-text">Ведём программу</span>
+      <span class="nav-check">✓</span>
+    </a>
+
+    <div class="nav-block-label">Блок 4 — После программы</div>
+    <a class="nav-item" onclick="goTo(16)" href="javascript:void(0)">
+      <span class="nav-num">17</span>
+      <span class="nav-text">Отзывы и результаты</span>
+      <span class="nav-check">✓</span>
+    </a>
+    <a class="nav-item" onclick="goTo(17)" href="javascript:void(0)">
+      <span class="nav-num">18</span>
+      <span class="nav-text">Анализ и доработка</span>
+      <span class="nav-check">✓</span>
+    </a>
+    <a class="nav-item" onclick="goTo(18)" href="javascript:void(0)">
+      <span class="nav-num">19</span>
+      <span class="nav-text">Повторный запуск</span>
+      <span class="nav-check">✓</span>
+    </a>
+    <a class="nav-item" onclick="goTo(19)" href="javascript:void(0)">
+      <span class="nav-num">20</span>
+      <span class="nav-text">Если волнуетесь</span>
+      <span class="nav-check">✓</span>
+    </a>
+  </nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- ══ CONTENT ══ -->
+<main class="content">
+
+  <div class="hero hero-full" id="heroFull">
+
+    <div class="hero-eyebrow">Методологический запуск</div>
+    <h1>Дорожная карта<br><em>запуска программы</em></h1>
+    <p class="hero-sub">От идеи — до первой проведённой группы. 4 блока, 19 шагов: конкретные задачи, промпты для ИИ и пример идеального результата каждого шага.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">20</div>
+        <div class="hero-stat-label">шагов</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">4</div>
+        <div class="hero-stat-label">блока</div>
+      </div>
+      <div>
+        <div class="hero-stat-num" id="heroProgress">0</div>
+        <div class="hero-stat-label">выполнено</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero hero-compact" id="heroCompact" style="padding:20px 52px 18px;">
+    <div style="font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:4px;">Методологический запуск</div>
+    <div style="font-family:var(--font-head);font-size:20px;color:var(--cream);text-transform:uppercase;letter-spacing:.03em;line-height:1;">Дорожная карта <span style="color:var(--amber);">запуска программы</span></div>
+  </div>
+
+  <div class="content-inner">
+
+    <!-- ══ БЛОК 1 ══ -->
+    <div class="block-header">
+      <span class="block-num">БЛОК 01</span>
+      <span class="block-title">Подготовка</span>
+      <span class="block-badge bb-amber">Старт здесь</span>
+    </div>
+
+    <!-- ШАГ 1 -->
+    <div class="step-card bc-amber" id="step-0">
+      <div class="step-head">
+        <div class="step-head-num">01</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Целевая аудитория</div>
+          <div class="step-head-why">Определяет всё: и программу, и маркетинг, и контент — из понимания ЦА вытаскиваете модули, посты и лендинг</div>
+        </div>
+        <div class="step-head-right">
+          <span class="step-ref">↗ Встречи 1 и 2</span>
+          </div>
+      </div>
+      <div class="step-body">
+
+        <div class="important-block ib-amber" style="margin-top:18px;">
+          <div class="ib-icon">💡</div>
+          <div class="ib-body">
+            <div class="ib-label">Зачем это нужно</div>
+            <div class="ib-text">ЦА — это фундамент. Из неё вырастают модули программы, названия встреч, посты в контенте и формулировки на лендинге. Когда вы понимаете, как именно ваши люди говорят о своей проблеме — всё остальное пишется само.</div>
+          </div>
+        </div>
+
+        <!-- ── SUB-STEP A ── -->
+        <div class="sub-step">
+          <div class="sub-step-head">
+            <div class="sub-step-num">А</div>
+            <div class="sub-step-info">
+              <div class="sub-step-title">Формулируем сами — кто этот человек</div>
+              <div class="sub-step-why">Первый черновик: выгружаем всё, что знаем о своей аудитории из собственного опыта</div>
+            </div>
+          </div>
+          <div class="sub-step-body">
+            <div class="tasks-title" style="margin-top:14px;">Задачи</div>
+            <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Описать конкретного человека — не абстрактный портрет, а реального: чем живёт, что делает, какой у него день. Имя, возраст, специализация, доход примерно.</div></div>
+            <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Выписать <strong>точку А</strong> — что у него сейчас происходит, что болит, что не получается. Конкретная ситуация, не диагноз.</div></div>
+            <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Выписать <strong>триггер</strong> — что именно сейчас подтолкнёт его что-то менять. Крупная покупка, уходит клиент, что-то стало видно острее.</div></div>
+            <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Выписать <strong>точку Б</strong> — куда он хочет прийти. Не «развиваться», а конкретная сцена: что делает иначе, что чувствует.</div></div>
+            <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Написать: что он уже пробовал до вас — курсы, книги, советы — и почему не помогло.</div></div>
+            <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Написать: с кем <strong>не хотите</strong> работать — кто будет тяжело и бесполезно.</div></div>
+
+            <div class="important-block ib-terra" style="margin-top:14px;">
+              <div class="ib-icon">⚠️</div>
+              <div class="ib-body">
+                <div class="ib-label">Типичная ошибка</div>
+                <div class="ib-text">«Женщины 30–45, которые хотят развиваться» — не ЦА. ЦА — конкретная ситуация конкретного человека. «Самозанятая коуч, у которой то густо, то пусто в доходе, не понимает, как посчитать минимальный час и боится смотреть в банковское приложение» — вот ЦА.</div>
+              </div>
+            </div>
+
+            <button class="example-btn" onclick="openExampleModal()"><span class="eb-icon">👁</span> Примеры: как надо / как не надо</button>
+
+          </div>
+        </div>
+
+        <!-- ── SUB-STEP B ── -->
+        <div class="sub-step">
+          <div class="sub-step-head">
+            <div class="sub-step-num" style="background:var(--terra);color:#fff;">Б</div>
+            <div class="sub-step-info">
+              <div class="sub-step-title">Уточняем через кастдевы — слушаем живых людей</div>
+              <div class="sub-step-why">Только реальные разговоры дают точные формулировки, которые узнают себя в вашем контенте</div>
+            </div>
+          </div>
+          <div class="sub-step-body">
+            <div class="tasks-title" style="margin-top:14px;">Задачи</div>
+            <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Написать 5–7 людям, которые похожи на вашу ЦА — знакомые, бывшие клиенты, участники чатов. Попросить ответить голосовым или текстом.</div></div>
+            <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Слушать голосовые и выписывать дословные фразы — именно их словами, не своими. Это сырьё для контента и лендинга.</div></div>
+            <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Из всех, кто ответил — выделить <strong>3–5 человек</strong>, которые подходят под потенциальных участников программы. Спросить: «Можно прислать тебе подробности, когда программа будет готова?»</div></div>
+            <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Собрать все ответы в один документ — дословные цитаты, без обработки.</div></div>
+
+            <div class="important-block ib-amber" style="margin-top:14px;">
+              <div class="ib-icon">💡</div>
+              <div class="ib-body">
+                <div class="ib-label">Лайфхак из практики</div>
+                <div class="ib-text">Голосовые работают лучше текста — в них люди говорят по-настоящему, с эмоцией и без «красивых» формулировок. Именно там находятся фразы-золото для постов и лендинга.</div>
+              </div>
+            </div>
+
+            <div class="important-block ib-amber" style="margin-top:14px;">
+              <div class="ib-icon">🎙</div>
+              <div class="ib-body">
+                <div class="ib-label">Почему голосом — важно</div>
+                <div class="ib-text">Текстом люди причёсывают формулировки и пишут «как правильно». Голосом — говорят как есть. Именно в голосовых живут те самые фразы, которые потом становятся заголовками постов и лендинга.</div>
+              </div>
+            </div>
+
+            <div class="prompt-block" style="margin-top:12px;">
+              <div class="prompt-label">💬 Сообщение для кастдева <button class="copy-btn" onclick="copyPrompt(this, 'castdev1')">Скопировать</button></div>
+              <div class="prompt-text" id="castdev1">Привет! Я сейчас разрабатываю программу и хочу лучше понять, что реально волнует людей в теме [ваша тема]. Можешь ответить на пару вопросов?
+
+Мне будет очень приятно, если ответишь голосовым — или можем коротко созвониться минут на 10. Текстом тоже окей, но голосом ценнее — там слышно настоящее.
+
+1. С чем ты сейчас больше всего застреваешь в [тема]?
+2. Что уже пробовал(а) — и почему не сработало?
+3. Как бы выглядел идеальный результат для тебя?
+
+Заранее спасибо — это реально помогает.</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── SUB-STEP C ── -->
+        <div class="sub-step">
+          <div class="sub-step-head">
+            <div class="sub-step-num" style="background:var(--olive);color:#fff;">В</div>
+            <div class="sub-step-info">
+              <div class="sub-step-title">Уточняем с ИИ — находим реальные запросы и формулировки</div>
+              <div class="sub-step-why">ИИ-ресёрч покажет, как именно ваша аудитория говорит о своей проблеме в интернете — и что искать в кастдевах</div>
+            </div>
+          </div>
+          <div class="sub-step-body">
+            <div class="tasks-title" style="margin-top:14px;">Задачи</div>
+            <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Загрузить все цитаты из кастдевов в ИИ и попросить выделить паттерны — повторяющиеся слова, общую боль, точку А и Б их языком.</div></div>
+            <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Сделать ИИ-ресёрч по вашей аудитории — как они формулируют проблему, какими словами ищут решения, что говорят в отзывах и комментариях.</div></div>
+            <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Сравнить: ваши формулировки из шага А и реальные слова людей из кастдевов и ИИ-ресёрча. Где расходятся — там зоны роста для контента.</div></div>
+            <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Сформулировать итоговую формулу: <strong>«Я работаю с [кто — точка А], которые хотят [точка Б], с помощью [ваш инструмент]»</strong>.</div></div>
+
+            <div class="important-block ib-terra" style="margin-top:14px;">
+              <div class="ib-icon">⚠️</div>
+              <div class="ib-body">
+                <div class="ib-label">Важно</div>
+                <div class="ib-text">Не ходите только в ИИ — и не ходите только к живым людям. Только оба источника вместе дают целостную картинку. ИИ покажет язык, люди покажут боль с эмоцией.</div>
+              </div>
+            </div>
+
+            <div class="prompt-block" style="margin-top:16px;">
+              <div class="prompt-label">💬 Промпт для анализа кастдевов <button class="copy-btn" onclick="copyPrompt(this, 'ai1')">Скопировать</button></div>
+              <div class="prompt-text" id="ai1">Вот дословные ответы людей из моей целевой аудитории: [вставить ответы].
+
+Выдели:
+1) повторяющиеся формулировки и слова, которые они используют — дословно
+2) главную боль — одним предложением их языком
+3) точку А и точку Б — как они про это говорят
+4) что они уже пробовали и почему не помогло
+5) когда у них «подгорает» — что является триггером к действию</div>
+            </div>
+
+            <div class="prompt-block" style="margin-top:10px;">
+              <div class="prompt-label">💬 Промпт «Уточнить портрет клиента» <button class="copy-btn" onclick="copyPrompt(this, 'ai_refine')">Скопировать</button></div>
+              <div class="prompt-text" id="ai_refine">Ты — маркетинговый стратег, который помогает эксперту уточнить портрет клиента до такой точности, чтобы клиент узнавал себя за 5 секунд.
+
+У меня уже есть стартовая версия портрета: точка А (где клиент сейчас), триггер, цитаты, точка Б.
+Помоги её уточнить. Мне нужно найти те слова, которые помогут клиентам узнавать себя, при этом вызывать желание платить за решение их проблемы.
+
+Вот мой портрет: [ВСТАВИТЬ ТОЧКУ А, ТРИГГЕР, ЦИТАТЫ, ТОЧКУ Б]</div>
+            </div>
+
+            <div class="prompt-block" style="margin-top:10px;">
+              <div class="prompt-label">💬 Промпт для ИИ-ресёрча аудитории <button class="copy-btn" onclick="copyPrompt(this, 'ai_research')">Скопировать</button></div>
+              <div class="prompt-text" id="ai_research">Проведи исследование целевой аудитории по следующим параметрам.
+
+Аудитория: [описание — кто эти люди, чем занимаются, примерный контекст]
+
+Мне нужно:
+1) Какими словами они описывают свою проблему — дословные типичные фразы
+2) Что они уже пробовали решить — курсы, методы, подходы
+3) Почему существующие решения не работают для них
+4) Что является триггером — когда они решают «надо что-то менять»
+5) Чего они реально хотят получить в итоге — не «развитие», а конкретный результат или ощущение
+6) Каких слов, обещаний и форматов они избегают — что их отпугивает
+
+Дай ответ на языке самой аудитории, с конкретными примерами фраз.</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="step-result-block" style="margin-top:28px;background:var(--dark-brown);border-radius:14px;padding:22px 24px;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:var(--amber);border-radius:50%;opacity:.08;"></div>
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:var(--amber);margin-bottom:8px;">✓ Идеальный результат шага 1</div>
+          <div style="font-size:15px;font-weight:600;color:var(--cream);line-height:1.65;">Вы пообщались с 5–7 людьми, которые могут стать участниками вашей программы. У вас есть живые дословные фразы — как они сами описывают свою проблему. И первое реальное понимание: что именно волнует этих людей, когда болит сильнее всего.</div>
+        </div>
+        <button class="complete-btn" onclick="completeStep(0)" style="margin-top:16px;"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ══ POSTS MODAL ══ -->
+    <div class="ex-modal-overlay" id="postsModal" onclick="if(event.target===this)closePostsModal()">
+      <div class="ex-modal">
+        <div class="ex-modal-head">
+          <button class="ex-modal-close" onclick="closePostsModal()">✕</button>
+          <div class="ex-modal-label">Примеры постов</div>
+          <div class="ex-modal-title">Первые 3 поста<br>в блог</div>
+        </div>
+        <div class="ex-modal-body">
+
+          <div class="ex-col" style="background:rgba(222,146,50,0.07);border:1.5px solid rgba(222,146,50,0.2);">
+            <div class="ex-col-label" style="color:#8f5a08;">Пост 1 · Поднимаем тему</div>
+            <div style="font-size:11px;color:rgba(44,45,38,.5);margin-bottom:10px;font-style:italic;">Что болит у вашего человека? Узнает ли он себя?</div>
+            <div class="ex-item" style="border:none;padding:0;">
+              <div style="font-size:13.5px;color:var(--dark);line-height:1.7;white-space:pre-wrap;" id="post1-display"></div>
+            </div>
+            <button class="copy-btn" style="margin-top:12px;" onclick="copyPrompt(this,'post1')">Скопировать</button>
+          </div>
+
+          <div class="ex-col" style="background:rgba(222,146,50,0.07);border:1.5px solid rgba(222,146,50,0.2);">
+            <div class="ex-col-label" style="color:#8f5a08;">Пост 2 · Ваше мнение о нише</div>
+            <div style="font-size:11px;color:rgba(44,45,38,.5);margin-bottom:10px;font-style:italic;">Что вы видите изнутри темы, с чем не согласны?</div>
+            <div class="ex-item" style="border:none;padding:0;">
+              <div style="font-size:13.5px;color:var(--dark);line-height:1.7;white-space:pre-wrap;" id="post2-display"></div>
+            </div>
+            <button class="copy-btn" style="margin-top:12px;" onclick="copyPrompt(this,'post2')">Скопировать</button>
+          </div>
+
+          <div class="ex-col" style="background:rgba(222,146,50,0.07);border:1.5px solid rgba(222,146,50,0.2);">
+            <div class="ex-col-label" style="color:#8f5a08;">Пост 3 · Что делали клиенты и почему не сработало</div>
+            <div style="font-size:11px;color:rgba(44,45,38,.5);margin-bottom:10px;font-style:italic;">Что ваш человек уже пробовал?</div>
+            <div class="ex-item" style="border:none;padding:0;">
+              <div style="font-size:13.5px;color:var(--dark);line-height:1.7;white-space:pre-wrap;" id="post3-display"></div>
+            </div>
+            <button class="copy-btn" style="margin-top:12px;" onclick="copyPrompt(this,'post3')">Скопировать</button>
+          </div>
+
+          <div class="ex-tip">Это примеры под аудиторию Светланы — <strong>адаптируйте под свою нишу и своих людей</strong>, используя цитаты из ваших кастдевов.</div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ EXAMPLE MODAL ══ -->
+    <div class="ex-modal-overlay" id="exampleModal" onclick="closeExampleIfOverlay(event)">
+      <div class="ex-modal">
+        <div class="ex-modal-head">
+          <button class="ex-modal-close" onclick="closeExampleModal()">✕</button>
+          <div class="ex-modal-label">Примеры из практики</div>
+          <div class="ex-modal-title">Как описывать ЦА:<br>как надо / как не надо</div>
+        </div>
+        <div class="ex-modal-body">
+
+          <div class="ex-col ex-col-bad">
+            <div class="ex-col-label">✗ Так не работает</div>
+            <div class="ex-item">
+              <span class="ex-item-icon">✗</span>
+              <div>
+                <div class="ex-item-text">«Женщины 30–45, которые хотят развиваться»</div>
+                <div class="ex-item-note">Нет ситуации, нет боли — это демография, а не портрет</div>
+              </div>
+            </div>
+            <div class="ex-item">
+              <span class="ex-item-icon">✗</span>
+              <div>
+                <div class="ex-item-text">«Предприниматели, которые хотят больше зарабатывать»</div>
+                <div class="ex-item-note">Слишком широко — подходит под сотни разных продуктов</div>
+              </div>
+            </div>
+            <div class="ex-item">
+              <span class="ex-item-icon">✗</span>
+              <div>
+                <div class="ex-item-text">«Люди, которым нужна моя помощь»</div>
+                <div class="ex-item-note">Помощь нужна всем — чем конкретно?</div>
+              </div>
+            </div>
+            <div class="ex-item">
+              <span class="ex-item-icon">✗</span>
+              <div>
+                <div class="ex-item-text">«Целеустремлённые специалисты, готовые к изменениям»</div>
+                <div class="ex-item-note">Красиво, но непонятно — из этого нельзя написать ни один пост</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ex-col ex-col-good">
+            <div class="ex-col-label">✓ Так работает</div>
+            <div class="ex-item">
+              <span class="ex-item-icon">✓</span>
+              <div>
+                <div class="ex-item-text">Самозанятая коуч или консультант — у неё есть клиенты, но доход то 50, то 150 тысяч, не понимает почему и как выровнять. Боится смотреть в банковское приложение.</div>
+                <div class="ex-item-note">Есть ситуация → можно писать контент, можно строить программу</div>
+              </div>
+            </div>
+            <div class="ex-item">
+              <span class="ex-item-icon">✓</span>
+              <div>
+                <div class="ex-item-text">Специалист, который ведёт блог нерегулярно — то вдохновение, то нет. Не понимает, за какую площадку хвататься, не чувствует системы. Хочет, чтобы блог наконец работал без надрыва.</div>
+                <div class="ex-item-note">Конкретная проблема → очевидно, что предложить</div>
+              </div>
+            </div>
+            <div class="ex-item">
+              <span class="ex-item-icon">✓</span>
+              <div>
+                <div class="ex-item-text">Родитель подростка 12–16 лет — хочет вырастить уверенного ребёнка, но сам не знает, как давать правильную обратную связь про внешность и выступления.</div>
+                <div class="ex-item-note">Боль понятна → программа строится сама</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ex-divider"></div>
+
+          <div class="ex-tip">
+            <strong>Правило проверки:</strong> если вы можете написать пост из этого описания прямо сейчас — это рабочее описание ЦА. Если нет — копайте глубже. Хорошее описание всегда содержит ситуацию, боль и момент «подгорания».
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ШАГ 2 (новый) -->
+    <div class="step-card bc-amber" id="step-1">
+      <div class="step-head">
+        <div class="step-head-num">02</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Первые посты в блог</div>
+          <div class="step-head-why">Пока не готова программа — уже можно поднимать тему. 2–3 поста из кастдевов создают первый интерес и показывают, что вы понимаете своего человека</div>
+        </div>
+        <div class="step-head-right">
+          <span class="step-ref">↗ Встреча 2</span>
+        </div>
+      </div>
+      <div class="step-body">
+
+        <div class="important-block ib-amber" style="margin-top:18px;">
+          <div class="ib-icon">⚠️</div>
+          <div class="ib-body">
+            <div class="ib-label">Почему не ждём готовности программы</div>
+            <div class="ib-text">Программу не нужно прописывать до конца, чтобы начать публиковать. Достаточно точки А и точки Б — вы уже знаете, с кем работаете и про что. Посты из кастдевов проверяют, узнаёт ли аудитория себя. Это и есть первый шаг продажи.</div>
+          </div>
+        </div>
+
+        <div class="tasks-title" style="margin-top:20px;">Задачи</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Проверить название канала — оно должно отражать <strong>проблему, которую вы решаете</strong>, а не вас как эксперта. Если нет — переформулировать.</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Взять 2–3 самые яркие цитаты из кастдевов и вместе с ИИ-помощником по контенту написать первые 2–3 поста — проверяя, что они написаны языком аудитории.</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Опубликовать посты. Зафиксировать реакции: кто откликнулся, что написал в личку.</div></div>
+
+        <div class="important-block ib-terra" style="margin-top:16px;">
+          <div class="ib-icon">📌</div>
+          <div class="ib-body">
+            <div class="ib-label">Если у вас уже есть блог — начинайте прямо сейчас</div>
+            <div class="ib-text">Посты идут параллельно с остальными шагами, не после. Пока вы прописываете лестницу и считаете цену — блог уже греет аудиторию.</div>
+          </div>
+        </div>
+
+        <div class="important-block" style="margin-top:12px;background:rgba(44,45,38,0.04);border-left:3px solid var(--khaki);border-radius:10px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="font-size:16px;flex-shrink:0;">🌱</div>
+          <div>
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--khaki);margin-bottom:4px;">Если блога нет или он совсем маленький</div>
+            <div style="font-size:13px;color:var(--dark);line-height:1.65;">Сначала разберитесь с базой: кого приглашаем, откуда берём первую аудиторию, как балансировать личное / экспертное / продающее. По этим вопросам — к Нине.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+          <button onclick="openPostsModal()" style="display:inline-flex;align-items:center;gap:8px;background:rgba(222,146,50,0.1);border:1.5px solid rgba(222,146,50,0.3);border-radius:8px;padding:10px 18px;font-family:var(--font-body);font-size:12px;font-weight:700;color:#8f5a08;text-transform:uppercase;letter-spacing:.1em;cursor:pointer;transition:all .15s;" onmouseover="this.style.background='rgba(222,146,50,0.2)'" onmouseout="this.style.background='rgba(222,146,50,0.1)'">
+            <span>📄</span> Примеры постов
+          </button>
+          <a href="https://drive.google.com/drive/folders/1MAEwvGwUujvzSMHKh42hXP1ePg81ijq9?usp=share_link" target="_blank"
+             style="display:inline-flex;align-items:center;gap:8px;background:var(--dark-brown);color:var(--cream);border-radius:8px;padding:10px 18px;text-decoration:none;font-family:var(--font-body);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;transition:opacity .18s;"
+             onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
+            <span>🤖</span> Контент-воронка и ИИ-помощники ↗
+          </a>
+        </div>
+
+        <!-- Posts data (hidden, used by modal) -->
+        <div id="post1" style="display:none">Вы умный, образованный эксперт. У вас годы практики, куча пройденных обучений, реальные результаты с клиентами один на один. И при этом — нестабильный доход, постоянный поиск следующего проекта и ощущение что вы так и не реализовали то, что реально умеете.
+
+Групповая программа кажется следующим шагом. Но вы так и не запустили.
+
+Если узнали себя — киньте 🔥. Хочу разобрать почему так происходит и что с этим на самом деле делать.</div>
+        <div id="post2" style="display:none">Рынок онлайн-образования говорит экспертам: «просто упакуй себя и продавай». И они идут учиться — маркетингу, запускам, контенту. Отдельно. По очереди. В большие дорогие программы.
+
+Моё мнение: это не работает для эксперта который работает один, у которого нет команды и ограниченное время. Большой запуск с прогревом на 2 месяца, воронками и рекламой — это инструмент для другого бизнеса. Не для вас.
+
+Эксперту нужна другая система. Меньше, но своя.</div>
+        <div id="post3" style="display:none">Эксперт в точке А обычно делает одно из двух.
+
+Либо берётся за фриланс и временные проекты — чтобы была стабильность. И застревает там, потому что это съедает всё время и энергию.
+
+Либо идёт учиться запускам — и получает контент на 200 слайдов о том как делать большие воронки. А как сделать именно свой первый групповой продукт из своей экспертизы — так и непонятно.
+
+В обоих случаях своя программа остаётся «когда-нибудь потом».</div>
+
+        <div class="step-result-block" style="margin-top:28px;background:var(--dark-brown);border-radius:14px;padding:22px 24px;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:var(--amber);border-radius:50%;opacity:.08;"></div>
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:var(--amber);margin-bottom:8px;">✓ Идеальный результат шага 2</div>
+          <div style="font-size:15px;font-weight:600;color:var(--cream);line-height:1.65;">2–3 опубликованных поста, написанных языком аудитории. Несколько человек написали «это про меня» или 🔥. Есть первое понимание, какие формулировки резонируют — это данные для лендинга и следующих постов.</div>
+        </div>
+
+        <button class="complete-btn" onclick="completeStep(1)" style="margin-top:16px;"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ══ БЛОК 2 ══ -->
+    <div class="block-header">
+      <span class="block-num">БЛОК 01</span>
+      <span class="block-title">Подготовка</span>
+      <span class="block-badge bb-amber">Старт здесь</span>
+    </div>
+
+    <!-- ШАГ 2 (теперь шаг 3) -->
+    <div class="step-card bc-olive" id="step-2">
+      <div class="step-head">
+        <div class="step-head-num">03</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Лестница программы</div>
+          <div class="step-head-why">Маршрут от точки А к точке Б, разбитый на шаги — основа лендинга, встреч и продающего эфира</div>
+        </div>
+        <div class="step-head-right">
+          <span class="step-ref">↗ Встреча 4</span>
+          </div>
+      </div>
+      <div class="step-body">
+
+        <div class="important-block ib-amber" style="margin-top:18px;">
+          <div class="ib-icon">💡</div>
+          <div class="ib-body">
+            <div class="ib-label">Зачем это нужно</div>
+            <div class="ib-text">Лестница — это способ увидеть программу глазами вашего студента. Строим её на языке клиента: так понимаем, что реально давать, а что не нужно. Это и есть основа программы, которая помогает людям.</div>
+          </div>
+        </div>
+
+        <div class="tasks-title" style="margin-top:20px;">Задачи</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Выписать: что человек умеет / имеет / чувствует после вашей программы? Опишите финальное состояние.</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Разбить путь на <strong>4–8 ступенек</strong> — каждая один навык или сдвиг. Рассказать как историю другу: что сначала, что потом, почему именно так.</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Назвать каждую ступеньку <strong>языком аудитории</strong> — не «Модуль 1: методология», а «Понимаю, кому и зачем я нужна»</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Прогнать себя вперёд и назад по лестнице: логично? Где дискомфортно? С чего начать, чем закончить?</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Поспрашивать людей из кастдевов — дать им посмотреть на лестницу и дать обратную связь</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Проработать лестницу с ИИ-методологом (ссылка ниже)</div></div>
+
+        <div style="margin-top:18px;">
+          <a href="https://chatgpt.com/g/g-6a06e2ad572c8191a8aacc33679bb90c-ii-metodolog-andrei-land" target="_blank"
+             style="display:inline-flex;align-items:center;gap:8px;background:var(--dark-brown);color:var(--cream);border-radius:8px;padding:11px 20px;text-decoration:none;font-family:var(--font-body);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;transition:opacity .18s;"
+             onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
+            <span>🤖</span> ИИ-методолог ↗
+          </a>
+        </div>
+
+        <div class="important-block ib-olive" style="margin-top:18px;">
+          <div class="ib-icon">🎯</div>
+          <div class="ib-body">
+            <div class="ib-label">Ключевой фокус</div>
+            <div class="ib-text">Нам важно понять <strong>путь клиента</strong>. Детально как именно проведём каждую встречу — пропишем дальше. Это не мешает уже сейчас запускать продажи тёплым людям, которые вам доверяют. Для спокойствия можете заглянуть в раздел «Сценарии встреч» — но обязательно вернитесь сюда и завершите лестницу.</div>
+          </div>
+        </div>
+
+        <button class="complete-btn" onclick="completeStep(2)" style="margin-top:20px;"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ШАГ 3 -->
+    <div class="step-card bc-olive" id="step-3">
+      <div class="step-head">
+        <div class="step-head-num">04</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Формат и продолжительность</div>
+          <div class="step-head-why">Ориентируемся как нам комфортно и насколько мы готовы пообещать результат на этом первом запуске</div>
+        </div>
+        <div class="step-head-right">
+          </div>
+      </div>
+      <div class="step-body">
+
+        <div class="important-block ib-amber" style="margin-top:18px;">
+          <div class="ib-icon">💡</div>
+          <div class="ib-body">
+            <div class="ib-label">Зачем это нужно</div>
+            <div class="ib-text">Здесь вы включаетесь как эксперт. Формат и длительность — это про то, как вам комфортно работать и насколько вы готовы пообещать результат на этом первом запуске.</div>
+          </div>
+        </div>
+
+        <div class="tasks-title" style="margin-top:20px;">Форматы ведения — можно миксовать внутри одной программы</div>
+        <div class="format-selector">
+          <div class="format-option" onclick="selectFormat(this)">
+            <div class="format-icon">🎓</div>
+            <div class="format-name">Мастер-класс</div>
+            <div class="format-desc">Вы рассказываете, участники слушают и делают практику</div>
+          </div>
+          <div class="format-option" onclick="selectFormat(this)">
+            <div class="format-icon">💪</div>
+            <div class="format-name">Тренинг</div>
+            <div class="format-desc">Отрабатываем навык вместе в группе</div>
+          </div>
+          <div class="format-option" onclick="selectFormat(this)">
+            <div class="format-icon">🔄</div>
+            <div class="format-name">Мастермайнд</div>
+            <div class="format-desc">Подключаем опыт и ресурсы участников друг друга</div>
+          </div>
+          <div class="format-option" onclick="selectFormat(this)">
+            <div class="format-icon">🎯</div>
+            <div class="format-name">Груп. коучинг</div>
+            <div class="format-desc">Создаю пространство, я как опорная фигура</div>
+          </div>
+        </div>
+
+        <div class="tasks-title" style="margin-top:20px;">Задачи</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Определить продолжительность программы — <strong>для первого запуска рекомендую не больше 6–7 недель</strong></div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Определить периодичность встреч (раз в неделю / две недели) и длительность одной встречи</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Посчитать: сколько всего встреч и сколько часов веду я всего — включая подготовку и общение в чате</div></div>
+
+        <div class="important-block ib-terra" style="margin-top:14px;">
+          <div class="ib-icon">⚠️</div>
+          <div class="ib-body">
+            <div class="ib-label">Важно</div>
+            <div class="ib-text">Чем интенсивнее формат (частые встречи + обратная связь + индивидуальный разбор) — тем выше должна быть цена. Нагрузка на ведущего влияет на устойчивость программы.</div>
+          </div>
+        </div>
+
+        <button class="complete-btn" onclick="completeStep(3)" style="margin-top:20px;"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ШАГ 4 -->
+    <div class="step-card bc-olive" id="step-4">
+      <div class="step-head">
+        <div class="step-head-num">05</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Цена</div>
+          <div class="step-head-why">Цена должна быть посчитана, а не взята «по рынку»</div>
+        </div>
+        <div class="step-head-right">
+          <span class="step-ref">↗ Встреча 5</span>
+          </div>
+      </div>
+      <div class="step-body">
+
+        <div class="tasks-title" style="margin-top:18px;">Три подхода к цене — выберите свой</div>
+
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px;">
+
+          <div style="background:var(--cream);border-radius:10px;padding:16px 18px;border-left:3px solid var(--amber);">
+            <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:#8f5a08;margin-bottom:6px;">Вариант 1 · По ощущениям</div>
+            <div style="font-size:14px;color:var(--dark);line-height:1.6;">Назначьте любую цену, которая кажется вам комфортной прямо сейчас. Первые продажи — это про опыт и проверку, а не про максимальный доход.</div>
+          </div>
+
+          <div style="background:var(--cream);border-radius:10px;padding:16px 18px;border-left:3px solid var(--olive);">
+            <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--olive);margin-bottom:6px;">Вариант 2 · Постепенный рост</div>
+            <div style="font-size:14px;color:var(--dark);line-height:1.6;">Первые 2–3 продажи — по низкой цене. Следующие — дороже. Трём разным участникам можно назначить разные цены. Это нормально и это работает.</div>
+          </div>
+
+          <div style="background:var(--cream);border-radius:10px;padding:16px 18px;border-left:3px solid var(--terra);">
+            <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--terra);margin-bottom:6px;">Вариант 3 · Посчитать серьёзно</div>
+            <div style="font-size:14px;color:var(--dark);line-height:1.6;">Хотите посчитать по-настоящему — сколько нужно зарабатывать, какова реальная стоимость вашего часа и что выгодно продавать?</div>
+            <a href="https://kinescope.io/wpLP7iELVo7tMjhuhC8jLY" target="_blank"
+               style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:var(--terra);color:#fff;border-radius:7px;padding:8px 14px;text-decoration:none;font-family:var(--font-body);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;transition:opacity .18s;"
+               onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
+              ▶ Воркшоп по цене ↗
+            </a>
+          </div>
+
+        </div>
+
+        <div class="important-block ib-olive" style="margin-top:18px;">
+          <div class="ib-icon">💡</div>
+          <div class="ib-body">
+            <div class="ib-label">При маленькой аудитории</div>
+            <div class="ib-text">Выгоднее продавать меньше, но дороже. 5 продаж × 40 тыс. = 200 тыс. 5 продаж × 8 тыс. = 40 тыс. Усилие на продажу — одинаковое.</div>
+          </div>
+        </div>
+
+        <button class="complete-btn" onclick="completeStep(4)" style="margin-top:20px;"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ══ БЛОК 3 ══ -->
+    <div class="block-header">
+      <span class="block-num">БЛОК 02</span>
+      <span class="block-title">Подготовка и запуск продаж</span>
+      <span class="block-badge bb-terra">Упаковка и набор</span>
+    </div>
+
+    <!-- ШАГ 5 -->
+    <div class="step-card bc-terra" id="step-5">
+      <div class="step-head">
+        <div class="step-head-num">06</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Оффер — текст</div>
+          <div class="step-head-why">Оффер ложится в основу всех текстов: постов, переписок, лендинга, продающего эфира</div>
+        </div>
+        <div class="step-head-right">
+          <span class="step-ref">↗ Встреча 1</span>
+          </div>
+      </div>
+      <div class="step-body">
+
+        <div class="important-block ib-amber" style="margin-top:18px;">
+          <div class="ib-icon">💡</div>
+          <div class="ib-body">
+            <div class="ib-label">Основной вариант — текстовый оффер</div>
+            <div class="ib-text">Для первого запуска не нужен лендинг. Достаточно хорошо составленного текстового оффера — его можно отправить в личке или документом. Лендинг — следующий шаг, если захотите.</div>
+          </div>
+        </div>
+
+        <div class="tasks-title" style="margin-top:20px;">Структура текстового оффера</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text"><strong>Кому помогаю</strong> — формула: «Я помогаю [кто — точка А] перийти в [точка Б] благодаря [ваш подход]»</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text"><strong>Блоки программы</strong> — не «Модуль 1», а блоки: можно переставлять, менять порядок под группу</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text"><strong>Формат и длительность</strong> — сколько встреч, как часто, сколько длится каждая</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text"><strong>Дата старта</strong> первой встречи</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text"><strong>Цена и условия оплаты</strong></div></div>
+
+        <div style="margin-top:18px;">
+          <a href="https://drive.google.com/drive/folders/1n61YOdOIJt31CYE78F87BOuo96Z-P9vI?usp=share_link" target="_blank"
+             style="display:inline-flex;align-items:center;gap:8px;background:var(--dark-brown);color:var(--cream);border-radius:8px;padding:11px 20px;text-decoration:none;font-family:var(--font-body);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;transition:opacity .18s;"
+             onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
+            <span>🤖</span> ИИ-помощник по офферам и лендингам ↗
+          </a>
+        </div>
+
+        <div class="important-block ib-terra" style="margin-top:18px;">
+          <div class="ib-icon">📌</div>
+          <div class="ib-body">
+            <div class="ib-label">Хотите лендинг вместо текста?</div>
+            <div class="ib-text">Посмотрите следующий шаг — там структура лендинга и инструменты для его создания.</div>
+          </div>
+        </div>
+
+        <button class="complete-btn" onclick="completeStep(5)" style="margin-top:20px;"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ШАГ 6 -->
+    <div class="step-card bc-terra" id="step-6">
+      <div class="step-head">
+        <div class="step-head-num">07</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Лендинг</div>
+          <div class="step-head-why">Можно не делать на первом запуске — но если хочется или нужны автооплаты, вот как сделать быстро</div>
+        </div>
+        <div class="step-head-right">
+          <span class="step-ref">↗ Встреча 5</span>
+          </div>
+      </div>
+      <div class="step-body">
+
+        <div class="important-block ib-amber" style="margin-top:18px;">
+          <div class="ib-icon">💡</div>
+          <div class="ib-body">
+            <div class="ib-label">Зачем лендинг</div>
+            <div class="ib-text">Лендинг не обязателен на первом запуске. Он нужен если: хотите собирать автооплаты, не хотите отправлять текстовый документ, или просто хотите красиво заявить о себе.</div>
+          </div>
+        </div>
+
+        <div class="tasks-title" style="margin-top:20px;">Как сделать лендинг</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Самостоятельно через вайб-кодинг (ссылка на воркшоп ниже) или обратитесь к Светлане — помогу</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Использовать ИИ-помощника по офферам и лендингам — там готовая структура и подсказки</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Проверить: текст написан языком клиента — его ситуация, не ваша методология</div></div>
+
+        <div class="tasks-title" style="margin-top:20px;">Структура лендинга — 9 блоков</div>
+
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
+          <div style="background:var(--cream);border-radius:9px;padding:13px 16px;">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--amber);margin-bottom:4px;">Hero · Главный экран</div>
+            <div style="font-size:13px;color:var(--dark);line-height:1.6;">Заголовок — боль или результат одной строкой. Подзаголовок — кто вы и для кого (тот самый оффер: точка А → точка Б → благодаря чему). Кнопка CTA. Фото / визуал.</div>
+          </div>
+          <div style="background:var(--cream);border-radius:9px;padding:13px 16px;">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--amber);margin-bottom:4px;">Блок 1 · Точка А — Узнавание</div>
+            <div style="font-size:13px;color:var(--dark);line-height:1.6;">Список ситуаций или короткие сцены — человек узнаёт себя за 5 сек. Финал: «Если узнали — читайте дальше».</div>
+          </div>
+          <div style="background:var(--cream);border-radius:9px;padding:13px 16px;">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--amber);margin-bottom:4px;">Блок 2 · Механика — Почему так происходит</div>
+            <div style="font-size:13px;color:var(--dark);line-height:1.6;">Объясняем причину без обвинений. Что уже пробовал и почему не сработало.</div>
+          </div>
+          <div style="background:var(--cream);border-radius:9px;padding:13px 16px;">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--amber);margin-bottom:4px;">Блок 3 · Точка Б — Картина результата</div>
+            <div style="font-size:13px;color:var(--dark);line-height:1.6;">Конкретная сцена из жизни после. Не абстракция — кино. Что делает иначе, что чувствует.</div>
+          </div>
+          <div style="background:var(--cream);border-radius:9px;padding:13px 16px;">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--amber);margin-bottom:4px;">Блок 4 · Для кого — Отбор</div>
+            <div style="font-size:13px;color:var(--dark);line-height:1.6;">Две колонки: ✓ Это для вас если... / ✗ Не сюда если... Отсекаем неплатёжеспособных.</div>
+          </div>
+          <div style="background:var(--cream);border-radius:9px;padding:13px 16px;">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--amber);margin-bottom:4px;">Блок 5 · Программа — Шаги</div>
+            <div style="font-size:13px;color:var(--dark);line-height:1.6;">Визуальный путь из А в Б. Каждый шаг: название → что делаем → что появляется на руках. Нумерованные карточки.</div>
+          </div>
+          <div style="background:var(--cream);border-radius:9px;padding:13px 16px;">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--amber);margin-bottom:4px;">Блок 6 · Формат и блок 7 · Метод</div>
+            <div style="font-size:13px;color:var(--dark);line-height:1.6;">Параметры программы + почему именно ваш подход сработает.</div>
+          </div>
+          <div style="background:var(--cream);border-radius:9px;padding:13px 16px;">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--amber);margin-bottom:4px;">Блок 8 · Возражения + Стоимость</div>
+            <div style="font-size:13px;color:var(--dark);line-height:1.6;">FAQ 3–4 вопроса. Цена и что входит.</div>
+          </div>
+          <div style="background:var(--cream);border-radius:9px;padding:13px 16px;">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--amber);margin-bottom:4px;">Блок 9 · Призыв — CTA</div>
+            <div style="font-size:13px;color:var(--dark);line-height:1.6;">Один простой шаг. Кнопка / ссылка. Контакт.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="https://drive.google.com/drive/folders/1n61YOdOIJt31CYE78F87BOuo96Z-P9vI?usp=share_link" target="_blank"
+             style="display:inline-flex;align-items:center;gap:8px;background:var(--dark-brown);color:var(--cream);border-radius:8px;padding:10px 18px;text-decoration:none;font-family:var(--font-body);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;transition:opacity .18s;"
+             onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
+            <span>🤖</span> ИИ-помощник по лендингам ↗
+          </a>
+          <a href="https://kinescope.io/wpLP7iELVo7tMjhuhC8jLY" target="_blank"
+             style="display:inline-flex;align-items:center;gap:8px;background:rgba(222,146,50,0.12);color:#8f5a08;border:1.5px solid rgba(222,146,50,0.3);border-radius:8px;padding:10px 18px;text-decoration:none;font-family:var(--font-body);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;transition:opacity .18s;"
+             onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
+            <span>▶</span> Воркшоп по вайбкодингу ↗
+          </a>
+        </div>
+
+        <button class="complete-btn" onclick="completeStep(6)" style="margin-top:20px;"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ШАГ 7 -->
+    <div class="step-card bc-terra" id="step-7">
+      <div class="step-head">
+        <div class="step-head-num">08</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Учёт клиентов и оплаты</div>
+          <div class="step-head-why">Ведём список касаний и решаем как принимать оплаты — это хорошо работает на первых дорогих запусках</div>
+        </div>
+        <div class="step-head-right">
+          </div>
+      </div>
+      <div class="step-body">
+
+        <div class="tasks-title" style="margin-top:18px;">1 · Вести учёт всех касаний</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Записывать всех людей, с которыми вы касались по теме программы — папка в Телеграме, заметка или табличка. Главное понимать: сколько касаний всего, сколько проявили интерес, сколько в итоге купят.</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Отмечать статус по каждому: написала → ответил → интерес есть → оплатил. Это ваша первая аналитика запуска.</div></div>
+
+        <div class="important-block ib-amber" style="margin-top:14px;">
+          <div class="ib-icon">💡</div>
+          <div class="ib-body">
+            <div class="ib-label">Зачем это нужно</div>
+            <div class="ib-text">Когда после запуска вы увидите, что из 20 касаний купили 4 — вы поймёте свою конверсию и будете знать, сколько людей нужно охватить в следующий раз. Это ручной способ, и он отлично работает на первых дорогих запусках.</div>
+          </div>
+        </div>
+
+        <div class="tasks-title" style="margin-top:20px;">2 · Принять решение по оплатам</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text"><strong>Вручную</strong> — реквизиты в личке, подтверждение скриншотом. Рекомендуем для первого запуска. Подходит для самозанятых и любых форматов.</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text"><strong>Автоматически</strong> — когда хотите масштабироваться. Россия: Prodamus. Зарубеж: Stripe. Встроить кнопку в лендинг — помогает Светлана или сделайте через вайбкодинг.</div></div>
+
+        <div class="important-block ib-olive" style="margin-top:14px;">
+          <div class="ib-icon">🎯</div>
+          <div class="ib-body">
+            <div class="ib-label">Для первого запуска</div>
+            <div class="ib-text">Не застревайте в настройке платёжной системы — это история «после первого запуска, когда уже заработали». Сначала продайте, потом автоматизируйте.</div>
+          </div>
+        </div>
+
+        <div class="tasks-title" style="margin-top:20px;">3 · После оплаты — сразу создать пространство для участников</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Создать канал или чат в Телеграме для участников. Добавить оплатившего сразу или сообщить дату, когда это произойдёт.</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Написать первое сообщение в канале: дата старта программы + примерное расписание встреч. Участник должен получить подтверждение оплаты и понимание «что дальше».</div></div>
+
+        <button class="complete-btn" onclick="completeStep(7)" style="margin-top:20px;"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ШАГ 8 -->
+    <div class="step-card bc-terra" id="step-8">
+      <div class="step-head">
+        <div class="step-head-num">09</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Юридические документы</div>
+          <div class="step-head-why">Минимальная защита для вас и участников</div>
+        </div>
+        <div class="step-head-right">
+          </div>
+      </div>
+      <div class="step-body">
+
+        <div class="important-block ib-amber" style="margin-top:18px;">
+          <div class="ib-icon">⚠️</div>
+          <div class="ib-body">
+            <div class="ib-label">Зачем это нужно</div>
+            <div class="ib-text">Всё зависит от вашей юрисдикции и формата работы. Я не юрист — рекомендую консультироваться со специалистом. Но минимум, который стоит подготовить, вот ниже.</div>
+          </div>
+        </div>
+
+        <div class="tasks-title" style="margin-top:20px;">Минимум — рекомендую</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text"><strong>Публичная оферта</strong> — для любого формата работы</div></div>
+
+        <div class="tasks-title" style="margin-top:16px;">Полный комплект для России — 4 документа</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text"><strong>Публичная оферта</strong></div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text"><strong>Политика конфиденциальности</strong></div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text"><strong>Согласие на получение рассылок</strong></div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text"><strong>Согласие на обработку персональных данных</strong></div></div>
+
+        <div class="prompt-block" style="margin-top:16px;">
+          <div class="prompt-label">💬 Промпт для ИИ — полный комплект документов <button class="copy-btn" onclick="copyPrompt(this, 'ai8')">Скопировать</button></div>
+          <div class="prompt-text" id="ai8">Составь полный пакет юридических документов для групповой онлайн-программы (Россия).
+
+Мне нужны:
+1. Публичная оферта
+2. Политика конфиденциальности
+3. Согласие на получение рассылок
+4. Согласие на обработку персональных данных
+
+Данные программы:
+— Формат: групповые онлайн-встречи, [количество встреч]
+— Продолжительность: [срок]
+— Стоимость: [цена]
+— Ведущий: [имя / ИП / самозанятый]
+— Площадка: Zoom / Telegram
+
+Для каждого документа: минимально необходимый юридически грамотный текст. Я понимаю, что это шаблоны — для точной адаптации рекомендую юриста.</div>
+        </div>
+
+        <div class="important-block ib-olive" style="margin-top:14px;">
+          <div class="ib-icon">💡</div>
+          <div class="ib-body">
+            <div class="ib-label">Если нет лендинга</div>
+            <div class="ib-text">Оферту можно скинуть в переписке при необходимости. Для первого запуска этого достаточно.</div>
+          </div>
+        </div>
+        <button class="complete-btn" onclick="completeStep(8)" style="margin-top:20px;"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ══ БЛОК 4 ══ -->
+    
+
+    <!-- ШАГ 9 -->
+    <div class="step-card bc-amber" id="step-9">
+      <div class="step-head">
+        <div class="step-head-num">10</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Тёплый круг → первые продажи</div>
+          <div class="step-head-why">Первые участники почти всегда приходят из тёплого круга. Кастдевы — это уже касание</div>
+        </div>
+        <div class="step-head-right">
+          <span class="step-ref">↗ Встреча 3, 6</span>
+          </div>
+      </div>
+      <div class="step-body">
+        <div class="important-block ib-amber" style="margin-top:18px;">
+          <div class="ib-icon">💡</div>
+          <div class="ib-body">
+            <div class="ib-label">Вы уже начали в кастдевах</div>
+            <div class="ib-text">Вы уже общались с этими людьми — вы уже можете ответить на их вопросы про программу, оплаты, как это будет проходить. Это не холодные продажи. Это продолжение разговора.</div>
+          </div>
+        </div>
+
+        <div class="tasks-title" style="margin-top:20px;">Задачи</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text"><strong>Начните с тех, кто участвовал в кастдевах</strong> — написать и попросить обратную связь на программу. Формат: «Вот что я собираю — дай обратную связь, если подойдёт тебе — было бы здорово, если знаешь кого-то — буду очень благодарна за рекомендацию».</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Выписать список из <strong>20–30 человек</strong>: знакомые, бывшие клиенты, подписчики с которыми был живой контакт</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Написать каждому — не объявление, а вопрос или наблюдение — зайти через диалог. После разговора предложить мягко.</div></div>
+
+        <div class="prompt-block" style="margin-top:16px;">
+          <div class="prompt-label">💬 Пример сообщения — кастдевы <button class="copy-btn" onclick="copyPrompt(this, 'msg9')">Скопировать</button></div>
+          <div class="prompt-text" id="msg9">Привет! Помнишь, мы разговаривали про [тема]? Я собрала программу на основе этих разговоров. Можешь посмотреть и дать обратную связь — что звучит точно, что нет?
+
+Если вдруг окажется, что это тебе подходит — было бы здорово. Если знаешь кого-то, кому сейчас актуально — буду очень благодарна за рекомендацию.</div>
+        </div>
+
+        <div class="important-block ib-terra" style="margin-top:14px;">
+          <div class="ib-icon">⚠️</div>
+          <div class="ib-body">
+            <div class="ib-label">Важно</div>
+            <div class="ib-text">Продажа в личке — это диалог, не монолог. Сначала вопрос или наблюдение — потом предложение. Объявление «хочешь на программу» отталкивает.</div>
+          </div>
+        </div>
+        <button class="complete-btn" onclick="completeStep(9)" style="margin-top:20px;"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ШАГ 10 -->
+    <div class="step-card bc-amber" id="step-10">
+      <div class="step-head">
+        <div class="step-head-num">11</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Контент-воронка — поднимаем тему в блоге</div>
+          <div class="step-head-why">Контент греет аудиторию параллельно с личными продажами — и создаёт первый интерес ещё до объявления программы</div>
+        </div>
+        <div class="step-head-right">
+          <span class="step-ref">↗ Встреча 2</span>
+          </div>
+      </div>
+      <div class="step-body">
+
+        <div class="important-block ib-amber" style="margin-top:18px;">
+          <div class="ib-icon">⚠️</div>
+          <div class="ib-body">
+            <div class="ib-label">Почему не ждём, пока программа будет готова</div>
+            <div class="ib-text">Программу не нужно прописывать до последней встречи, чтобы начать продавать. Достаточно точки А, точки Б и лестницы шагов. Пока вы дописываете детали — аудитория уже прогревается. Первая группа сама помогает доработать программу под реальные запросы.</div>
+          </div>
+        </div>
+
+        <div class="important-block ib-terra" style="margin-top:12px;">
+          <div class="ib-icon">📌</div>
+          <div class="ib-body">
+            <div class="ib-label">Если у вас уже есть хоть какой-то блог</div>
+            <div class="ib-text">Начинайте поднимать тему прямо сейчас — по плану ниже. Посты из точки А клиента, инсайты по теме, кейсы и наблюдения. Продажа идёт параллельно в личке.</div>
+          </div>
+        </div>
+
+        <div class="important-block" style="margin-top:12px;background:rgba(44,45,38,0.04);border-left:3px solid var(--khaki);border-radius:10px;padding:14px 16px;display:flex;gap:12px;">
+          <div class="ib-icon">🌱</div>
+          <div class="ib-body">
+            <div class="ib-label" style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--khaki);margin-bottom:4px;">Если начинаете с нуля или блог совсем маленький</div>
+            <div class="ib-text" style="font-size:13px;color:var(--dark);line-height:1.65;">Есть несколько шагов, которые важно пройти сначала: кого приглашаем и откуда берём первую аудиторию, какие посты выносим в ленту (личное / экспертное / продающее), как балансировать между форматами не выгорая. По этим вопросам — к Нине.</div>
+          </div>
+        </div>
+
+        <div class="important-block ib-terra" style="margin-top:18px;">
+          <div class="ib-icon">📌</div>
+          <div class="ib-body">
+            <div class="ib-label">Если вы начали посты в шаге 2 — продолжайте</div>
+            <div class="ib-text">Первые посты вы уже написали. Теперь продолжаем по плану ниже — на протяжении всего периода продаж. Контент идёт параллельно с личкой, не вместо неё.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+          <a href="https://drive.google.com/drive/folders/1MAEwvGwUujvzSMHKh42hXP1ePg81ijq9?usp=share_link" target="_blank"
+             style="display:inline-flex;align-items:center;gap:8px;background:var(--dark-brown);color:var(--cream);border-radius:8px;padding:10px 18px;text-decoration:none;font-family:var(--font-body);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;transition:opacity .18s;"
+             onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
+            <span>🤖</span> Контент-воронка и ИИ-помощники ↗
+          </a>
+        </div>
+
+        <div class="tasks-title" style="margin-top:20px;">План постов на 7 дней</div>
+
+        <div class="important-block ib-olive" style="margin-top:8px;margin-bottom:12px;">
+          <div class="ib-icon">💡</div>
+          <div class="ib-body">
+            <div class="ib-label">Почему именно такой план</div>
+            <div class="ib-text">Этот план мягкий — он показывает вас как эксперта, а не продаёт в лоб. Люди сначала узнают себя, потом хотят результат, и только потом видят предложение. Личное и life-посты вплетайте по настроению — не нужно строго каждый день. Главное — сохранять нить темы.</div>
+          </div>
+        </div>
+
+        <div class="content-plan">
+          <div class="cp-day"><span class="cp-num">Д1</span><span class="cp-text">История из кастдева — без имён, про ситуацию. Человек узнаёт себя.</span><span class="cp-tag ct-warm">Узнаю себя</span></div>
+          <div class="cp-day"><span class="cp-num">Д2</span><span class="cp-text">Продолжение: что в этой ситуации происходит и почему человек застрял</span><span class="cp-tag ct-warm">Точка А</span></div>
+          <div class="cp-day"><span class="cp-num">Д3</span><span class="cp-text">Наблюдение / инсайт по вашей теме — личное, живое, без поучений</span><span class="cp-tag ct-cont">Экспертиза</span></div>
+          <div class="cp-day"><span class="cp-num">Д4</span><span class="cp-text">Кейс или «что было бы, если...» — показываем результат вашей работы</span><span class="cp-tag ct-cont">Кейс</span></div>
+          <div class="cp-day"><span class="cp-num">Д5</span><span class="cp-text">Пост про точку Б — как выглядит жизнь после. Конкретно, не абстрактно.</span><span class="cp-tag ct-cont">Точка Б</span></div>
+          <div class="cp-day"><span class="cp-num">Д6</span><span class="cp-text">Пост-анонс: «Я собираю группу» — мягкий, с деталями программы и CTA</span><span class="cp-tag ct-ann">Анонс</span></div>
+          <div class="cp-day"><span class="cp-num">Д7</span><span class="cp-text">Повтор анонса + ответы на вопросы в комментариях</span><span class="cp-tag ct-ann">Продажа</span></div>
+        </div>
+
+        <div class="tasks-title" style="margin-top:18px;">Задачи</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Написать посты по плану выше, используя ИИ-помощника по контенту</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Вплетать личное и life-посты — это делает канал живым, не строго по плану</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Если аудитория мала — написать в профильные чаты / договориться о гостевом посте у партнёра</div></div>
+
+        <button class="complete-btn" onclick="completeStep(10)" style="margin-top:20px;"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ШАГ 11 -->
+    <div class="step-card bc-amber" id="step-11">
+      <div class="step-head">
+        <div class="step-head-num">12</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Продающий эфир (если нужен)</div>
+          <div class="step-head-why">Не обязательно — но живой формат отлично работает. Это не обязательно полноценный вебинар</div>
+        </div>
+        <div class="step-head-right">
+          <span class="step-ref">↗ Встреча 6</span>
+          </div>
+      </div>
+      <div class="step-body">
+
+        <div class="important-block ib-amber" style="margin-top:18px;">
+          <div class="ib-icon">💡</div>
+          <div class="ib-body">
+            <div class="ib-label">Какой формат выбрать</div>
+            <div class="ib-text">«Эфир» — это необязательно большой вебинар. Это может быть: 30 минут в своём канале, приглашённый эксперт в чужую смежную аудиторию, короткий подкаст на тему. Любой живой формат, где вы показываетесь как эксперт и в конце предлагаете программу.</div>
+          </div>
+        </div>
+
+        <div class="tasks-title" style="margin-top:20px;">Структура продающего эфира — пример</div>
+        <div class="webinar-steps">
+          <div class="ws-item"><div class="ws-num">1</div><div class="ws-text"><strong>Актуализация — точка А</strong> (10–15 мин): описываем ситуацию клиента конкретно — он узнаёт себя. Не «многие сталкиваются с...», а живая история из кастдева. Слушатель думает: «это про меня».</div></div>
+          <div class="ws-item"><div class="ws-num">2</div><div class="ws-text"><strong>Точка Б</strong> (5–7 мин): как выглядит жизнь после — без пафоса, конкретно. Сцена, не абстракция. Что человек делает иначе, что чувствует.</div></div>
+          <div class="ws-item"><div class="ws-num">3</div><div class="ws-text"><strong>Почему другие методы не работают + мой подход</strong> (10 мин): что люди уже пробовали и почему не сработало. Как именно вы работаете — лестница программы тезисно.</div></div>
+          <div class="ws-item"><div class="ws-num">4</div><div class="ws-text"><strong>1-е окно продаж</strong> (5–10 мин): мягкий CTA — «Напишите слово X, пришлю подробности». Открываем в первые 50–60 минут.</div></div>
+          <div class="ws-item"><div class="ws-num">5</div><div class="ws-text"><strong>Живой разбор</strong> 1–2 человек (20–30 мин): заранее найти желающих. Смотреть на тех, кто вовлечён — именно к ним потом писать в личку.</div></div>
+          <div class="ws-item"><div class="ws-num">6</div><div class="ws-text"><strong>2-е окно продаж + ответы на вопросы</strong>: повторить предложение, ответить на то, что спрашивают. CTA: «Пишите в личку — расскажу подробнее».</div></div>
+        </div>
+
+        <div class="important-block ib-olive" style="margin-top:16px;">
+          <div class="ib-icon">💡</div>
+          <div class="ib-body">
+            <div class="ib-label">Мягкий CTA</div>
+            <div class="ib-text">«Напишите слово X — я пришлю подробности». Никакого «срочно, только сегодня». Напишите тем, кто активно участвовал в разборе — они уже тёплые.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;">
+          <a href="https://chatgpt.com/g/g-6a06e2ad572c8191a8aacc33679bb90c-ii-metodolog-andrei-land" target="_blank"
+             style="display:inline-flex;align-items:center;gap:8px;background:var(--dark-brown);color:var(--cream);border-radius:8px;padding:11px 20px;text-decoration:none;font-family:var(--font-body);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;transition:opacity .18s;"
+             onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
+            <span>🤖</span> Подготовить сценарий эфира с ИИ-методологом ↗
+          </a>
+          <div style="font-size:12px;color:rgba(44,45,38,.5);margin-top:8px;font-style:italic;">Напишите ему: «Помоги подготовить структуру продающего эфира — задай мне уточняющие вопросы и собери сценарий»</div>
+        </div>
+
+        <button class="complete-btn" onclick="completeStep(11)" style="margin-top:20px;"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ══ БЛОК 5 ══ -->
+    <div class="block-header">
+      <span class="block-num">БЛОК 03</span>
+      <span class="block-title">Методология и проведение</span>
+      <span class="block-badge bb-dark">Матрёшка</span>
+    </div>
+
+    <!-- ШАГ 12 -->
+    <div class="step-card bc-dark" id="step-12">
+      <div class="step-head">
+        <div class="step-head-num">13</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Сценарии встреч</div>
+          <div class="step-head-why">Любая встреча может быть построена по структуре матрёшки — это проще, чем кажется, и работает лучше, чем теория-практика-вопросы</div>
+        </div>
+        <div class="step-head-right">
+          <span class="step-ref">↗ Встреча 4, 5</span>
+          </div>
+      </div>
+      <div class="step-body">
+
+        <div class="important-block ib-amber" style="margin-top:18px;">
+          <div class="ib-icon">💡</div>
+          <div class="ib-body">
+            <div class="ib-label">Зачем структура матрёшки</div>
+            <div class="ib-text">Работают принципы андрагогики — обучение взрослых через опыт. Простая последовательность «теория → практика → вопросы» не создаёт настоящего усвоения. Матрёшка создаёт. В одной встрече может быть <strong>несколько матрёшек</strong> — зависит от того, сколько опытов вы создадите для участников.</div>
+          </div>
+        </div>
+
+        <div class="tasks-title" style="margin-top:20px;">Структура матрёшки — что и зачем</div>
+
+        <div class="important-block ib-terra" style="margin-top:10px;margin-bottom:14px;">
+          <div class="ib-icon">🔑</div>
+          <div class="ib-body">
+            <div class="ib-label">Главный принцип</div>
+            <div class="ib-text">Ядро матрёшки — это всегда <strong>опыт студента</strong>. Концепт нужен чтобы «продать» этот опыт участнику, инструкция — чтобы ему было комфортно его прожить, шеринг и рефлексия — чтобы опыт интегрировался и не вытек мимо. Теорию даём порционно — чуть-чуть, они сами выводы вытащили, ещё чуть-чуть.</div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
+          <div style="background:var(--amber-light);border-radius:10px;padding:14px 16px;border-left:3px solid var(--amber);">
+            <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:#8f5a08;margin-bottom:6px;">Концепт</div>
+            <div style="font-size:13.5px;color:var(--dark);line-height:1.65;">Идея или принцип, который «продаёт» участнику предстоящий опыт. Зачем им это нужно прямо сейчас? Без концепта практика бессмысленна. Не теория — а короткое объяснение <em>зачем мы это сейчас делаем</em>. Коротко, без перегруза.</div>
+          </div>
+          <div style="background:rgba(136,166,32,0.08);border-radius:10px;padding:14px 16px;border-left:3px solid var(--olive);">
+            <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--olive);margin-bottom:6px;">Инструкция</div>
+            <div style="font-size:13.5px;color:var(--dark);line-height:1.65;">Объясняем что именно делать, как и сколько времени. Нужна чтобы участнику было комфортно в процессе. Не всегда нужна отдельно — если опыт простой, можно встроить в концепт.</div>
+          </div>
+          <div style="background:rgba(190,98,43,0.07);border-radius:10px;padding:14px 16px;border-left:3px solid var(--terra);">
+            <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--terra);margin-bottom:6px;">Опыт (практика)</div>
+            <div style="font-size:13.5px;color:var(--dark);line-height:1.65;">Главный элемент. Именно через опыт происходит настоящее усвоение — взрослый человек не может освоить что-то только из теории, ему нужно прожить это руками, разобрать на собственном примере.<br><br>
+              <strong style="font-size:12px;">Варианты опыта:</strong>
+              <span style="display:block;margin-top:6px;line-height:2.1;font-size:13px;">
+                письменная практика · самостоятельная работа · параллельная работа (каждый делает своё) · работа в парах или тройках · общегрупповое обсуждение · дискуссия · игра · квиз · опрос · разбор кейса
+              </span>
+              <span style="display:block;margin-top:8px;font-style:italic;font-size:12.5px;color:rgba(44,45,38,.6);">В одной встрече может быть несколько матрёшек — несколько отдельных опытов. Иногда одна большая практика на полчаса-час — это тоже одна большая матрёшка.</span>
+            </div>
+          </div>
+          <div style="background:rgba(166,151,82,0.1);border-radius:10px;padding:14px 16px;border-left:3px solid var(--khaki);">
+            <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--khaki);margin-bottom:6px;">Шеринг</div>
+            <div style="font-size:13.5px;color:var(--dark);line-height:1.65;">Участники делятся результатом или наблюдением после опыта. Можно в парах, в тройках или в общем кругу. Создаёт ощущение группы — люди слышат что у других тоже что-то получилось. «Что у тебя получилось? Что заметил(а)?»</div>
+          </div>
+          <div style="background:rgba(44,45,38,0.05);border-radius:10px;padding:14px 16px;border-left:3px solid var(--dark);">
+            <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--dark-brown);margin-bottom:6px;">Рефлексия</div>
+            <div style="font-size:13.5px;color:var(--dark);line-height:1.65;">Личный вывод участника. «Что это значит лично для меня? Что я заберу?» Фиксирует результат внутри человека. Без рефлексии опыт вытекает мимо — человек сделал, но не понял, что именно взять с собой.<br><br>
+              <strong style="font-size:12.5px;color:var(--dark-brown);">Важно:</strong> <span style="font-size:13px;">чем начали встречу — тем и заканчиваем. Открытый концепт в начале должен закрыться в рефлексии. Это то, что методолог пока делает плохо — следите за этим сами.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tasks-title" style="margin-top:22px;">Задачи</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Для каждой встречи прописать <strong>результат встречи</strong> — что участник понимает / умеет / чувствует после? Связать с ступенькой лестницы.</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Решить сколько матрёшек в каждой встрече и какой опыт создаём для участников под каждую ступеньку.</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Подготовить с ИИ-методологом сценарий минимум первых <strong>2–3 встреч</strong></div></div>
+
+        <div style="margin-top:18px;">
+          <a href="https://chatgpt.com/g/g-6a06e2ad572c8191a8aacc33679bb90c-ii-metodolog-andrei-land" target="_blank"
+             style="display:inline-flex;align-items:center;gap:8px;background:var(--dark-brown);color:var(--cream);border-radius:8px;padding:11px 20px;text-decoration:none;font-family:var(--font-body);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;transition:opacity .18s;"
+             onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
+            <span>🤖</span> ИИ-методолог — собрать сценарий встречи ↗
+          </a>
+          <div style="font-size:12px;color:rgba(44,45,38,.5);margin-top:8px;font-style:italic;">Скажите ему: тема встречи, результат, ЦА, формат, продолжительность — он задаст уточняющие вопросы и соберёт сценарий по матрёшке</div>
+        </div>
+
+        <button class="complete-btn" onclick="completeStep(12)" style="margin-top:20px;"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ШАГ 13 -->
+    <div class="step-card bc-dark" id="step-13">
+      <div class="step-head">
+        <div class="step-head-num">14</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Материалы к встречам</div>
+          <div class="step-head-why">Большинство людей — визуалы: им нужно что-то увидеть, прочитать, пощупать. Иначе ощущение что программа прошла мимо</div>
+        </div>
+        <div class="step-head-right">
+          </div>
+      </div>
+      <div class="step-body">
+
+        <div class="tasks-title" style="margin-top:18px;">4 варианта материалов — выбирайте под себя</div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
+          <div style="background:var(--cream);border-radius:10px;padding:14px 16px;">
+            <div style="font-size:18px;margin-bottom:6px;">📊</div>
+            <div style="font-size:12px;font-weight:700;color:var(--dark-brown);margin-bottom:4px;">Презентация</div>
+            <div style="font-size:12px;color:rgba(44,45,38,.6);line-height:1.5;">Слайды к встрече в формате 16×9. ИИ-методолог структурирует и сделает в HTML.</div>
+          </div>
+          <div style="background:var(--cream);border-radius:10px;padding:14px 16px;">
+            <div style="font-size:18px;margin-bottom:6px;">📝</div>
+            <div style="font-size:12px;font-weight:700;color:var(--dark-brown);margin-bottom:4px;">Конспект</div>
+            <div style="font-size:12px;color:rgba(44,45,38,.6);line-height:1.5;">Краткое резюме встречи — что разбирали, ключевые идеи, выводы. Участники читают после.</div>
+          </div>
+          <div style="background:var(--cream);border-radius:10px;padding:14px 16px;">
+            <div style="font-size:18px;margin-bottom:6px;">📓</div>
+            <div style="font-size:12px;font-weight:700;color:var(--dark-brown);margin-bottom:4px;">Рабочая тетрадь</div>
+            <div style="font-size:12px;color:rgba(44,45,38,.6);line-height:1.5;">Поля для заполнения во время встречи или после. Участник фиксирует своё.</div>
+          </div>
+          <div style="background:var(--cream);border-radius:10px;padding:14px 16px;">
+            <div style="font-size:18px;margin-bottom:6px;">📋</div>
+            <div style="font-size:12px;font-weight:700;color:var(--dark-brown);margin-bottom:4px;">Таблички и папки</div>
+            <div style="font-size:12px;color:rgba(44,45,38,.6);line-height:1.5;">Шаблоны, чеклисты, ресурсы — что участник использует между встречами.</div>
+          </div>
+        </div>
+
+        <div class="important-block ib-amber" style="margin-top:18px;">
+          <div class="ib-icon">💡</div>
+          <div class="ib-body">
+            <div class="ib-label">Всё это делает ИИ</div>
+            <div class="ib-text">Попросите ИИ-методолога: он структурирует содержание встречи и сделает из него презентацию в HTML 16×9. Рабочую тетрадь — тоже в HTML. Воркбук — тоже. Всё вайб-кодингом, без дизайнера.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="https://chatgpt.com/g/g-6a06e2ad572c8191a8aacc33679bb90c-ii-metodolog-andrei-land" target="_blank"
+             style="display:inline-flex;align-items:center;gap:8px;background:var(--dark-brown);color:var(--cream);border-radius:8px;padding:10px 18px;text-decoration:none;font-family:var(--font-body);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;transition:opacity .18s;"
+             onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
+            <span>🤖</span> ИИ-методолог ↗
+          </a>
+          <a href="https://kinescope.io/wpLP7iELVo7tMjhuhC8jLY" target="_blank"
+             style="display:inline-flex;align-items:center;gap:8px;background:rgba(222,146,50,0.12);color:#8f5a08;border:1.5px solid rgba(222,146,50,0.3);border-radius:8px;padding:10px 18px;text-decoration:none;font-family:var(--font-body);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;transition:opacity .18s;"
+             onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
+            <span>▶</span> Воркшоп по вайбкодингу ↗
+          </a>
+        </div>
+
+        <div class="important-block ib-terra" style="margin-top:16px;">
+          <div class="ib-icon">⚠️</div>
+          <div class="ib-body">
+            <div class="ib-label">Ключевой фокус</div>
+            <div class="ib-text">Материалы должны быть удобны <strong>участникам</strong>, а не красивы для вас. Это итерационная история — с первого раза идеально не получится. Сделайте минимум и смотрите, чем пользуются.</div>
+          </div>
+        </div>
+
+        <button class="complete-btn" onclick="completeStep(13)" style="margin-top:20px;"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ══ БЛОК 6–7 ══ -->
+    <div class="block-header">
+      
+    </div>
+
+    <!-- ШАГ 14 -->
+    <div class="step-card bc-khaki" id="step-14">
+      <div class="step-head">
+        <div class="step-head-num">15</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Платформа и выкладка записей</div>
+          <div class="step-head-why">Решаем до старта: где проводим встречи, как записываем и где участники смотрят записи</div>
+        </div>
+        <div class="step-head-right">
+          </div>
+      </div>
+      <div class="step-body">
+
+        <div class="tasks-title" style="margin-top:18px;">Платформа для встреч</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Выбрать платформу: <strong>Zoom</strong> (рекомендуем — автозапись, разбивка на комнаты). Настроить автозапись встреч до первого эфира.</div></div>
+
+        <div class="tasks-title" style="margin-top:18px;">Где хранить и публиковать записи</div>
+
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
+          <div style="background:var(--cream);border-radius:9px;padding:13px 16px;">
+            <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--khaki);margin-bottom:4px;">Вариант 1 · Телеграм-канал</div>
+            <div style="font-size:13px;color:var(--dark);line-height:1.55;">Выкладываете видео прямо в закрытый канал участников. Просто, всё в одном месте. <span style="color:var(--terra);font-weight:600;">Минус:</span> Телеграм-видео в России работает с перебоями, долго грузится.</div>
+          </div>
+          <div style="background:var(--cream);border-radius:9px;padding:13px 16px;">
+            <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--olive);margin-bottom:4px;">Вариант 2 · Внешняя ссылка (рекомендуем)</div>
+            <div style="font-size:13px;color:var(--dark);line-height:1.55;">Автозагрузка из Zoom в <strong>Кинескоп</strong> или <strong>YouTube</strong> (закрытый доступ). Делитесь ссылкой в канале. Видео открывается быстро, без перебоев.</div>
+          </div>
+          <div style="background:var(--cream);border-radius:9px;padding:13px 16px;">
+            <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--dark-brown);margin-bottom:4px;">На вырост · Своя платформа</div>
+            <div style="font-size:13px;color:var(--dark);line-height:1.55;">Небольшая страница для записей и материалов программы. Когда есть несколько потоков — это удобнее. Обратитесь к Светлане или сделайте через вайбкодинг.</div>
+          </div>
+        </div>
+
+        <div class="tasks-title" style="margin-top:18px;">Уведомить участников</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Прописать в начале программы: где и в течение какого времени после встречи появляется запись. Участники не пишут «а где запись?».</div></div>
+
+        <div class="important-block ib-olive" style="margin-top:14px;">
+          <div class="ib-icon">💡</div>
+          <div class="ib-body">
+            <div class="ib-label">По техническим вопросам — к Светлане</div>
+            <div class="ib-text">Как настроить автозагрузку из Zoom в Кинескоп, как сделать закрытый YouTube — обратитесь, помогу разобраться.</div>
+          </div>
+        </div>
+
+        <button class="complete-btn" onclick="completeStep(14)" style="margin-top:20px;"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ШАГ 15 -->
+    <div class="step-card bc-khaki" id="step-15">
+      <div class="step-head">
+        <div class="step-head-num">16</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Ведём программу</div>
+          <div class="step-head-why">Во время программы важно не только проводить встречи, но и держать связь с группой</div>
+        </div>
+        <div class="step-head-right">
+          </div>
+      </div>
+      <div class="step-body">
+
+        <div class="important-block ib-khaki" style="margin-top:18px;background:rgba(166,151,82,0.1);border-left:3px solid var(--khaki);border-radius:10px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="font-size:16px;flex-shrink:0;">🔜</div>
+          <div>
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--khaki);margin-bottom:4px;">Этот шаг будет дополнен</div>
+            <div style="font-size:13px;color:var(--dark);line-height:1.65;">Здесь появятся подробности про групповую динамику, просадки в середине программы, как оставаться живым ведущим и не выгорать. Пока — минимум ориентиров ниже.</div>
+          </div>
+        </div>
+
+        <div class="tasks-title" style="margin-top:20px;">После каждой встречи</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Опубликовать запись в срок, который обещали</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Написать в чат: <strong>короткое резюме + напоминание задания</strong></div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Спрашивать как дела — кружочками, сообщениями. Оставаться человечным.</div></div>
+
+        <div class="tasks-title" style="margin-top:14px;">Раз в 2–3 встречи</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Спросить обратную связь — голосовым или коротким опросом</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Зафиксировать инсайты и результаты участников — пойдут в отзывы и следующий лендинг</div></div>
+
+        <div class="important-block ib-amber" style="margin-top:14px;">
+          <div class="ib-icon">💡</div>
+          <div class="ib-body">
+            <div class="ib-label">Просадка в середине — это нормально</div>
+            <div class="ib-text">Групповая динамика работает так: начало — подъём, середина — спад активности, конец — снова подъём. Ожидайте это и не паникуйте. Чуть больше внимания и живого контакта в середине — и группа дойдёт до финала.</div>
+          </div>
+        </div>
+
+        <button class="complete-btn" onclick="completeStep(15)" style="margin-top:20px;"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ══ БЛОК 8 ══ -->
+    <div class="block-header">
+      <span class="block-num">БЛОК 04</span>
+      <span class="block-title">После программы</span>
+      <span class="block-badge bb-olive">Повтор и рост</span>
+    </div>
+
+    <!-- ШАГ 16 -->
+    <div class="step-card bc-olive" id="step-16">
+      <div class="step-head">
+        <div class="step-head-num">17</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Сбор отзывов и результатов</div>
+          <div class="step-head-why">Отзывы и результаты — главный актив для следующего запуска</div>
+        </div>
+        <div class="step-head-right">
+          </div>
+      </div>
+      <div class="step-body">
+        <div class="important-block" style="margin-top:18px;background:rgba(166,151,82,0.1);border-left:3px solid var(--khaki);border-radius:10px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="font-size:16px;flex-shrink:0;">🔜</div>
+          <div>
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--khaki);margin-bottom:4px;">Этот шаг будет дополнен</div>
+            <div style="font-size:13px;color:var(--dark);line-height:1.65;">Подробный контент появится после первого прохождения программы с группой. Пока — базовые задачи ниже.</div>
+          </div>
+        </div>
+
+        
+        <div class="tasks-title">Задачи</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">В последнюю встречу или сразу после — попросить участников написать отзыв по структуре</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Зафиксировать 3–5 конкретных результатов участников (с цифрами и деталями)</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Добавить отзывы и результаты на лендинг</div></div>
+
+        <div class="prompt-block">
+          <div class="prompt-label">💬 Структура отзыва — отправить участникам <button class="copy-btn" onclick="copyPrompt(this, 'ai16')">Скопировать</button></div>
+          <div class="prompt-text" id="ai16">Напиши, пожалуйста, короткий отзыв о программе:
+
+1. С чем ты пришла — что происходило до?
+2. Что изменилось — конкретно, что теперь есть или умеешь?
+3. Кому бы порекомендовала и почему?</div>
+        </div>
+        <button class="complete-btn" onclick="completeStep(16)"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ШАГ 17 -->
+    <div class="step-card bc-olive" id="step-17">
+      <div class="step-head">
+        <div class="step-head-num">18</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Анализ и доработка</div>
+          <div class="step-head-why">Программа всегда улучшается после первого прохождения</div>
+        </div>
+        <div class="step-head-right">
+          </div>
+      </div>
+      <div class="step-body">
+        <div class="important-block" style="margin-top:18px;background:rgba(166,151,82,0.1);border-left:3px solid var(--khaki);border-radius:10px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="font-size:16px;flex-shrink:0;">🔜</div>
+          <div>
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--khaki);margin-bottom:4px;">Этот шаг будет дополнен</div>
+            <div style="font-size:13px;color:var(--dark);line-height:1.65;">Подробный контент появится после первого прохождения программы с группой. Пока — базовые задачи ниже.</div>
+          </div>
+        </div>
+
+        
+        <div class="tasks-title">Задачи</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Посчитать эффективность: <strong>сколько вложено времени / денег → сколько заработано → сколько участников</strong></div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Выписать: что сработало отлично, что переделать, что убрать</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Обновить лестницу и лендинг с учётом реального опыта</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Решить: тот же формат и цена — или меняем?</div></div>
+        <button class="complete-btn" onclick="completeStep(17)"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+    <!-- ШАГ 18 -->
+    <div class="step-card bc-olive" id="step-18">
+      <div class="step-head">
+        <div class="step-head-num">19</div>
+        <div class="step-head-info">
+          <div class="step-head-title">Повторный запуск</div>
+          <div class="step-head-why">Второй запуск всегда легче первого — есть отзывы, понимание аудитории и отработанная программа</div>
+        </div>
+        <div class="step-head-right">
+          </div>
+      </div>
+      <div class="step-body">
+        <div class="important-block" style="margin-top:18px;background:rgba(166,151,82,0.1);border-left:3px solid var(--khaki);border-radius:10px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="font-size:16px;flex-shrink:0;">🔜</div>
+          <div>
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--khaki);margin-bottom:4px;">Этот шаг будет дополнен</div>
+            <div style="font-size:13px;color:var(--dark);line-height:1.65;">Подробный контент появится после первого прохождения программы с группой. Пока — базовые задачи ниже.</div>
+          </div>
+        </div>
+
+        
+        <div class="tasks-title">Задачи</div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Обновить лендинг: добавить отзывы, уточнить описание по реальному опыту</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Написать участникам первого потока: предложить рекомендовать или прийти снова</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Запустить новую контент-воронку — уже с кейсами из первого потока</div></div>
+        <div class="task-row" onclick="toggleTask(this)"><div class="task-cb"></div><div class="task-text">Определить дату старта и открыть приём заявок</div></div>
+
+        <div class="important-block ib-olive">
+          <div class="ib-icon">🎉</div>
+          <div class="ib-body">
+            <div class="ib-label">Вы дошли до конца</div>
+            <div class="ib-text">Второй запуск строится по той же дорожной карте — но быстрее и увереннее, потому что уже есть отзывы, опыт и понимание своей аудитории.</div>
+          </div>
+        </div>
+        <button class="complete-btn" onclick="completeStep(18)"><span>✓</span> Шаг выполнен</button>
+      </div>
+    </div>
+
+
+    <!-- ═══ ШАГ 20 — отдельный блок-поддержка ═══ -->
+    <div id="step-19"
+         style="background:var(--amber);border-radius:20px;padding:40px 44px;margin-top:40px;position:relative;overflow:hidden;cursor:default;">
+
+      <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:rgba(255,255,255,.12);border-radius:50%;pointer-events:none;"></div>
+      <div style="position:absolute;bottom:-40px;left:-20px;width:130px;height:130px;background:rgba(255,255,255,.08);border-radius:50%;pointer-events:none;"></div>
+
+      <div style="position:relative;z-index:1;">
+        <div style="font-family:var(--font-head);font-size:clamp(22px,3vw,32px);color:var(--dark-brown);text-transform:uppercase;letter-spacing:.04em;line-height:1.05;margin-bottom:6px;">Если волнуетесь<br>на любом из этапов</div>
+        <div style="font-size:14px;color:rgba(44,45,38,.6);font-weight:600;margin-bottom:28px;">Пресуппозиции — опорные точки</div>
+
+        <div style="display:flex;flex-direction:column;gap:9px;">
+
+          <div style="background:rgba(255,255,255,.55);border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;">
+            <span style="font-size:15px;flex-shrink:0;margin-top:2px;">✦</span>
+            <span style="font-size:13.5px;font-weight:700;color:var(--dark-brown);line-height:1.55;">Ваших знаний и опыта достаточно, чтобы помочь людям</span>
+          </div>
+
+          <div style="background:rgba(255,255,255,.55);border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;">
+            <span style="font-size:15px;flex-shrink:0;margin-top:2px;">✦</span>
+            <span style="font-size:13.5px;font-weight:700;color:var(--dark-brown);line-height:1.55;">Вы сможете найти тех 5–7 человек, которым будете полезны</span>
+          </div>
+
+          <div style="background:rgba(255,255,255,.55);border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;">
+            <span style="font-size:15px;flex-shrink:0;margin-top:2px;">✦</span>
+            <span style="font-size:13.5px;font-weight:700;color:var(--dark-brown);line-height:1.55;">Ошибок не существует — существует только обратная связь</span>
+          </div>
+
+          <div style="background:rgba(255,255,255,.55);border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;">
+            <span style="font-size:15px;flex-shrink:0;margin-top:2px;">✦</span>
+            <span style="font-size:13.5px;font-weight:700;color:var(--dark-brown);line-height:1.55;">Есть 100% вашей ответственности — и 100% ответственности участников. Не всё зависит от вас.</span>
+          </div>
+
+          <div style="background:rgba(255,255,255,.55);border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;">
+            <span style="font-size:15px;flex-shrink:0;margin-top:2px;">✦</span>
+            <span style="font-size:13.5px;font-weight:700;color:var(--dark-brown);line-height:1.55;">Всегда можно переиграть — не продалась группа → индивидуальные консультации. Программа идёт не так → перестройте, обратитесь к Светлане.</span>
+          </div>
+
+          <div style="background:rgba(255,255,255,.55);border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;">
+            <span style="font-size:15px;flex-shrink:0;margin-top:2px;">🚀</span>
+            <div>
+              <div style="font-size:13.5px;font-weight:700;color:var(--dark-brown);line-height:1.55;margin-bottom:5px;">Улучшать можно только через опыт — не на бумаге</div>
+              <div style="font-size:13px;color:rgba(44,45,38,.7);line-height:1.6;font-weight:500;">Королёв знал, что ракета «Восток» несовершенна — и всё равно запустил. Человека отправили в космос, отрасль основали. Программа не будет идеальной никогда. Запустите несовершенную. Улучшение приходит только в полёте.</div>
+            </div>
+          </div>
+
+          <div style="background:rgba(255,255,255,.55);border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;">
+            <span style="font-size:15px;flex-shrink:0;margin-top:2px;">✂️</span>
+            <div>
+              <div style="font-size:13.5px;font-weight:700;color:var(--dark-brown);line-height:1.55;margin-bottom:5px;">Дробите страшное и непонятное на микрозадачи</div>
+              <div style="font-size:13px;color:rgba(44,45,38,.7);line-height:1.65;font-weight:500;">
+                Вместо целой программы → один эфир или воркшоп<br>
+                Вместо всего контент-плана → один пост<br>
+                Вместо массовой рассылки → написать 1–2 людям
+              </div>
+            </div>
+          </div>
+
+          <div style="background:rgba(255,255,255,.55);border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;">
+            <span style="font-size:15px;flex-shrink:0;margin-top:2px;">💛</span>
+            <div>
+              <div style="font-size:13.5px;font-weight:700;color:var(--dark-brown);line-height:1.55;margin-bottom:5px;">Страшно и некомфортно — это нормально</div>
+              <div style="font-size:13px;color:rgba(44,45,38,.7);line-height:1.6;font-weight:500;">Бывают дни когда не хочется. Возвращайте себя: <em>«Я тут, у меня есть инструмент, я здесь чтобы помочь людям»</em>. Дальше — как получится. И это хорошо.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+</div><!-- content-inner -->
+</main>
+</div><!-- layout -->
+
+<button class="mob-sidebar-toggle" onclick="toggleSidebar()">☰</button>
+<div class="toast" id="toast"></div>
+
+<script>
+const TOTAL = 20;
+let completed = new Array(TOTAL).fill(false);
+let currentStep = 0;
+
+
+// ── HERO VISIBILITY ───────────────────────────────────────────────────────
+function updateHero(stepIndex) {
+  const full    = document.getElementById('heroFull');
+  const compact = document.getElementById('heroCompact');
+  if (!full || !compact) return;
+  if (stepIndex === 0) {
+    full.style.display    = 'block';
+    compact.style.display = 'none';
+  } else {
+    full.style.display    = 'none';
+    compact.style.display = 'block';
+  }
+}
+
+// ── SHOW A STEP AS A FULL "PAGE" ──────────────────────────────────────────
+function goTo(i) {
+  const card = document.getElementById('step-' + i);
+  if (!card) return;
+
+  // deactivate all step-cards
+  document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
+
+  // step-19 is the special yellow block — just show it, no page-header injection
+  if (i === 19) {
+    // hide all step-cards, show only the yellow block
+    document.querySelectorAll('.step-card').forEach(c => c.style.display = 'none');
+    card.style.display = 'block';
+    currentStep = i;
+    const main = document.querySelector('.content');
+    if (main) main.scrollTop = 0;
+    window.scrollTo(0, 0);
+    updateHero(i);
+    updateNav();
+    closeSidebar();
+    return;
+  }
+
+  // restore any step-cards that were hidden
+  document.querySelectorAll('.step-card').forEach(c => c.style.display = '');
+
+  // hide the yellow block
+  const yellowBlock = document.getElementById('step-19');
+  if (yellowBlock) yellowBlock.style.display = 'none';
+
+  card.classList.add('active');
+  currentStep = i;
+
+  // remove existing injected page-header / divider / nav if any
+  card.querySelectorAll('.page-header,.page-divider,.page-nav').forEach(el => el.remove());
+
+  // ── inject page header ──────────────────────────────────────
+  const numEl   = card.querySelector('.step-head-num');
+  const titleEl = card.querySelector('.step-head-title');
+  const whyEl   = card.querySelector('.step-head-why');
+  const refEl   = card.querySelector('.step-ref');
+
+  const num   = numEl   ? numEl.textContent.trim()   : '';
+  const title = titleEl ? titleEl.textContent.trim() : '';
+  const why   = whyEl   ? whyEl.textContent.trim()   : '';
+  const ref   = refEl   ? refEl.textContent.trim()   : '';
+
+  const ph = document.createElement('div');
+  ph.className = 'page-header';
+  ph.innerHTML =
+    '<span class="page-num-badge">Шаг&nbsp;' + num + '</span>' +
+    '<div class="page-title-wrap">' +
+      '<div class="page-title">' + title + '</div>' +
+    '</div>' +
+    (ref ? '<a class="page-ref" href="https://tsyrocoach-metod.github.io/school/portal.html" target="_blank">' + ref + ' ↗</a>' : '');
+
+  const pd = document.createElement('div');
+  pd.className = 'page-divider';
+
+  card.prepend(pd);
+  card.prepend(ph);
+
+  // ── inject prev/next nav ─────────────────────────────────────
+  const pn = document.createElement('div');
+  pn.className = 'page-nav';
+
+  if (i > 0) {
+    const prevTitle = document.getElementById('step-' + (i-1))?.querySelector('.step-head-title')?.textContent?.trim() || '';
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'page-nav-btn prev';
+    prevBtn.innerHTML = '← ' + (prevTitle || 'Назад');
+    prevBtn.onclick = () => goTo(i - 1);
+    pn.appendChild(prevBtn);
+  }
+
+  if (i < TOTAL - 1) {
+    const nextTitle = document.getElementById('step-' + (i+1))?.querySelector('.step-head-title')?.textContent?.trim() || '';
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'page-nav-btn next';
+    nextBtn.innerHTML = (nextTitle || 'Далее') + ' →';
+    nextBtn.onclick = () => goTo(i + 1);
+    pn.appendChild(nextBtn);
+  }
+
+  card.appendChild(pn);
+
+  // scroll content area to top
+  const main = document.querySelector('.content');
+  if (main) main.scrollTop = 0;
+  window.scrollTo(0, 0);
+
+  updateHero(i);
+  updateNav();
+  closeSidebar();
+}
+
+// ── TASK TOGGLE ───────────────────────────────────────────────────────────
+function toggleTask(row) {
+  row.classList.toggle('checked');
+}
+
+// ── FORMAT SELECTOR ───────────────────────────────────────────────────────
+function selectFormat(el) {
+  el.closest('.format-selector').querySelectorAll('.format-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// ── COMPLETE STEP ─────────────────────────────────────────────────────────
+function completeStep(i) {
+  completed[i] = !completed[i];
+  const card = document.getElementById('step-' + i);
+  card.classList.toggle('completed', completed[i]);
+  const btn = card.querySelector('.complete-btn');
+  btn.innerHTML = completed[i] ? '<span>↩</span> Отметить как незавершённый' : '<span>✓</span> Шаг выполнен';
+  updateProgress();
+  updateNav();
+  if (completed[i]) {
+    showToast('✓ Шаг ' + (i + 1) + ' выполнен!');
+    // auto-advance after short delay
+    if (i + 1 < TOTAL) {
+      setTimeout(() => goTo(i + 1), 600);
+    }
+  }
+}
+
+// ── PROGRESS ──────────────────────────────────────────────────────────────
+function updateProgress() {
+  const done = completed.filter(Boolean).length;
+  const pct = Math.round(done / TOTAL * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressCount').textContent = done + ' / ' + TOTAL;
+  document.getElementById('heroProgress').textContent = done;
+}
+
+// ── NAV HIGHLIGHT ─────────────────────────────────────────────────────────
+function updateNav() {
+  document.querySelectorAll('.nav-item').forEach((item, i) => {
+    item.classList.toggle('done',   completed[i]);
+    item.classList.toggle('active', i === currentStep);
+  });
+}
+
+// ── COPY PROMPT ───────────────────────────────────────────────────────────
+function copyPrompt(btn, id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent.trim()).then(() => {
+    btn.textContent = '✓ Скопировано';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Скопировать'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ── MOBILE SIDEBAR ────────────────────────────────────────────────────────
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('show');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('show');
+}
+
+// ── POSTS MODAL ───────────────────────────────────────────────────────────
+function openPostsModal() {
+  // populate display divs from hidden source divs
+  ['post1','post2','post3'].forEach(id => {
+    const src = document.getElementById(id);
+    const display = document.getElementById(id + '-display');
+    if (src && display) display.textContent = src.textContent.trim();
+  });
+  document.getElementById('postsModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePostsModal() {
+  document.getElementById('postsModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── EXAMPLE MODAL ─────────────────────────────────────────────────────────
+function openExampleModal() {
+  document.getElementById('exampleModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeExampleModal() {
+  document.getElementById('exampleModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeExampleIfOverlay(e) {
+  if (e.target === document.getElementById('exampleModal')) closeExampleModal();
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') { closeExampleModal(); closePostsModal(); }
+});
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+// Hide the yellow block initially
+const _yb = document.getElementById('step-19');
+if (_yb) _yb.style.display = 'none';
+goTo(0);
+</script>
+</body>
+</html>
